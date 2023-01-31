@@ -31,12 +31,11 @@ class AdminProductController extends Controller
         if ($requests->input("key_word")) {
             $key_word = $requests->input("key_word");
         }
-
         if ($status == "active") {
             $products = Product::withoutTrashed()->where("product_name", "LIKE", "%{$key_word}%")->Paginate(20);
         } else if ($status == "licensed") {
             $list_act = [
-                "pending" => "Chờ xét duyệt",
+                "pending" => "Chờ xét duyệt",b
                 "delete" => "Xoá tạm thời",
             ];
             $products = Product::withoutTrashed()->where("product_status", "licensed")->where("product_name", "LIKE", "%{$key_word}%")->Paginate(20);
