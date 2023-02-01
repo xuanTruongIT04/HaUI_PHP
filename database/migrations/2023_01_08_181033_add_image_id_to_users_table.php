@@ -15,7 +15,7 @@ class AddImageIdToUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             //
-            $table -> unsignedBigInteger("image_id") -> after('role_id');
+            $table -> unsignedBigInteger("image_id") -> after('role_id') -> nullable();
             $table -> foreign("image_id")
             -> references("id") -> on("images")
             -> onDelete("cascade")

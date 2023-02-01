@@ -15,7 +15,7 @@ class AddRoleIdToUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             //
-            $table -> unsignedBigInteger('role_id') -> after("updated_at");
+            $table -> unsignedBigInteger('role_id') -> after("updated_at") -> nullable();
             $table -> foreign('role_id')
                    -> references('id') -> on('roles')
                    -> onDelete('cascade');
