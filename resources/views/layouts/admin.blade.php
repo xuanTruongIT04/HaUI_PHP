@@ -62,48 +62,6 @@
                             </div>
                             Dashboard
                         </a>
-                        <i class="arrow fas fa-angle-right"></i>
-                    </li>
-                    <li class="nav-link {{ $module_active == 'page' ? 'active' : '' }}">
-                        <a href="{{ url('admin/page/list') }}">
-                            <div class="nav-link-icon d-inline-flex">
-                                <i class="far fa-folder"></i>
-                            </div>
-                            Trang
-                        </a>
-                        <i class="arrow fas fa-angle-right"></i>
-
-                        <ul class="sub-menu">
-                            <li><a href="{{ url('admin/page/add') }}">Thêm mới</a></li>
-                            <li><a href="{{ url('admin/page/list') }}">Danh sách</a></li>
-                        </ul>
-                    </li>
-                    <li
-                        class="nav-link {{ $module_active == 'post' ? 'active' : '' }} {{ $module_active == 'post_cat' ? 'active' : '' }}">
-                        <a href="{{ url('admin/post/list') }}">
-                            <div class="nav-link-icon d-inline-flex">
-                                <i class="far fa-folder"></i>
-                            </div>
-                            Bài viết
-                        </a>
-                        <i class="arrow fas fa-angle-right"></i>
-                        <ul class="sub-menu">
-                            <li><a href="{{ url('admin/post/add') }}">Thêm mới</a></li>
-                            <li><a href="{{ url('admin/post/list') }}">Danh sách</a></li>
-                            <li class="{{ $module_active == 'post_cat' ? 'active' : '' }}"">
-                                <a class="nav-link" href="{{ url('admin/post/cat/list') }}">
-                                    <div class="nav-link-icon d-inline-flex">
-                                        <i class="far fa-folder"></i>
-                                    </div>
-                                    Danh mục
-                                </a>
-                                <i class="arrow fas fa-angle-right"></i>
-                                <ul class="sub-menu">
-                                    <li><a href="{{ url('admin/post/cat/add') }}">Thêm mới</a></li>
-                                    <li><a href="{{ url('admin/post/cat/list') }}">Danh sách</a></li>
-                                </ul>
-                            </li>
-                        </ul>
                     </li>
                     <li
                         class="nav-link {{ $module_active == 'product' ? 'active' : '' }}{{ $module_active == 'product_cat' ? 'active' : '' }}">
@@ -114,23 +72,6 @@
                             Sản phẩm
                         </a>
                         <i class="arrow fas fa-angle-down"></i>
-                        <ul class="sub-menu">
-                            <li><a href="{{ url('admin/product/add') }}">Thêm mới</a></li>
-                            <li><a href="{{ url('admin/product/list') }}">Danh sách</a></li>
-                            <li class="{{ $module_active == 'product_cat' ? 'active' : '' }}"">
-                                <a class="nav-link" href="{{ url('admin/product/cat/list') }}">
-                                    <div class="nav-link-icon d-inline-flex">
-                                        <i class="far fa-folder"></i>
-                                    </div>
-                                    Danh mục
-                                </a>
-                                <i class="arrow fas fa-angle-right"></i>
-                                <ul class="sub-menu">
-                                    <li><a href="{{ url('admin/product/cat/add') }}">Thêm mới</a></li>
-                                    <li><a href="{{ url('admin/product/cat/list') }}">Danh sách</a></li>
-                                </ul>
-                            </li>
-                        </ul>
                     </li>
                     <li
                         class="nav-link {{ $module_active == 'order' ? 'active' : '' }}{{ $module_active == 'customer' ? 'active' : '' }}">
@@ -144,34 +85,6 @@
                         <ul class="sub-menu">
                             <li><a href="{{ url('admin/order/list') }}">Danh sách đơn hàng</a></li>
                             <li><a href="{{ url('admin/customer/list') }}">Danh sách khách hàng</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-link {{ $module_active == 'slider' ? 'active' : '' }}">
-                        <a href="{{ url('admin/slider/list') }}">
-                            <div class="nav-link-icon d-inline-flex">
-                                <i class="far fa-folder"></i>
-                            </div>
-                            Sliders
-                        </a>
-                        <i class="arrow fas fa-angle-right"></i>
-
-                        <ul class="sub-menu">
-                            <li><a href="{{ url('admin/slider/add') }}">Thêm mới</a></li>
-                            <li><a href="{{ url('admin/slider/list') }}">Danh sách</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-link {{ $module_active == 'banner' ? 'active' : '' }}">
-                        <a href="{{ url('admin/banner/list') }}">
-                            <div class="nav-link-icon d-inline-flex">
-                                <i class="far fa-folder"></i>
-                            </div>
-                            Banners
-                        </a>
-                        <i class="arrow fas fa-angle-right"></i>
-
-                        <ul class="sub-menu">
-                            <li><a href="{{ url('admin/banner/add') }}">Thêm mới</a></li>
-                            <li><a href="{{ url('admin/banner/list') }}">Danh sách</a></li>
                         </ul>
                     </li>
                     <li class="nav-link {{ $module_active == 'user' ? 'active' : '' }}">

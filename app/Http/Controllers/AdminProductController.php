@@ -35,7 +35,7 @@ class AdminProductController extends Controller
             $products = Product::withoutTrashed()->where("product_name", "LIKE", "%{$key_word}%")->Paginate(20);
         } else if ($status == "licensed") {
             $list_act = [
-                "pending" => "Chờ xét duyệt",b
+                "pending" => "Chờ xét duyệt",
                 "delete" => "Xoá tạm thời",
             ];
             $products = Product::withoutTrashed()->where("product_status", "licensed")->where("product_name", "LIKE", "%{$key_word}%")->Paginate(20);
@@ -66,8 +66,7 @@ class AdminProductController extends Controller
 
     public function add()
     {
-        $list_product_cat = ProductCat::all();
-        return view('admin.product.add', compact("list_product_cat"));
+        return view('admin.product.add');
     }
 
     public function store(Request $requests)
@@ -156,8 +155,7 @@ class AdminProductController extends Controller
     public function edit($id)
     {
         $product = Product::find($id);
-        $list_product_cat = ProductCat::all();
-        return view('admin.product.edit', compact("list_product_cat", "product"));
+        return view('admin.product.edit', compact("product"));
     }
 
     public function update(Request $requests, $id)

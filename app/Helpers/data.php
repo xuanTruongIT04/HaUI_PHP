@@ -16,28 +16,6 @@ if (!function_exists('show_array')) {
     }
 }
 
-// Post Cat Model
-if (!function_exists('get_title_post_cat')) {
-    function get_title_post_cat($id)
-    {
-        if ($id == -1) {
-            return "<span class='text-muted font-italic'>Không có</span>";
-        }
-
-        return PostCat::find($id)->post_cat_title;
-    }
-}
-
-if (!function_exists('get_title_product_cat')) {
-    function get_title_product_cat($id)
-    {
-        if ($id == -1) {
-            return "<span class='text-muted font-italic'>Không có</span>";
-        }
-
-        return ProductCat::find($id)->product_cat_title;
-    }
-}
 
 // Product
 if (!function_exists('get_main_image')) {

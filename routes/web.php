@@ -34,51 +34,6 @@ Route::middleware('auth', "verified")->group(function () {
 
     Route::get("/dashboard", "DashboardController@show")->name("dashboard.show");
 
-    // ========================PAGES===========================
-    Route::get("/admin/page/list", "AdminPageController@list")->name("admin.page.list");
-
-    Route::get("/admin/page/add", "AdminPageController@add")->name("admin.page.add");
-    Route::post("/admin/page/store", "AdminPageController@store")->name("admin.page.store");
-
-    Route::get("/admin/page/edit/{id}", "AdminPageController@edit")->name("admin.page.edit");
-    Route::post("/admin/page/update/{id}", "AdminPageController@update")->name("admin.page.update");
-
-    Route::get("/admin/page/delete/{id}", "AdminPageController@delete")->name("admin.page.delete");
-
-    Route::get("/admin/page/restore/{id}", "AdminPageController@restore")->name("admin.page.restore");
-
-    Route::get("/admin/page/action", "AdminPageController@action")->name("admin.page.action");
-
-    // ========================POSTS===========================
-    Route::get("/admin/post/list", "AdminPostController@list")->name("admin.post.list");
-
-    Route::get("/admin/post/add", "AdminPostController@add")->name("admin.post.add");
-    Route::post("/admin/post/store", "AdminPostController@store")->name("admin.post.store");
-
-    Route::get("/admin/post/edit/{id}", "AdminPostController@edit")->name("admin.post.edit");
-    Route::post("/admin/post/update/{id}", "AdminPostController@update")->name("admin.post.update");
-
-    Route::get("/admin/post/delete/{id}", "AdminPostController@delete")->name("admin.post.delete");
-
-    Route::get("/admin/post/restore/{id}", "AdminPostController@restore")->name("admin.post.restore");
-
-    Route::get("/admin/post/action", "AdminPostController@action")->name("admin.post.action");
-
-    // ========================POST_CATS===========================
-    Route::get("/admin/post/cat/list", "AdminPostCatController@list")->name("admin.post.cat.list");
-
-    Route::get("/admin/post/cat/add", "AdminPostCatController@add")->name("admin.post.cat.add");
-    Route::post("/admin/post/cat/store", "AdminPostCatController@store")->name("admin.post.cat.store");
-
-    Route::get("/admin/post/cat/edit/{id}", "AdminPostCatController@edit")->name("admin.post.cat.edit");
-    Route::post("/admin/post/cat/update/{id}", "AdminPostCatController@update")->name("admin.post.cat.update");
-
-    Route::get("/admin/post/cat/delete/{id}", "AdminPostCatController@delete")->name("admin.post.cat.delete");
-
-    Route::get("/admin/post/cat/restore/{id}", "AdminPostCatController@restore")->name("admin.post.cat.restore");
-
-    Route::get("/admin/post/cat/action", "AdminPostCatController@action")->name("admin.post.cat.action");
-
     // ========================PRODUCT===========================
     Route::get("/admin/product/list", "AdminProductController@list")->name("admin.product.list");
 
@@ -93,21 +48,6 @@ Route::middleware('auth', "verified")->group(function () {
     Route::get("/admin/product/restore/{id}", "AdminProductController@restore")->name("admin.product.restore");
 
     Route::get("/admin/product/action", "AdminProductController@action")->name("admin.product.cat.action");
-
-    // ========================PRODUCT_CATS===========================
-    Route::get("/admin/product/cat/list", "AdminProductCatController@list")->name("admin.product.cat.list");
-
-    Route::get("/admin/product/cat/add", "AdminProductCatController@add")->name("admin.product.cat.add");
-    Route::post("/admin/product/cat/store", "AdminProductCatController@store")->name("admin.product.cat.store");
-
-    Route::get("/admin/product/cat/edit/{id}", "AdminProductCatController@edit")->name("admin.product.cat.edit");
-    Route::post("/admin/product/cat/update/{id}", "AdminProductCatController@update")->name("admin.product.cat.update");
-
-    Route::get("/admin/product/cat/delete/{id}", "AdminProductCatController@delete")->name("admin.product.cat.delete");
-
-    Route::get("/admin/product/cat/restore/{id}", "AdminProductCatController@restore")->name("admin.product.cat.restore");
-
-    Route::get("/admin/product/cat/action", "AdminProductCatController@action")->name("admin.product.cat.action");
 
     // ========================ORDERS===========================
     Route::get("/admin/order/list", "AdminOrderController@list")->name("admin.order.list");
@@ -135,36 +75,6 @@ Route::middleware('auth', "verified")->group(function () {
     Route::get("/admin/customer/restore/{id}", "AdminCustomerController@restore")->name("admin.customer.restore");
 
     Route::get("/admin/customer/action", "AdminCustomerController@action")->name("admin.customer.action");
-
-    // ========================SLIDERS===========================
-    Route::get("/admin/slider/list", "AdminSliderController@list")->name("admin.slider.list");
-
-    Route::get("/admin/slider/add", "AdminSliderController@add")->name("admin.slider.add");
-    Route::post("/admin/slider/store", "AdminSliderController@store")->name("admin.slider.store");
-    
-    Route::get("/admin/slider/edit/{id}", "AdminSliderController@edit")->name("admin.slider.edit");
-    Route::post("/admin/slider/update/{id}", "AdminSliderController@update")->name("admin.slider.update");
-
-    Route::get("/admin/slider/delete/{id}", "AdminSliderController@delete")->name("admin.slider.delete");
-
-    Route::get("/admin/slider/restore/{id}", "AdminSliderController@restore")->name("admin.slider.restore");
-
-    Route::get("/admin/slider/action", "AdminSliderController@action")->name("admin.slider.action");
-
-    // ========================BANNERS===========================
-    Route::get("/admin/banner/list", "AdminBannerController@list")->name("admin.banner.list");
-
-    Route::get("/admin/banner/add", "AdminBannerController@add")->name("admin.banner.add");
-    Route::post("/admin/banner/store", "AdminBannerController@store")->name("admin.banner.store");
-
-    Route::get("/admin/banner/edit/{id}", "AdminBannerController@edit")->name("admin.banner.edit");
-    Route::post("/admin/banner/update/{id}", "AdminBannerController@update")->name("admin.banner.update");
-
-    Route::get("/admin/banner/delete/{id}", "AdminBannerController@delete")->name("admin.banner.delete");
-
-    Route::get("/admin/banner/restore/{id}", "AdminBannerController@restore")->name("admin.banner.restore");
-
-    Route::get("/admin/banner/action", "AdminBannerController@action")->name("admin.banner.action");
 
     // ========================USER===========================
     Route::get("/admin/user/list", "AdminUserController@list")->name("admin.user.list");
