@@ -122,5 +122,10 @@ Route::middleware('auth', "verified")->group(function () {
 
     Route::get("/admin/image/restore/{id}", "AdminImageController@restore")->name("admin.image.restore");
 
+    // Name là tham số truyền vào của route, mỗi 1 url có 1 name
     Route::get("/admin/image/action", "AdminImageController@action")->name("admin.image.action");
+
+
+    Route::get("/admin/productionPlant/list", "AdminProductionPlantController@list");
+
 });
