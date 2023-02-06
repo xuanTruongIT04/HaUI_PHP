@@ -143,6 +143,23 @@
                     <li class="nav-link"><a>Sản phẩm</a></li>
                     <li class="nav-link"><a>Đơn hàng</a></li>
                     <li class="nav-link"><a>Hệ thống</a></li> -->
+
+                    {{-- Code by NguyenTho --}}
+                    <li class="nav-link {{ $module_active == 'user' ? 'active' : '' }}">
+                      <a href="{{ Route('admin.workshift.list') }}">
+                          <div class="nav-link-icon d-inline-flex">
+                              <i class="far fa-folder"></i>
+                          </div>
+                          Công nhân
+                      </a>
+                      <i class="arrow fas fa-angle-right"></i>
+
+                      <ul class="sub-menu">
+                        <li><a href="{{ Route('admin.workshift.list') }}">Danh sách</a></li>
+                        <li><a href="{{ Route('admin.workshift.add') }}">Thêm mới</a></li>
+                      </ul>
+                    </li>
+
                     <li class="nav-link {{ $module_active == 'user' ? 'active' : '' }}">
                       <a href="{{ Route('admin.workshift.list') }}">
                           <div class="nav-link-icon d-inline-flex">
@@ -153,10 +170,41 @@
                       <i class="arrow fas fa-angle-right"></i>
 
                       <ul class="sub-menu">
-                          <li><a href="{{ Route('admin.workshift.add') }}">Thêm mới</a></li>
-                          <li><a href="{{ Route('admin.workshift.list') }}">Danh sách</a></li>
+                        <li><a href="{{ Route('admin.workshift.list') }}">Danh sách</a></li>                                
+                        <li><a href="{{ Route('admin.workshift.add') }}">Thêm mới</a></li>
                       </ul>
-                  </li>
+                    </li>
+
+                    <li class="nav-link {{ $module_active == 'user' ? 'active' : '' }}">
+                      <a href="{{ Route('admin.workshift.list') }}">
+                          <div class="nav-link-icon d-inline-flex">
+                              <i class="far fa-folder"></i>
+                          </div>
+                          Bộ phận
+                      </a>
+                      <i class="arrow fas fa-angle-right"></i>
+
+                      <ul class="sub-menu">
+                        <li><a href="{{ Route('admin.workshift.list') }}">Danh sách</a></li>
+                        <li><a href="{{ Route('admin.workshift.add') }}">Thêm mới</a></li>
+                      </ul>
+                    </li>
+
+                    <li class="nav-link {{ $module_active == 'user' ? 'active' : '' }}">
+                      <a href="{{ Route('admin.workshift.list') }}">
+                          <div class="nav-link-icon d-inline-flex">
+                              <i class="far fa-folder"></i>
+                          </div>
+                          Tổ sản xuất
+                      </a>
+                      <i class="arrow fas fa-angle-right"></i>
+
+                      <ul class="sub-menu">
+                        <li><a href="{{ Route('admin.workshift.list') }}">Danh sách</a></li>
+                        <li><a href="{{ Route('admin.workshift.add') }}">Thêm mới</a></li>
+                      </ul>
+                    </li>
+                  {{-- The end code by Nguyen Tho --}}
                 </ul>
             </div>
             <div id="wp-content">

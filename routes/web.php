@@ -130,11 +130,16 @@ Route::middleware('auth', "verified")->group(function () {
 
 
   // Code by Nguyen Van Tho
-  // Work shift
+  // ==========Work shift============
   Route::get("/admin/workShift/list", "AdminWorkShiftController@list")->name("admin.workshift.list");
   Route::get("/admin/workShift/add", "AdminWorkShiftController@add")->name("admin.workshift.add");
   Route::post("/admin/workShift/store", "AdminWorkShiftController@store")->name("admin.workshift.store");
   Route::get("/admin/workShift/edit/{id}", "AdminWorkShiftController@edit")->name("admin.workshift.edit");
   Route::post("/admin/workShift/update/{id}", "AdminWorkShiftController@update")->name("admin.workshift.update");
   Route::get("/admin/workShift/delete/{id}", "AdminWorkShiftController@delete")->name("admin.workshift.delete");
+
+  // ============Salary==============
+  // ============Workers=============
+  // ===========Department===========
+  //===========Production team=======
 });
