@@ -8,30 +8,30 @@
               </div>
             @endif
             <div class="card-header font-weight-bold">
-                Thêm ca làm việc
+                Thêm ca bộ phận
             </div>
             <div class="card-body">
-                <form action="{{ Route('admin.workshift.store') }}" method='POST' enctype="multipart/form-data">
+                <form action="{{ Route('admin.department.store') }}" method='POST' enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
-                      <label for="name" class="fw-550">Mã ca làm việc</label>
-                      <input class="form-control" type="text" name="work_shift_code" id="name" placeholder="Nhập mã ca làm việc">
-                      @error('work_shift_code')
+                      <label for="name" class="fw-550">Mã bộ phận</label>
+                      <input class="form-control" type="text" name="department_code" id="name" placeholder="Nhập mã bộ phận">
+                      @error('department_code')
                         <small class="text-danger">{{ $message }}</small>
                       @enderror
                     </div>
                     
                     <div class="form-group">
-                      <label for="name" class="fw-550">Ngày bắt đầu</label>
-                      <input class="form-control" type="datetime-local" name="time_start" id="name" placeholder="Nhập tên sản phẩm">
-                      @error('time_start')
+                      <label for="name" class="fw-550">Tên bộ phận</label>
+                      <input class="form-control" type="text" name="department_name" id="name" placeholder="Nhập tên bộ phận">
+                      @error('department_name')
                         <small class="text-danger">{{ $message }}</small>
                       @enderror
                     </div>
                     <div class="form-group">
-                      <label for="name" class="fw-550">Ngày kết thúc</label>
-                      <input class="form-control" type="datetime-local" name="time_end" id="name" placeholder="Nhập tên sản phẩm">
-                      @error('time_end')
+                      <label for="name" class="fw-550">Số lượng công nhân</label>
+                      <input class="form-control" type="text" name="quantity_worker" id="name" placeholder="Nhập số lượng nhân viên">
+                      @error('quantity_worker')
                         <small class="text-danger">{{ $message }}</small>
                       @enderror
                     </div>
