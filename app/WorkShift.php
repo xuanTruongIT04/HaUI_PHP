@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class WorkShift extends Model
 {
-  //
-  use SoftDeletes;
-  protected $fillable = ['work_shift_code', 'time_start', 'time_end'];
+    //
+    use SoftDeletes;
+    protected $fillable = ['time_start', 'time_end'];
 }

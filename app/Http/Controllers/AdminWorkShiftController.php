@@ -25,25 +25,18 @@ class AdminWorkShiftController extends Controller
         if ($requests->input('btn_add')) {
             $requests->validate(
                 [
-                    'work_shift_code' => ['required'],
                     'time_start' => ['required'],
                     'time_end' => ['required']
                 ],
                 ['required' => ":attribute không được để trống"],
                 [
-                    "work_shift_code" => "Mã ca làm việc",
                     "time_start" => "Thời gian bắt đầu",
                     "time_end" => "Thời gian kết thúc"
                 ]
             );
 
-            $find_by_id = WorkShift::where('work_shift_code', $requests->input('work_shift_code'))->count();
-            if (!empty($find_by_id)) {
-                return redirect()->route('admin.workshift.add')->with('message', "Thêm thất bại! Trùng mã ca làm việc");
-            } else {
-                WorkShift::create($requests->all());
-                return redirect()->route('admin.workshift.list')->with('message', "Thêm ca làm việc thành công");
-            }
+            WorkShift::create($requests->all());
+            return redirect()->route('admin.workshift.list')->with('message', "Thêm ca làm việc thành công");
         }
     }
 
@@ -57,7 +50,6 @@ class AdminWorkShiftController extends Controller
     {
         // $workshift->update($requests->all());
         WorkShift::where('id', $id)->update([
-            'work_shift_code' => $requests->input("work_shift_code"),
             'time_start' => $requests->input("time_start"),
             'time_end' => $requests->input("time_end")
         ]);
@@ -71,7 +63,7 @@ class AdminWorkShiftController extends Controller
     public function delete($id)
     {
         $workshift = WorkShift::withTrashed()->find($id);
-        $work_shift_code = $workshift->work_shift_code;
+        $work_shift_code = $workshift->id;
         $workshift->delete();
         return redirect()->back()->with("message", "Bạn đã xoá ca làm việc {$work_shift_code} thành công");
     }

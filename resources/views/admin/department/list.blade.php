@@ -43,7 +43,7 @@
                                     <input type="checkbox" name="list_check[]" value="{{ $item->id }}">
                                 </td>
                                 <td>{{$cnt}}</td>
-                                <td>{{$item->department_code}}</td>
+                                <td>{{$item->id}}</td>
                                 <td>{{$item->department_name}}</td>
                                 <td>{{$item->quantity_worker}}</td>
                                 <td>
