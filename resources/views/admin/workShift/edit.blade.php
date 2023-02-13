@@ -3,7 +3,7 @@
     <div id="content" class="container-fluid">
         <div class="card">
             <div class="card-header font-weight-bold">
-                Sửa ca làm việc
+                Sửa thông tin ca làm việc
             </div>
             <div class="card-body">
                 <form action="{{Route("admin.workshift.update", $workshift->id)}}" method='POST' enctype="multipart/form-data">
@@ -11,7 +11,7 @@
                     @method("POST")
                     <div class="form-group">
                       <label for="name" class="fw-550">Mã ca làm việc</label>
-                      <input class="form-control" value="{{$workshift->work_shift_code}}" type="text" name="work_shift_code" id="work_shift_code">
+                      <input class="form-control" value="{{$workshift->work_shift_code}}" readonly type="text" name="work_shift_code" id="work_shift_code">
                     </div>
                     
                     <div class="form-group">

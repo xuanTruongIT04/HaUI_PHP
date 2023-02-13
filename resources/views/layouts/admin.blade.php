@@ -176,7 +176,7 @@
                     </li>
 
                     <li class="nav-link {{ $module_active == 'user' ? 'active' : '' }}">
-                      <a href="{{ Route('admin.workshift.list') }}">
+                      <a href="{{ Route('admin.department.list') }}">
                           <div class="nav-link-icon d-inline-flex">
                               <i class="far fa-folder"></i>
                           </div>
@@ -185,8 +185,8 @@
                       <i class="arrow fas fa-angle-right"></i>
 
                       <ul class="sub-menu">
-                        <li><a href="{{ Route('admin.workshift.list') }}">Danh sách</a></li>
-                        <li><a href="{{ Route('admin.workshift.add') }}">Thêm mới</a></li>
+                        <li><a href="{{ Route('admin.department.list') }}">Danh sách</a></li>
+                        <li><a href="">Thêm mới</a></li>
                       </ul>
                     </li>
 

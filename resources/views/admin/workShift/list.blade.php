@@ -17,7 +17,7 @@
         </div>
       </div>
         <div class="card-body">
-            <form action="{{ url('admin/product/action') }}" method="GET">
+            <form action="" method="GET">
                 <table class="table table-striped table-checkall">
                     <thead>
                       <tr>
@@ -45,8 +45,8 @@
                               </td>
                               <td>{{$cnt}}</td>
                               <td>{{$item->work_shift_code}}</td>
-                              <td>{{$item->time_start}}</td>
-                              <td>{{$item->time_end}}</td>
+                              <td>{{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $item->time_start)->format('H:i:s d/m/Y') }}</td>
+                              <td>{{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $item->time_end)->format('H:i:s d/m/Y') }}</td>
                               <td>
                                 <a href="{{Route("admin.workshift.edit", $item->id)}}" class="btn btn-info">Sửa</a>
                                 <a href="{{Route("admin.workshift.delete", $item->id)}}" class="btn btn-danger">Xóa</a>
