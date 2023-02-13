@@ -44,7 +44,7 @@
                                 <input type="checkbox" name="list_check[]" value="{{ $item->id }}">
                               </td>
                               <td>{{$cnt}}</td>
-                              <td>{{$item->work_shift_code}}</td>
+                              <td>{{$item->id}}</td>
                               <td>{{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $item->time_start)->format('H:i:s d/m/Y') }}</td>
                               <td>{{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $item->time_end)->format('H:i:s d/m/Y') }}</td>
                               <td>

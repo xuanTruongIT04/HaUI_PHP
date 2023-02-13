@@ -11,7 +11,7 @@
                     @method("POST")
                     <div class="form-group">
                         <label for="name" class="fw-550">Mã bộ phận</label>
-                        <input class="form-control" value="{{$department->department_code}}" readonly type="text" name="department_code" id="department_code">
+                        <input class="form-control" value="{{$department->id}}" readonly type="text" name="department_code" id="department_code">
                     </div>
                     
                     <div class="form-group">

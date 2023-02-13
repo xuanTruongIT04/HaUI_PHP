@@ -14,14 +14,6 @@
                 <form action="{{ Route('admin.department.store') }}" method='POST' enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
-                      <label for="name" class="fw-550">Mã bộ phận</label>
-                      <input class="form-control" type="text" name="department_code" id="name" placeholder="Nhập mã bộ phận">
-                      @error('department_code')
-                        <small class="text-danger">{{ $message }}</small>
-                      @enderror
-                    </div>
-                    
-                    <div class="form-group">
                       <label for="name" class="fw-550">Tên bộ phận</label>
                       <input class="form-control" type="text" name="department_name" id="name" placeholder="Nhập tên bộ phận">
                       @error('department_name')

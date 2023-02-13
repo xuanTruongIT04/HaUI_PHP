@@ -24,7 +24,6 @@ class AdminDepartmentController extends Controller
         if ($requests->input('btn_add')) {
             $requests->validate(
                 [
-                    'department_code' => ['required'],
                     'department_name' => ['required'],
                     'quantity_worker' => ['required', 'numeric', 'min:0']
                 ],
@@ -35,19 +34,13 @@ class AdminDepartmentController extends Controller
                     ]
                 ],
                 [
-                    "department_code" => "Mã bộ phận",
                     "department_name" => "Tên bộ phận",
                     "quantity_worker" => "Số lượng công nhân"
                 ]
             );
 
-            $find_by_id = Departments::where('department_code', $requests->input('department_code'))->count();
-            if (!empty($find_by_id)) {
-                return redirect()->route('admin.department.add')->with('message', "Thêm thất bại! Trùng mã ca làm việc");
-            } else {
-                Departments::create($requests->all());
-                return redirect()->route('admin.department.list')->with('message', "Thêm ca làm việc thành công");
-            }
+            Departments::create($requests->all());
+            return redirect()->route('admin.department.list')->with('message', "Thêm ca làm việc thành công");
         }
     }
 
@@ -60,7 +53,6 @@ class AdminDepartmentController extends Controller
     public function update(Request $requests, $id)
     {
         Departments::where('id', $id)->update([
-            'department_code' => $requests->input("department_code"),
             'department_name' => $requests->input("department_name"),
             'quantity_worker' => $requests->input("quantity_worker")
         ]);
@@ -74,9 +66,9 @@ class AdminDepartmentController extends Controller
     public function delete($id)
     {
         $department = Departments::withTrashed()->find($id);
-        $department_code = $department->department_code;
+        $department_name = $department->department_name;
         $department->delete();
-        return redirect()->back()->with("message", "Bạn đã bộ phận có mã {$department_code} thành công");
+        return redirect()->back()->with("message", "Bạn đã bộ phận {$department_name} thành công");
     }
 
     public function restore($id)
