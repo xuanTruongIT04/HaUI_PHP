@@ -34,6 +34,11 @@ Route::middleware('auth', "verified")->group(function () {
 
     Route::get("/dashboard", "DashboardController@show")->name("dashboard.show");
 
+    // ========================WAREHOUSES===========================
+    Route::get("/admin/warehouse/list", "AdminWarehouseController@list")->name("admin.warehouse.list");
+    Route::get("/admin/warehouse/edit/{id}", "AdminWarehouseController@edit")->name("admin.warehouse.edit");
+    Route::post("/admin/warehouse/update/{id}", "AdminWarehouseController@update")->name("admin.warehouse.update");
+    Route::get("/admin/warehouse/delete/{id}", "AdminWarehouseController@delete")->name("admin.warehouse.delete");
     // ========================PRODUCT===========================
     Route::get("/admin/product/list", "AdminProductController@list")->name("admin.product.list");
 
@@ -125,9 +130,7 @@ Route::middleware('auth', "verified")->group(function () {
     // Name là tham số truyền vào của route, mỗi 1 url có 1 name
     Route::get("/admin/image/action", "AdminImageController@action")->name("admin.image.action");
 
-
     Route::get("/admin/productionPlant/list", "AdminProductionPlantController@list");
-
 
     // Code by Nguyen Van Tho
     // ==========Work shift============

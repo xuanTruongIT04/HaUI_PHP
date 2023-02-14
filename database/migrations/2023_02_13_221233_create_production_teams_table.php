@@ -16,9 +16,15 @@ class CreateProductionTeamsTable extends Migration
         Schema::create('production_teams', function (Blueprint $table) {
             $table->id();
             $table->string('production_team_name');
-            $table->string('department_code');
+            // $table->string('department_code');
             $table->softDeletes();
             $table->timestamps();
+            $table->unsignedBigInteger("department_id");
+            $table->foreign("department_id")
+                  ->references("id")
+                  -> on("departments")
+                  ->onDelete("cascade")
+                  ->onUpdate("cascade");
         });
     }
 

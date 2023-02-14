@@ -8,6 +8,14 @@ use Illuminate\Http\Request;
 
 class AdminDepartmentController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            session(['module_active' => "departments"]);
+            return $next($request);
+        });
+    }
+    
     function list(Request $requests)
     {
         $departments = Departments::Paginate(20);
