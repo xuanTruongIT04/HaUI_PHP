@@ -17,3 +17,4 @@ class Customer extends Model
     }
     
 }
+    
