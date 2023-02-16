@@ -19,20 +19,12 @@ class CreateProductionTeamsTable extends Migration
             // $table->string('department_code');
             $table->softDeletes();
             $table->timestamps();
-<<<<<<< HEAD
-            $table->foreign("department_code")
-                ->references('id')
+            $table->unsignedBigInteger("department_id");
+            $table->foreign("department_id")
+                ->references("id")
                 ->on("departments")
                 ->onDelete("cascade")
                 ->onUpdate("cascade");
-=======
-            $table->unsignedBigInteger("department_id");
-            $table->foreign("department_id")
-                  ->references("id")
-                  -> on("departments")
-                  ->onDelete("cascade")
-                  ->onUpdate("cascade");
->>>>>>> d1cda8893e4dd79928e3dee24b5b6595e6ad83b3
         });
     }
 
