@@ -34,7 +34,7 @@
                         @php
                         $cnt = empty(request()->page) ? 0 : (request()->page - 1) * 20;
                         @endphp
-                        @foreach ($departments as $item)
+                        @foreach ($department as $item)
                             @php
                             $cnt++;
                             @endphp
@@ -45,7 +45,7 @@
                                 <td>{{$cnt}}</td>
                                 <td>{{$item->id}}</td>
                                 <td>{{$item->department_name}}</td>
-                                <td>{{$item->quantity_worker}}</td>
+                                <td>null</td>
                                 <td>
                                     <a href="{{Route("admin.department.edit", $item->id)}}" class="btn btn-info">Sửa</a>
                                     <a href="{{Route("admin.department.delete", $item->id)}}" class="btn btn-danger">Xóa</a>
@@ -55,7 +55,7 @@
                     </tbody>
                 </table>
             </form>
-            {{ $departments->links() }}
+            {{ $department->links() }}
         </div>
     </div>
     </div>

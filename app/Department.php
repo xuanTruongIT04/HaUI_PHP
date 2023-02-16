@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 
-class Departments extends Model
+class Department extends Model
 {
     use SoftDeletes;
-    protected $fillable = ['department_name', 'quantity_worker'];
+    protected $fillable = ['department_name'];
 }

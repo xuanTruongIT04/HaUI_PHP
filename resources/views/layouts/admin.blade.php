@@ -208,8 +208,8 @@
                       </ul>
                     </li>
 
-                    <li class="nav-link {{ $module_active == '' ? 'active' : '' }}">
-                      <a href="{{ Route('admin.workshift.list') }}">
+                    <li class="nav-link {{ $module_active == 'production_team' ? 'active' : '' }}">
+                      <a href="{{ Route('admin.productionTeam.list') }}">
                           <div class="nav-link-icon d-inline-flex">
                               <i class="far fa-folder"></i>
                           </div>
@@ -218,8 +218,8 @@
                       <i class="arrow fas fa-angle-right"></i>
 
                       <ul class="sub-menu">
-                        <li><a href="{{ Route('admin.workshift.list') }}">Danh sách</a></li>
-                        <li><a href="{{ Route('admin.workshift.add') }}">Thêm mới</a></li>
+                        <li><a href="{{ Route('admin.productionTeam.list') }}">Danh sách</a></li>
+                        <li><a href="{{ Route('admin.productionTeam.add') }}">Thêm mới</a></li>
                       </ul>
                     </li>
                   {{-- The end code by Nguyen Tho --}}

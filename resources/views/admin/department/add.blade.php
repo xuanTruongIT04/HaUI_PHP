@@ -20,13 +20,6 @@
                         <small class="text-danger">{{ $message }}</small>
                       @enderror
                     </div>
-                    <div class="form-group">
-                      <label for="name" class="fw-550">Số lượng công nhân</label>
-                      <input class="form-control" type="text" name="quantity_worker" id="name" placeholder="Nhập số lượng nhân viên">
-                      @error('quantity_worker')
-                        <small class="text-danger">{{ $message }}</small>
-                      @enderror
-                    </div>
                     <input type="submit" name="btn_add" class="btn btn-primary" value="Thêm mới">
                 </form>
             </div>

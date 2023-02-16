@@ -152,5 +152,12 @@ Route::middleware('auth', "verified")->group(function () {
     Route::get("/admin/department/edit/{id}", "AdminDepartmentController@edit")->name("admin.department.edit");
     Route::post("/admin/department/update/{id}", "AdminDepartmentController@update")->name("admin.department.update");
     Route::get("/admin/department/delete/{id}", "AdminDepartmentController@delete")->name("admin.department.delete");
+
     //===========Production team=======
+    Route::get("/admin/productionTeam/list", "AdminProductionTeamController@list")->name("admin.productionTeam.list");
+    Route::get("/admin/productionTeam/add", "AdminProductionTeamController@add")->name("admin.productionTeam.add");
+    Route::post("/admin/productionTeam/store", "AdminProductionTeamController@store")->name("admin.productionTeam.store");
+    Route::get("/admin/productionTeam/edit/{id}", "AdminProductionTeamController@edit")->name("admin.productionTeam.edit");
+    Route::post("/admin/productionTeam/update/{id}", "AdminProductionTeamController@update")->name("admin.productionTeam.update");
+    Route::get("/admin/productionTeam/delete/{id}", "AdminProductionTeamController@delete")->name("admin.productionTeam.delete");
 });
