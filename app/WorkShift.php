@@ -10,4 +10,9 @@ class WorkShift extends Model
     //
     use SoftDeletes;
     protected $fillable = ['time_start', 'time_end'];
+
+    function worker()
+    {
+        return $this->hasMany('App\Worker');
+    }
 }

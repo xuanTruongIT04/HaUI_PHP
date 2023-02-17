@@ -163,8 +163,8 @@
                     <li class="nav-link"><a>Hệ thống</a></li> -->
 
                     {{-- Code by NguyenTho --}}
-                    <li class="nav-link {{ $module_active == '' ? 'active' : '' }}">
-                      <a href="{{ Route('admin.workshift.list') }}">
+                    <li class="nav-link {{ $module_active == 'worker' ? 'active' : '' }}">
+                      <a href="{{ Route('admin.worker.list') }}">
                           <div class="nav-link-icon d-inline-flex">
                               <i class="far fa-folder"></i>
                           </div>
@@ -173,8 +173,8 @@
                       <i class="arrow fas fa-angle-right"></i>
 
                       <ul class="sub-menu">
-                        <li><a href="{{ Route('admin.workshift.list') }}">Danh sách</a></li>
-                        <li><a href="{{ Route('admin.workshift.add') }}">Thêm mới</a></li>
+                        <li><a href="{{ Route('admin.worker.list') }}">Danh sách</a></li>
+                        <li><a href="{{ Route('admin.worker.add') }}">Thêm mới</a></li>
                       </ul>
                     </li>
 
