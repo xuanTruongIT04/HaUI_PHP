@@ -21,10 +21,10 @@ class CreateProductionTeamsTable extends Migration
             $table->timestamps();
             $table->unsignedBigInteger("department_id");
             $table->foreign("department_id")
-                  ->references("id")
-                  -> on("departments")
-                  ->onDelete("cascade")
-                  ->onUpdate("cascade");
+                ->references("id")
+                ->on("departments")
+                ->onDelete("cascade")
+                ->onUpdate("cascade");
         });
     }
 

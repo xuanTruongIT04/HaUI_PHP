@@ -6,15 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 
-class ProductionTeam extends Model
+class Salary extends Model
 {
     use SoftDeletes;
-    protected $fillable = ['production_team_name', 'department_id'];
-
-    function department()
-    {
-        return $this->belongsTo('App\Department');
-    }
+    protected $fillable = ['basic_salary', 'allowance', 'bonus'];
 
     function worker()
     {
