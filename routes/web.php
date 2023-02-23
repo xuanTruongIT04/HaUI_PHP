@@ -142,6 +142,12 @@ Route::middleware('auth', "verified")->group(function () {
     Route::get("/admin/workShift/delete/{id}", "AdminWorkShiftController@delete")->name("admin.workshift.delete");
 
     // ============Salary==============
+    Route::get("/admin/salary/list", "AdminSalaryController@list")->name("admin.salary.list");
+    Route::get("/admin/salary/add", "AdminSalaryController@add")->name("admin.salary.add");
+    Route::post("/admin/salary/store", "AdminSalaryController@store")->name("admin.salary.store");
+    Route::get("/admin/salary/edit/{id}", "AdminSalaryController@edit")->name("admin.salary.edit");
+    Route::post("/admin/salary/update/{id}", "AdminSalaryController@update")->name("admin.salary.update");
+    Route::get("/admin/salary/delete/{id}", "AdminSalaryController@delete")->name("admin.salary.delete");
 
     // ============Workers=============
     Route::get("/admin/worker/list", "AdminWorkerController@list")->name("admin.worker.list");
