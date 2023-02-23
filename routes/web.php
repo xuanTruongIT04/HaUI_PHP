@@ -127,10 +127,21 @@ Route::middleware('auth', "verified")->group(function () {
 
     Route::get("/admin/image/restore/{id}", "AdminImageController@restore")->name("admin.image.restore");
 
-    // Name là tham số truyền vào của route, mỗi 1 url có 1 name
-    Route::get("/admin/image/action", "AdminImageController@action")->name("admin.image.action");
 
-    Route::get("/admin/productionPlant/list", "AdminProductionPlantController@list");
+        // ========================PRODUCTION PLAN===========================
+        Route::get("/admin/productionPlan/list", "AdminProductionPlanController@list")->name("admin.productionPlan.list");
+
+        Route::get("/admin/productionPlan/add", "AdminProductionPlanController@add")->name("admin.productionPlan.add");
+        Route::post("/admin/productionPlan/store", "AdminProductionPlanController@store")->name("admin.productionPlan.store");
+    
+        Route::get("/admin/productionPlan/edit/{id}", "AdminProductionPlanController@edit")->name("admin.productionPlan.edit");
+        Route::post("/admin/productionPlan/update/{id}", "AdminProductionPlanController@update")->name("admin.productionPlan.update");
+    
+        Route::get("/admin/productionPlan/delete/{id}", "AdminProductionPlanController@delete")->name("admin.productionPlan.delete");
+    
+        Route::get("/admin/productionPlan/restore/{id}", "AdminProductionPlanController@restore")->name("admin.productionPlan.restore");
+    
+        Route::get("/admin/productionPlan/action", "AdminProductionPlanController@action")->name("admin.productionPlan.action");
 
     // Code by Nguyen Van Tho
     // ==========Work shift============
