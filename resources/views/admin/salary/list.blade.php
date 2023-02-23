@@ -1,4 +1,5 @@
 @extends('layouts.admin')
+{{-- NGuyeenx vawn tho --}}
 
 @section('content')
   <div id="content" class="container-fluid">
