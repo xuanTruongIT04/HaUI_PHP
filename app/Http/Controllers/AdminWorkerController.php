@@ -70,8 +70,12 @@ class AdminWorkerController extends Controller
 
     public function edit($id)
     {
-        $workshift = Worker::find($id);
-        return view('admin.worker.edit', compact("workshift"));
+        $worker = Worker::find($id);
+        $listDepartment = Department::all();
+        $listSalary = Salary::all();
+        $listWorkShift = WorkShift::all();
+        $listProductionTeam = ProductionTeam::all();
+        return view('admin.worker.edit', compact("worker", "listDepartment", "listSalary", "listWorkShift", "listProductionTeam"));
     }
 
     public function update(Request $requests, $id)
@@ -84,10 +88,11 @@ class AdminWorkerController extends Controller
             'number_of_working_days' => $requests->input("number_of_working_days"),
             'number_of_overtime' => $requests->input("number_of_overtime"),
             'salary_id' => $requests->input("salary_id"),
+            'status' => $requests->input("status"),
             'department_id' => $requests->input("department_id"),
             'work_shift_id' => $requests->input("work_shift_id")
         ]);
-        return redirect()->route('admin.worker.list')->with('message', "Cập nhật ca làm việc thành công");
+        return redirect()->route('admin.worker.list')->with('message', "Cập nhật thông tin công nhân thành công");
     }
 
     public function action(Request $requests)
