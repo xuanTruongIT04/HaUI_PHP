@@ -8,7 +8,13 @@ use Illuminate\Http\Request;
 
 class AdminWorkShiftController extends Controller
 {
-
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            session(['module_active' => "work_shift"]);
+            return $next($request);
+        });
+    }
     function list(Request $requests)
     {
         $workShift = WorkShift::Paginate(20);

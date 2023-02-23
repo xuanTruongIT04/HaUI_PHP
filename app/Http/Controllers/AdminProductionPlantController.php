@@ -19,3 +19,8 @@ class AdminProductionPlantController extends Controller
         return view('admin.productionPlan.list');
     }
 }
+
+// function cnt_congnhan($id_bophan) {
+//         $cnt = CongNhan::where("mabophan", $id_bophan) -> count();
+//         return $cnt;
+// }

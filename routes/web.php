@@ -34,6 +34,11 @@ Route::middleware('auth', "verified")->group(function () {
 
     Route::get("/dashboard", "DashboardController@show")->name("dashboard.show");
 
+    // ========================WAREHOUSES===========================
+    Route::get("/admin/warehouse/list", "AdminWarehouseController@list")->name("admin.warehouse.list");
+    Route::get("/admin/warehouse/edit/{id}", "AdminWarehouseController@edit")->name("admin.warehouse.edit");
+    Route::post("/admin/warehouse/update/{id}", "AdminWarehouseController@update")->name("admin.warehouse.update");
+    Route::get("/admin/warehouse/delete/{id}", "AdminWarehouseController@delete")->name("admin.warehouse.delete");
     // ========================PRODUCT===========================
     Route::get("/admin/product/list", "AdminProductController@list")->name("admin.product.list");
 
@@ -125,9 +130,7 @@ Route::middleware('auth', "verified")->group(function () {
     // Name là tham số truyền vào của route, mỗi 1 url có 1 name
     Route::get("/admin/image/action", "AdminImageController@action")->name("admin.image.action");
 
-
     Route::get("/admin/productionPlant/list", "AdminProductionPlantController@list");
-
 
     // Code by Nguyen Van Tho
     // ==========Work shift============
@@ -139,8 +142,19 @@ Route::middleware('auth', "verified")->group(function () {
     Route::get("/admin/workShift/delete/{id}", "AdminWorkShiftController@delete")->name("admin.workshift.delete");
 
     // ============Salary==============
+    Route::get("/admin/salary/list", "AdminSalaryController@list")->name("admin.salary.list");
+    Route::get("/admin/salary/add", "AdminSalaryController@add")->name("admin.salary.add");
+    Route::post("/admin/salary/store", "AdminSalaryController@store")->name("admin.salary.store");
+    Route::get("/admin/salary/edit/{id}", "AdminSalaryController@edit")->name("admin.salary.edit");
+    Route::post("/admin/salary/update/{id}", "AdminSalaryController@update")->name("admin.salary.update");
+    Route::get("/admin/salary/delete/{id}", "AdminSalaryController@delete")->name("admin.salary.delete");
 
     // ============Workers=============
+    Route::get("/admin/worker/list", "AdminWorkerController@list")->name("admin.worker.list");
+    Route::get("/admin/worker/add", "AdminWorkerController@add")->name("admin.worker.add");
+    Route::post("/admin/worker/store", "AdminWorkerController@store")->name("admin.worker.store");
+    Route::get("/admin/worker/edit/{id}", "AdminWorkerController@edit")->name("admin.worker.edit");
+    Route::post("/admin/worker/update/{id}", "AdminWorkerController@update")->name("admin.worker.update");
 
     // ===========Department===========
     Route::get("/admin/department/list", "AdminDepartmentController@list")->name("admin.department.list");
@@ -149,5 +163,12 @@ Route::middleware('auth', "verified")->group(function () {
     Route::get("/admin/department/edit/{id}", "AdminDepartmentController@edit")->name("admin.department.edit");
     Route::post("/admin/department/update/{id}", "AdminDepartmentController@update")->name("admin.department.update");
     Route::get("/admin/department/delete/{id}", "AdminDepartmentController@delete")->name("admin.department.delete");
+
     //===========Production team=======
+    Route::get("/admin/productionTeam/list", "AdminProductionTeamController@list")->name("admin.productionTeam.list");
+    Route::get("/admin/productionTeam/add", "AdminProductionTeamController@add")->name("admin.productionTeam.add");
+    Route::post("/admin/productionTeam/store", "AdminProductionTeamController@store")->name("admin.productionTeam.store");
+    Route::get("/admin/productionTeam/edit/{id}", "AdminProductionTeamController@edit")->name("admin.productionTeam.edit");
+    Route::post("/admin/productionTeam/update/{id}", "AdminProductionTeamController@update")->name("admin.productionTeam.update");
+    Route::get("/admin/productionTeam/delete/{id}", "AdminProductionTeamController@delete")->name("admin.productionTeam.delete");
 });

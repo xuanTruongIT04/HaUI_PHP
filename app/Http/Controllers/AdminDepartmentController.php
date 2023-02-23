@@ -2,16 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Departments;
+use App\Department;
 use Illuminate\Http\Request;
 
 
 class AdminDepartmentController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            session(['module_active' => "departments"]);
+            return $next($request);
+        });
+    }
+
     function list(Request $requests)
     {
-        $departments = Departments::Paginate(20);
-        return view('admin.department.list', compact('departments'));
+        $department = Department::Paginate(20);
+        return view('admin.department.list', compact('department'));
     }
 
     public function add()
@@ -25,36 +33,40 @@ class AdminDepartmentController extends Controller
             $requests->validate(
                 [
                     'department_name' => ['required'],
-                    'quantity_worker' => ['required', 'numeric', 'min:0']
                 ],
                 [
                     'required' => ":attribute không được để trống",
-                    "min" => [
-                        "numeric" => ":attribute không được bé hơn :min.",
-                    ]
                 ],
                 [
                     "department_name" => "Tên bộ phận",
-                    "quantity_worker" => "Số lượng công nhân"
                 ]
             );
 
+<<<<<<< HEAD
             Departments::create($requests->all());
+=======
+            Department::create($requests->all());
+>>>>>>> d693082fd433130cc38eff42a34ffc475a914cd4
             return redirect()->route('admin.department.list')->with('message', "Thêm ca làm việc thành công");
         }
     }
 
     public function edit($id)
     {
-        $department = Departments::find($id);
+        $department = Department::find($id);
         return view('admin.department.edit', compact("department"));
     }
 
     public function update(Request $requests, $id)
     {
+<<<<<<< HEAD
         Departments::where('id', $id)->update([
             'department_name' => $requests->input("department_name"),
             'quantity_worker' => $requests->input("quantity_worker")
+=======
+        Department::where('id', $id)->update([
+            'department_name' => $requests->input("department_name")
+>>>>>>> d693082fd433130cc38eff42a34ffc475a914cd4
         ]);
         return redirect()->route('admin.department.list')->with('message', "Cập nhật Bộ phận thành công");
     }
@@ -65,7 +77,11 @@ class AdminDepartmentController extends Controller
 
     public function delete($id)
     {
+<<<<<<< HEAD
         $department = Departments::withTrashed()->find($id);
+=======
+        $department = Department::withTrashed()->find($id);
+>>>>>>> d693082fd433130cc38eff42a34ffc475a914cd4
         $department_name = $department->department_name;
         $department->delete();
         return redirect()->back()->with("message", "Bạn đã bộ phận {$department_name} thành công");

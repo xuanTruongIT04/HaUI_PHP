@@ -4,11 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-
-
-class productionPlant extends Model
+class WareHouse extends Model
 {
     //
     use SoftDeletes;
-    protected $fillable = ['production_plan_nanme'];
+
+    protected $fillable = ['warehouse_location'];
 }

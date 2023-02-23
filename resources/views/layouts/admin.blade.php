@@ -16,7 +16,7 @@
 <body>
     <div id="warpper" class="nav-fixed">
         <nav class="topnav shadow navbar-light bg-white d-flex">
-            <div class="navbar-brand"><a href="?">UNITOP ADMIN</a></div>
+            <div class="navbar-brand"><a href="?">TNTSHOP ADMIN</a></div>
             <div class="nav-right ">
                 <div class="btn-group mr-auto">
                     <button type="button" class="btn dropdown" data-toggle="dropdown" aria-haspopup="true"
@@ -64,6 +64,20 @@
                         </a>
                     </li>
                     <li
+                        class="nav-link {{ $module_active == 'warehouse' ? 'active' : '' }}">
+                        <a href="{{ url('admin/warehouse/list') }}">
+                            <div class="nav-link-icon d-inline-flex">
+                                <i class="far fa-folder"></i>
+                            </div>
+                            Kho
+                        </a>
+                        <i class="arrow fas fa-angle-down"></i>
+                        <ul class="sub-menu">
+                            <li><a href="{{ url('admin/warehouse/add') }}">Thêm mới</a></li>
+                            <li><a href="{{ url('admin/warehouse/list') }}">Danh sách</a></li>
+                        </ul>
+                    </li>
+                    <li
                         class="nav-link {{ $module_active == 'product' ? 'active' : '' }}{{ $module_active == 'product_cat' ? 'active' : '' }}">
                         <a href="{{ url('admin/product/list') }}">
                             <div class="nav-link-icon d-inline-flex">
@@ -72,6 +86,10 @@
                             Sản phẩm
                         </a>
                         <i class="arrow fas fa-angle-down"></i>
+                        <ul class="sub-menu">
+                            <li><a href="{{ url('admin/product/add') }}">Thêm mới</a></li>
+                            <li><a href="{{ url('admin/product/list') }}">Danh sách</a></li>
+                        </ul>
                     </li>
                     <li
                         class="nav-link {{ $module_active == 'order' ? 'active' : '' }}{{ $module_active == 'customer' ? 'active' : '' }}">
@@ -145,8 +163,8 @@
                     <li class="nav-link"><a>Hệ thống</a></li> -->
 
                     {{-- Code by NguyenTho --}}
-                    <li class="nav-link {{ $module_active == 'user' ? 'active' : '' }}">
-                      <a href="{{ Route('admin.workshift.list') }}">
+                    <li class="nav-link {{ $module_active == 'worker' ? 'active' : '' }}">
+                      <a href="{{ Route('admin.worker.list') }}">
                           <div class="nav-link-icon d-inline-flex">
                               <i class="far fa-folder"></i>
                           </div>
@@ -155,12 +173,12 @@
                       <i class="arrow fas fa-angle-right"></i>
 
                       <ul class="sub-menu">
-                        <li><a href="{{ Route('admin.workshift.list') }}">Danh sách</a></li>
-                        <li><a href="{{ Route('admin.workshift.add') }}">Thêm mới</a></li>
+                        <li><a href="{{ Route('admin.worker.list') }}">Danh sách</a></li>
+                        <li><a href="{{ Route('admin.worker.add') }}">Thêm mới</a></li>
                       </ul>
                     </li>
 
-                    <li class="nav-link {{ $module_active == 'user' ? 'active' : '' }}">
+                    <li class="nav-link {{ $module_active == 'work_shift' ? 'active' : '' }}">
                       <a href="{{ Route('admin.workshift.list') }}">
                           <div class="nav-link-icon d-inline-flex">
                               <i class="far fa-folder"></i>
@@ -175,7 +193,7 @@
                       </ul>
                     </li>
 
-                    <li class="nav-link {{ $module_active == 'user' ? 'active' : '' }}">
+                    <li class="nav-link {{ $module_active == 'departments' ? 'active' : '' }}">
                       <a href="{{ Route('admin.department.list') }}">
                           <div class="nav-link-icon d-inline-flex">
                               <i class="far fa-folder"></i>
@@ -190,8 +208,8 @@
                       </ul>
                     </li>
 
-                    <li class="nav-link {{ $module_active == 'user' ? 'active' : '' }}">
-                      <a href="{{ Route('admin.workshift.list') }}">
+                    <li class="nav-link {{ $module_active == 'production_team' ? 'active' : '' }}">
+                      <a href="{{ Route('admin.productionTeam.list') }}">
                           <div class="nav-link-icon d-inline-flex">
                               <i class="far fa-folder"></i>
                           </div>
@@ -200,8 +218,8 @@
                       <i class="arrow fas fa-angle-right"></i>
 
                       <ul class="sub-menu">
-                        <li><a href="{{ Route('admin.workshift.list') }}">Danh sách</a></li>
-                        <li><a href="{{ Route('admin.workshift.add') }}">Thêm mới</a></li>
+                        <li><a href="{{ Route('admin.productionTeam.list') }}">Danh sách</a></li>
+                        <li><a href="{{ Route('admin.productionTeam.add') }}">Thêm mới</a></li>
                       </ul>
                     </li>
                   {{-- The end code by Nguyen Tho --}}
