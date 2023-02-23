@@ -144,6 +144,11 @@ Route::middleware('auth', "verified")->group(function () {
     // ============Salary==============
 
     // ============Workers=============
+    Route::get("/admin/worker/list", "AdminWorkerController@list")->name("admin.worker.list");
+    Route::get("/admin/worker/add", "AdminWorkerController@add")->name("admin.worker.add");
+    Route::post("/admin/worker/store", "AdminWorkerController@store")->name("admin.worker.store");
+    Route::get("/admin/worker/edit/{id}", "AdminWorkerController@edit")->name("admin.worker.edit");
+    Route::post("/admin/worker/update/{id}", "AdminWorkerController@update")->name("admin.worker.update");
 
     // ===========Department===========
     Route::get("/admin/department/list", "AdminDepartmentController@list")->name("admin.department.list");

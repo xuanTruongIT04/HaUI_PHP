@@ -15,4 +15,9 @@ class ProductionTeam extends Model
     {
         return $this->belongsTo('App\Department');
     }
+
+    function worker()
+    {
+        return $this->hasMany('App\Worker');
+    }
 }

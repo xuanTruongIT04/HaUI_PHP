@@ -20,6 +20,7 @@ class CreateWorkersTable extends Migration
             $table->string("address");
             $table->integer("number_of_working_days");
             $table->double("number_of_overtime");
+            $table->boolean("status");
             $table->unsignedBigInteger("salary_id");
             $table->foreign("salary_id")
                 ->references("id")
@@ -36,6 +37,12 @@ class CreateWorkersTable extends Migration
             $table->foreign("work_shift_id")
                 ->references("id")
                 ->on("work_shifts")
+                ->onDelete("cascade")
+                ->onUpdate("cascade");
+            $table->unsignedBigInteger("production_team_id");
+            $table->foreign("production_team_id")
+                ->references("id")
+                ->on("production_team")
                 ->onDelete("cascade")
                 ->onUpdate("cascade");
             $table->softDeletes();
