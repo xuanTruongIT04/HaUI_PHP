@@ -1,4 +1,5 @@
 @extends('layouts.admin')
+//test
 
 @section('content')
   <div id="content" class="container-fluid">
