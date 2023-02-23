@@ -84,7 +84,7 @@
                         <select class="form-control" name="salary_id">
                             <option value="">-------Chọn mã lương----------</option>
                             @foreach ($listSalary as $item)
-                                <option value="{{$item->id}}">{{$item->salary_id}}</option>
+                                <option value="{{$item->id}}">{{$item->id}}</option>
                             @endforeach
                         </select>
                         @error('salary_id')
@@ -97,7 +97,7 @@
                         <select class="form-control" name="work_shift_id">
                             <option value="">-------Chọn mã ca làm việc----------</option>
                             @foreach ($listWorkShift as $item)
-                                <option value="{{$item->id}}">{{$item->work_shift_id}}</option>
+                                <option value="{{$item->id}}">{{$item->id}}</option>
                             @endforeach
                         </select>
                         @error('work_shift_id')

@@ -208,6 +208,21 @@
                       </ul>
                     </li>
 
+                    <li class="nav-link {{ $module_active == 'salary' ? 'active' : '' }}">
+                        <a href="{{ Route('admin.salary.list') }}">
+                            <div class="nav-link-icon d-inline-flex">
+                                <i class="far fa-folder"></i>
+                            </div>
+                            Lương
+                        </a>
+                        <i class="arrow fas fa-angle-right"></i>
+  
+                        <ul class="sub-menu">
+                          <li><a href="{{ Route('admin.salary.list') }}">Danh sách</a></li>
+                          <li><a href="">Thêm mới</a></li>
+                        </ul>
+                      </li>
+
                     <li class="nav-link {{ $module_active == 'production_team' ? 'active' : '' }}">
                       <a href="{{ Route('admin.productionTeam.list') }}">
                           <div class="nav-link-icon d-inline-flex">

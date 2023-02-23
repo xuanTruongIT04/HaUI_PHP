@@ -13,7 +13,7 @@
       <div class="card-header font-weight-bold d-flex justify-content-between align-items-center">
         <div id="title-btn-add">
           <h5 class="m-0 ">Bảng lương</h5>
-          <a href="{{ Route("admin.productionTeam.add") }}" class="btn btn-primary ml-3">THÊM MỚI</a>
+          <a href="{{ Route("admin.salary.add") }}" class="btn btn-primary ml-3">THÊM MỚI</a>
         </div>
       </div>
         <div class="card-body">
@@ -25,16 +25,16 @@
                             <input type="checkbox" name="checkAll">
                         </th>
                         <th scope="col">STT</th>
-                        <th scope="col">Tên tổ sản xuất</th>
-                        <th scope="col">Mã bộ phận</th>
-                        <th scope="col">Thao tác</th>
+                        <th scope="col">Lương cơ bản</th>
+                        <th scope="col">Phụ cấp</th>
+                        <th scope="col">Khen thưởng</th>
                       </tr>
                     </thead>
                     <tbody>
                         @php
                           $cnt = empty(request()->page) ? 0 : (request()->page - 1) * 20;
                         @endphp
-                        @foreach ($productionTeams as $item)
+                        @foreach ($salaries as $item)
                             @php
                               $cnt++;
                             @endphp
@@ -43,18 +43,15 @@
                                 <input type="checkbox" name="list_check[]" value="{{ $item->id }}">
                               </td>
                               <td>{{$cnt}}</td>
-                              <td>{{$item->production_team_name}}</td>
-                              <td>{{$item->department_id}}</td>
-                              <td>
-                                <a href="{{Route("admin.productionTeam.edit", $item->id)}}" class="btn btn-info">Sửa</a>
-                                <a href="{{Route("admin.productionTeam.delete", $item->id)}}" class="btn btn-danger">Xóa</a>
-                              </td>
+                              <td>{{number_format($item->basic_salary)}} VND</td>
+                              <td>{{number_format($item->allowance)}} VND</td>
+                              <td>{{number_format($item->bonus)}} VND</td>
                             </tr>
                         @endforeach
                     </tbody>
                 </table>
             </form>
-            {{ $productionTeams->links() }}
+            {{ $salaries->links() }}
         </div>
       </div>
     </div>

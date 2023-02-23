@@ -10,7 +10,7 @@ class AdminSalaryController extends Controller
     public function __construct()
     {
         $this->middleware(function ($request, $next) {
-            session(['module_active' => "work_shift"]);
+            session(['module_active' => "salary"]);
             return $next($request);
         });
     }
