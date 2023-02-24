@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Department;
+use App\Worker;
 use Illuminate\Http\Request;
 
 
@@ -16,7 +17,7 @@ class AdminDepartmentController extends Controller
         });
     }
 
-    function list(Request $requests)
+    public function list(Request $requests)
     {
         $department = Department::Paginate(20);
         return view('admin.department.list', compact('department'));

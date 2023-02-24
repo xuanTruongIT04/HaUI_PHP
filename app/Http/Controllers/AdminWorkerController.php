@@ -20,8 +20,30 @@ class AdminWorkerController extends Controller
     }
     function list(Request $requests)
     {
-        $workers = Worker::Paginate(20);
-        return view('admin.worker.list', compact('workers'));
+        $status = !empty(request()->input('status')) ? $requests->input('status') : 'active';
+        $key_word = "";
+
+        if ($requests->input("key_word")) {
+            $key_word = $requests->input("key_word");
+        }
+
+        if ($status == "active") {
+            $workers = Worker::withoutTrashed()->where("worker_name", "LIKE", "%{$key_word}%")->Paginate(20);
+        } else if ($status == "working") {
+            $workers = Worker::withoutTrashed()->where("status", 1)->Paginate(20);
+        } else if ($status == "quit") {
+            $workers = Worker::withoutTrashed()->where("status", 0)->Paginate(20);
+        } else if ($status == "all") {
+            $workers = Worker::Paginate(20);
+        } else {
+            $workers = Worker::Paginate(20);
+        }
+
+        $cnt_worker_working = Worker::withoutTrashed()->where("status", 1)->count();
+        $cnt_worker_quit = Worker::withoutTrashed()->where("status", 0)->count();
+        $cnt_worker_all = Worker::count();
+        $count_worker_status = [$cnt_worker_all, $cnt_worker_working, $cnt_worker_quit];
+        return view('admin.worker.list', compact('workers', 'count_worker_status'));
     }
 
     public function add()
@@ -80,7 +102,6 @@ class AdminWorkerController extends Controller
 
     public function update(Request $requests, $id)
     {
-        // $workshift->update($requests->all());
         Worker::where('id', $id)->update([
             'worker_name' => $requests->input("worker_name"),
             'old' => $requests->input("old"),
@@ -101,10 +122,10 @@ class AdminWorkerController extends Controller
 
     public function delete($id)
     {
-        // $worker = Worker::withTrashed()->find($id);
-        // $worker_name = $worker->worker_name;
-        // $worker->delete();
-        // return redirect()->back()->with("message", "Bạn đã xoá ca làm việc {$worker_name} thành công");
+        $worker = Worker::withTrashed()->find($id);
+        $worker_name = $worker->worker_name;
+        $worker->delete();
+        return redirect()->back()->with("message", "Bạn đã xoá công nhân {$worker_name} thành công");
     }
 
     public function restore($id)
