@@ -162,24 +162,7 @@ Route::middleware('auth', "verified")->group(function () {
 
     Route::get("/admin/warehouse/restore/{id}", "AdminWarehouseController@restore")->name("admin.warehouse.restore");
 
-<<<<<<< HEAD
-    // ========================PRODUCTION PLAN===========================
-    Route::get("/admin/productionPlan/list", "AdminProductionPlanController@list")->name("admin.productionPlan.list");
-
-    Route::get("/admin/productionPlan/add", "AdminProductionPlanController@add")->name("admin.productionPlan.add");
-    Route::post("/admin/productionPlan/store", "AdminProductionPlanController@store")->name("admin.productionPlan.store");
-
-    Route::get("/admin/productionPlan/edit/{id}", "AdminProductionPlanController@edit")->name("admin.productionPlan.edit");
-    Route::post("/admin/productionPlan/update/{id}", "AdminProductionPlanController@update")->name("admin.productionPlan.update");
-
-    Route::get("/admin/productionPlan/delete/{id}", "AdminProductionPlanController@delete")->name("admin.productionPlan.delete");
-
-    Route::get("/admin/productionPlan/restore/{id}", "AdminProductionPlanController@restore")->name("admin.productionPlan.restore");
-
-    Route::get("/admin/productionPlan/action", "AdminProductionPlanController@action")->name("admin.productionPlan.action");
-=======
     Route::get("/admin/warehouse/action", "AdminWarehouseController@action")->name("admin.warehouse.action");
->>>>>>> 1d27c649c0c771c2071614c1c5e2b78a7526b08b
 
     // Code by Nguyen Van Tho
     // ==========Work shift============
