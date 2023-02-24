@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Role;
+use App\ProductionPlan;
 use Illuminate\Http\Request;
+
 
 class AdminProductionPlanController extends Controller
 {
@@ -11,7 +12,7 @@ class AdminProductionPlanController extends Controller
     public function __construct()
     {
         $this->middleware(function ($request, $next) {
-            session(['module_active' => "productionPlan"]);
+            session(['module_active' => "production_plan"]);
             return $next($request);
         });
     }
@@ -33,21 +34,21 @@ class AdminProductionPlanController extends Controller
                 "restore" => "Khôi phục",
                 "delete_permanently" => "Xoá vĩnh viễn",
             ];
-            $productionPlans = Role::onlyTrashed()->where("production_plan", "LIKE", "%{$key_word}%")->Paginate(20);
+            $productionPlans = ProductionPlan::onlyTrashed()->where("production_plan_name", "LIKE", "%{$key_word}%")->Paginate(20);
         } else {
-            $productionPlans = Role::withoutTrashed()->where("production_plan", "LIKE", "%{$key_word}%")->Paginate(20);
+            $productionPlans = ProductionPlan::withoutTrashed()->where("production_plan_name", "LIKE", "%{$key_word}%")->Paginate(20);
         }
 
         $count_productionPlan = $productionPlans->total();
-        $cnt_productionPlan_active = Role::withoutTrashed()->count();
-        $cnt_productionPlan_trashed = Role::onlyTrashed()->count();
+        $cnt_productionPlan_active = ProductionPlan::withoutTrashed()->count();
+        $cnt_productionPlan_trashed = ProductionPlan::onlyTrashed()->count();
         $count_productionPlan_status = [$cnt_productionPlan_active, $cnt_productionPlan_trashed];
         return view("admin.productionPlan.list", compact('productionPlans', "count_productionPlan", "count_productionPlan_status", "list_act"));
     }
 
     public function add()
     {
-        $productionPlans = Role::all();
+        $productionPlans = ProductionPlan::all();
         return view('admin.productionPlan.add', compact("productionPlans"));
     }
 
@@ -57,20 +58,26 @@ class AdminProductionPlanController extends Controller
             $requests->validate(
                 [
                     'production_plan_name' => ['required', 'string', 'max:300'],
+                    'start_date' => ['date'],
+                    'date_end' => ['date'],
                 ],
                 [
                     'required' => ":attribute không được để trống",
                     'max' => ":attribute có độ dài ít nhất :max ký tự",
                 ],
                 [
-                    "production_plan" => "Tên kế hoạch sản xuất",
+                    "production_plan_name" => "Tên kế hoạch sản xuất",
+                    "start_date" => "Ngày bắt đầu kế hoạch",
+                    "date_end" => "Ngày kết thúc kế hoạch",
                 ]
             );
 
-            $name_productionPlan = $requests->input("production_plan");
+            $name_productionPlan = $requests->input("production_plan_name");
 
-            Role::create([
+            ProductionPlan::create([
                 'production_plan_name' => $name_productionPlan,
+                'start_date' => $requests->input("start_date"),
+                'date_end' => $requests->input("date_end"),
             ]);
 
             return redirect("admin/productionPlan/list")->with("status", "Đã thêm kế hoạch sản xuất tên {$name_productionPlan} thành công");
@@ -79,8 +86,8 @@ class AdminProductionPlanController extends Controller
 
     public function edit($id)
     {
-        $productionPlans = Role::all();
-        $productionPlan = Role::find($id);
+        $productionPlans = ProductionPlan::all();
+        $productionPlan = ProductionPlan::find($id);
 
         return view("admin.productionPlan.edit", compact("productionPlan", "productionPlans"));
     }
@@ -91,20 +98,26 @@ class AdminProductionPlanController extends Controller
             $requests->validate(
                 [
                     'production_plan_name' => ['required', 'string', 'max:300'],
+                    'start_date' => ['date'],
+                    'date_end' => ['date'],
                 ],
                 [
                     'required' => ":attribute không được để trống",
                     'max' => ":attribute có độ dài ít nhất :max ký tự",
                 ],
                 [
-                    "production_plan" => "Tên kế hoạch sản xuất",
+                    "production_plan_name" => "Tên kế hoạch sản xuất",
+                    "start_date" => "Ngày bắt đầu kế hoạch",
+                    "date_end" => "Ngày kết thúc kế hoạch",
                 ]
             );
 
-            $name_productionPlan = $requests->input("production_plan");
+            $name_productionPlan = $requests->input("production_plan_name");
 
-            Role::where('id', $id)->update([
+            ProductionPlan::where('id', $id)->update([
                 'production_plan_name' => $name_productionPlan,
+                'start_date' => $requests->input("start_date"),
+                'date_end' => $requests->input("date_end"),
             ]);
 
             return redirect("admin/productionPlan/list")->with("status", "Đã cập nhật thông tin kế hoạch sản xuất tên {$name_productionPlan} thành công");
@@ -120,15 +133,15 @@ class AdminProductionPlanController extends Controller
                 $cnt_member = count($list_checked);
                 if ($cnt_member > 0) {
                     if ($act == "delete") {
-                        Role::destroy($list_checked);
+                        ProductionPlan::destroy($list_checked);
                         return redirect("admin/productionPlan/list")->with("status", "Bạn đã xoá tạm thời {$cnt_member} kế hoạch sản xuất thành công!");
                     } else if ($act == "delete_permanently") {
-                        Role::onlyTrashed()
+                        ProductionPlan::onlyTrashed()
                             ->whereIn("id", $list_checked)
                             ->forceDelete();
                         return redirect()->back()->with("status", "Bạn đã xoá vĩnh viễn {$cnt_member} kế hoạch sản xuất thành công");
                     } else if ($act == "restore") {
-                        Role::onlyTrashed()
+                        ProductionPlan::onlyTrashed()
                             ->whereIn("id", $list_checked)
                             ->restore();
                         return redirect("admin/productionPlan/list")->with("status", "Bạn đã khôi phục {$cnt_member} kế hoạch sản xuất thành công");
@@ -146,7 +159,7 @@ class AdminProductionPlanController extends Controller
 
     public function delete($id)
     {
-        $productionPlan = Role::withTrashed()->find($id);
+        $productionPlan = ProductionPlan::withTrashed()->find($id);
         $name_productionPlan = $productionPlan->name_productionPlan;
 
         if (empty($productionPlan->deleted_at)) {
@@ -161,7 +174,7 @@ class AdminProductionPlanController extends Controller
 
     public function restore($id)
     {
-        $productionPlan = Role::withTrashed()->find($id);
+        $productionPlan = ProductionPlan::withTrashed()->find($id);
         $name_productionPlan = $productionPlan->name_productionPlan;
         $productionPlan->restore();
         return redirect("admin/productionPlan/list")->with("status", "Bạn đã khôi phục kế hoạch sản xuất tên {$name_productionPlan} thành công");

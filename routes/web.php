@@ -34,11 +34,6 @@ Route::middleware('auth', "verified")->group(function () {
 
     Route::get("/dashboard", "DashboardController@show")->name("dashboard.show");
 
-    // ========================WAREHOUSES===========================
-    Route::get("/admin/warehouse/list", "AdminWarehouseController@list")->name("admin.warehouse.list");
-    Route::get("/admin/warehouse/edit/{id}", "AdminWarehouseController@edit")->name("admin.warehouse.edit");
-    Route::post("/admin/warehouse/update/{id}", "AdminWarehouseController@update")->name("admin.warehouse.update");
-    Route::get("/admin/warehouse/delete/{id}", "AdminWarehouseController@delete")->name("admin.warehouse.delete");
     // ========================PRODUCT===========================
     Route::get("/admin/product/list", "AdminProductController@list")->name("admin.product.list");
 
@@ -53,6 +48,18 @@ Route::middleware('auth', "verified")->group(function () {
     Route::get("/admin/product/restore/{id}", "AdminProductController@restore")->name("admin.product.restore");
 
     Route::get("/admin/product/action", "AdminProductController@action")->name("admin.product.cat.action");
+
+    // ========================DEFECTIVE PRODUCT===========================
+    Route::get("/admin/defectiveProduct/list", "AdminDefectiveProductController@list")->name("admin.defectiveProduct.list");
+
+    Route::get("/admin/defectiveProduct/edit/{id}", "AdminDefectiveProductController@edit")->name("admin.defectiveProduct.edit");
+    Route::post("/admin/defectiveProduct/update/{id}", "AdminDefectiveProductController@update")->name("admin.defectiveProduct.update");
+
+    Route::get("/admin/defectiveProduct/delete/{id}", "AdminDefectiveProductController@delete")->name("admin.defectiveProduct.delete");
+
+    Route::get("/admin/defectiveProduct/restore/{id}", "AdminDefectiveProductController@restore")->name("admin.defectiveProduct.restore");
+
+    Route::get("/admin/defectiveProduct/action", "AdminDefectiveProductController@action")->name("admin.defectiveProduct.cat.action");
 
     // ========================ORDERS===========================
     Route::get("/admin/order/list", "AdminOrderController@list")->name("admin.order.list");
@@ -127,7 +134,6 @@ Route::middleware('auth', "verified")->group(function () {
 
     Route::get("/admin/image/restore/{id}", "AdminImageController@restore")->name("admin.image.restore");
 
-
     // ========================PRODUCTION PLAN===========================
     Route::get("/admin/productionPlan/list", "AdminProductionPlanController@list")->name("admin.productionPlan.list");
 
@@ -142,6 +148,38 @@ Route::middleware('auth', "verified")->group(function () {
     Route::get("/admin/productionPlan/restore/{id}", "AdminProductionPlanController@restore")->name("admin.productionPlan.restore");
 
     Route::get("/admin/productionPlan/action", "AdminProductionPlanController@action")->name("admin.productionPlan.action");
+    // ========================WAREHOUSES===========================
+
+    Route::get("/admin/warehouse/list", "AdminWarehouseController@list")->name("admin.warehouse.list");
+
+    Route::get("/admin/warehouse/add", "AdminWarehouseController@add")->name("admin.warehouse.add");
+    Route::post("/admin/warehouse/store", "AdminWarehouseController@store")->name("admin.warehouse.store");
+
+    Route::get("/admin/warehouse/edit/{id}", "AdminWarehouseController@edit")->name("admin.warehouse.edit");
+    Route::post("/admin/warehouse/update/{id}", "AdminWarehouseController@update")->name("admin.warehouse.update");
+
+    Route::get("/admin/warehouse/delete/{id}", "AdminWarehouseController@delete")->name("admin.warehouse.delete");
+
+    Route::get("/admin/warehouse/restore/{id}", "AdminWarehouseController@restore")->name("admin.warehouse.restore");
+
+<<<<<<< HEAD
+    // ========================PRODUCTION PLAN===========================
+    Route::get("/admin/productionPlan/list", "AdminProductionPlanController@list")->name("admin.productionPlan.list");
+
+    Route::get("/admin/productionPlan/add", "AdminProductionPlanController@add")->name("admin.productionPlan.add");
+    Route::post("/admin/productionPlan/store", "AdminProductionPlanController@store")->name("admin.productionPlan.store");
+
+    Route::get("/admin/productionPlan/edit/{id}", "AdminProductionPlanController@edit")->name("admin.productionPlan.edit");
+    Route::post("/admin/productionPlan/update/{id}", "AdminProductionPlanController@update")->name("admin.productionPlan.update");
+
+    Route::get("/admin/productionPlan/delete/{id}", "AdminProductionPlanController@delete")->name("admin.productionPlan.delete");
+
+    Route::get("/admin/productionPlan/restore/{id}", "AdminProductionPlanController@restore")->name("admin.productionPlan.restore");
+
+    Route::get("/admin/productionPlan/action", "AdminProductionPlanController@action")->name("admin.productionPlan.action");
+=======
+    Route::get("/admin/warehouse/action", "AdminWarehouseController@action")->name("admin.warehouse.action");
+>>>>>>> 1d27c649c0c771c2071614c1c5e2b78a7526b08b
 
     // Code by Nguyen Van Tho
     // ==========Work shift============

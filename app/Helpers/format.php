@@ -1,4 +1,6 @@
 <?php
+use Carbon\Carbon;
+
 if (!function_exists('currency_format')) {
     function currency_format($number, $suffix = ' VNĐ')
     {
@@ -6,6 +8,18 @@ if (!function_exists('currency_format')) {
             return number_format($number) . $suffix;
         return "<span class='text-muted'>Chưa cập nhật</span>";
 
+    }
+}
+
+if (!function_exists('time_format')) {
+    function time_format($dateTime)
+    {
+        if (!empty($dateTime)) {
+            $dt = new Carbon($dateTime);
+            return $dt -> format("H:i:s d/m/Y");
+        }
+        
+        return Carbon::now() -> format("H:i:s d/m/Y");
     }
 }
 
@@ -33,3 +47,5 @@ if (!function_exists('code_order_format')) {
         return "ISMART#" . substr(md5($order_id), 0, 10);
     }
 }
+
+

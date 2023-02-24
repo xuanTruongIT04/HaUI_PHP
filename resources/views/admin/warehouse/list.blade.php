@@ -25,10 +25,10 @@
             </div>
             <div class="card-body">
                 <div class="analytic">
-                    <a href="{{ request()->fullUrlWithQuery(['status' => 'active']) }}" class="text-primary">Kích
-                        hoạt<span class="text-muted">({{ $count_warehouse_status[0] }})</span></a>
-                    <a href="{{ request()->fullUrlWithQuery(['status' => 'trashed']) }}" class="text-primary">Vô hiệu
-                        hoá<span class="text-muted">({{ $count_warehouse_status[1] }})</span></a>
+                    <a href="{{ request()->fullUrlWithQuery(['status' => 'active']) }}" class="text-primary">Hoạt động<span
+                            class="text-muted">({{ $count_warehouse_status[0] }})</span></a>
+                    <a href="{{ request()->fullUrlWithQuery(['status' => 'trashed']) }}" class="text-primary">Ngừng hoạt
+                        động<span class="text-muted">({{ $count_warehouse_status[1] }})</span></a>
                 </div>
                 <form action="{{ url('admin/warehouse/action') }}" method="GET">
                     <div class="form-action form-inline py-3">
@@ -51,6 +51,7 @@
                                     <input type="checkbox" name="checkAll">
                                 </th>
                                 <th scope="col">#</th>
+                                <th scope="col">Tên kho</th>
                                 <th scope="col">Vị trí kho</th>
                                 <th scope="col">Ngày tạo</th>
                                 <th scope="col">Tác vụ</th>
@@ -59,7 +60,7 @@
                         <tbody>
                             @if ($count_warehouse > 0)
                                 @php
-                                    $cnt = empty(request() -> page) ? 0 : (request() -> page - 1) * 20;
+                                    $cnt = empty(request()->page) ? 0 : (request()->page - 1) * 20;
                                 @endphp
                                 @foreach ($warehouses as $warehouse)
                                     @php
@@ -70,9 +71,14 @@
                                             <input type="checkbox" name="list_check[]" value="{{ $warehouse->id }}"">
                                         </td>
                                         <th scope=" row">{{ $cnt }}</th>
-                                        <td><a class="text-primary"
-                                                href="{{ route('admin.warehouse.edit', $warehouse->id) }}">{{ $warehouse->warehouse_location }}</a>
-                                        </td>
+                                        @if (request()->status != 'trashed')
+                                            <td><a class="text-primary"
+                                                    href="{{ route('admin.warehouse.edit', $warehouse->id) }}">{{ $warehouse->warehouse_name }}</a>
+                                            </td>
+                                        @else
+                                            <td><a class="text-primary">{{ $warehouse->warehouse_name }}</a> </td>
+                                        @endif
+                                        <td>{{ $warehouse->warehouse_location }}</td>
                                         <td>{{ $warehouse->created_at }}</td>
                                         @if (request()->status != 'trashed')
                                             <td>
@@ -83,7 +89,7 @@
                                                 <a href="{{ route('admin.warehouse.delete', $warehouse->id) }}"
                                                     class="btn btn-danger btn-sm rounded-0 text-white" type="button"
                                                     data-toggle="tooltip"
-                                                    onclick="return confirm('Bạn có chắc chắn muốn xoá kho {{ $warehouse->warehouse_location }}?')"
+                                                    onclick="return confirm('Bạn có chắc chắn muốn xoá kho tên {{ $warehouse->warehouse_name }}?')"
                                                     data-placement="top" title="Delete"><i class="fa fa-trash"></i></a>
                                             </td>
                                         @else
@@ -91,13 +97,13 @@
                                                 <a href="{{ route('admin.warehouse.restore', $warehouse->id) }}"
                                                     class="btn btn-success btn-sm rounded-0 text-white" type="button"
                                                     data-toggle="tooltip"
-                                                    onclick="return confirm('Bạn có chắc chắn muốn khôi phục kho {{ $warehouse->warehouse_location }}?')"
+                                                    onclick="return confirm('Bạn có chắc chắn muốn khôi phục kho tên {{ $warehouse->warehouse_name }}?')"
                                                     data-placement="top" title="Restore"><i
                                                         class="fas fa-trash-restore-alt"></i></a>
                                                 <a href="{{ route('admin.warehouse.delete', $warehouse->id) }}"
                                                     class="btn btn-danger btn-sm rounded-0 text-white" type="button"
                                                     data-toggle="tooltip"
-                                                    onclick="return confirm('Bạn có chắc chắn muốn xoá vĩnh viễn kho {{ $warehouse->warehouse_location }}?')"
+                                                    onclick="return confirm('Bạn có chắc chắn muốn xoá vĩnh viễn kho tên {{ $warehouse->warehouse_name }}?')"
                                                     data-placement="top" title="Delete"><i class="fa fa-trash"></i></a>
                                             </td>
                                         @endif
