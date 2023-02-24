@@ -25,7 +25,6 @@
                                 <input type="checkbox" name="checkAll">
                             </th>
                             <th scope="col">STT</th>
-                            <th scope="col">Mã bộ phận</th>
                             <th scope="col">Tên bộ phận</th>
                             <th scope="col">Số lượng công nhân</th>
                         </tr>
@@ -42,11 +41,11 @@
                                 <td>
                                     <input type="checkbox" name="list_check[]" value="{{ $item->id }}">
                                 </td>
-                                <td>{{$cnt}}</td>
-                                <td>{{$item->id}}</td>
-                                <td>{{$item->department_name}}</td>
-                                <td>null</td>
-                                <td>
+                                <td>{{ $cnt }}</td>
+                                <td>{{ $item->department_name }}</td>
+                                <td>{!! count_worker_by_department_id($item->id) !!}</td>
+                                
+                                <td> 
                                     <a href="{{Route("admin.department.edit", $item->id)}}" class="btn btn-info">Sửa</a>
                                     <a href="{{Route("admin.department.delete", $item->id)}}" class="btn btn-danger">Xóa</a>
                                 </td>
@@ -55,9 +54,18 @@
                     </tbody>
                 </table>
             </form>
+            
             {{ $department->links() }}
         </div>
     </div>
     </div>
 
 @endsection
+
+@php
+use App\Worker;
+function count_worker_by_department_id($department_id)
+{
+    return Worker::where('department_id', $department_id)->count();
+}
+@endphp
