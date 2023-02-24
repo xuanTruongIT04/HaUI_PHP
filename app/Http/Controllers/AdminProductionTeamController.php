@@ -18,8 +18,29 @@ class AdminProductionTeamController extends Controller
 
     function list(Request $requests)
     {
-        $productionTeams = ProductionTeam::Paginate(20);
-        return view('admin.productionTeam.list', compact('productionTeams'));
+        $status = !empty(request()->input('status')) ? $requests->input('status') : 'active';
+        $key_word = "";
+        $listDepartment = Department::all();
+        $dep_id = null;
+
+        if ($requests->input("key_word")) {
+            $key_word = $requests->input("key_word");
+        }
+
+        if (($requests->input("filter_dep")) != null) {
+            $status = "filter_by_department";
+            $dep_id = $requests->input("filter_dep");
+        }
+
+        if ($status == "active") {
+            $productionTeams = ProductionTeam::withoutTrashed()->where("production_team_name", "LIKE", "%{$key_word}%")->Paginate(20);
+        } else if ($status == "filter_by_department") {
+            $productionTeams = ProductionTeam::withoutTrashed()->where("department_id", "=", $dep_id)->Paginate(20);
+        } else {
+            $productionTeams = ProductionTeam::Paginate(20);
+        }
+
+        return view('admin.productionTeam.list', compact('productionTeams', 'listDepartment'));
     }
 
     public function add()

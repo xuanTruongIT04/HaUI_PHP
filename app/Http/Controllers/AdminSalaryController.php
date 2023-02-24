@@ -16,7 +16,22 @@ class AdminSalaryController extends Controller
     }
     function list(Request $requests)
     {
-        $salaries = Salary::Paginate(20);
+        $status = !empty(request()->input('status')) ? $requests->input('status') : 'active';
+        $key_word = "";
+
+        if ($requests->input("key_word")) {
+            $key_word = $requests->input("key_word");
+        }
+
+        if ($key_word != "" && $status == "active") {
+            $salaries = Salary::withoutTrashed()->where("id", $key_word)->Paginate(20);
+        } else if ($key_word == "" && $status == "active") {
+            $salaries = Salary::Paginate(20);
+        } else {
+            $salaries = Salary::Paginate(20);
+        }
+
+        // $salaries = Salary::Paginate(20);
         return view('admin.salary.list', compact('salaries'));
     }
 
