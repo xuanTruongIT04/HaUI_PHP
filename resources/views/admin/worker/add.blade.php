@@ -46,7 +46,7 @@
 
                     <label for="status" class="fw-550">Trạng thái</label>
                     <select class="form-control" name="status">
-                        <option value="">-------Chọn bộ phận----------</option>
+                        <option value="">-------Chọn trạng thái làm việc----------</option>
                         <option value="1">Đang làm việc</option>
                     </select>
                     @error('status')
