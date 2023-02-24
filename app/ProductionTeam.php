@@ -9,10 +9,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class ProductionTeam extends Model
 {
     use SoftDeletes;
-<<<<<<< HEAD
-    protected $fillable = ['production_team_name', 'department_code'];
-}
-=======
     protected $fillable = ['production_team_name', 'department_id'];
 
     function department()
@@ -25,4 +21,3 @@ class ProductionTeam extends Model
         return $this->hasMany('App\Worker');
     }
 }
->>>>>>> d693082fd433130cc38eff42a34ffc475a914cd4
