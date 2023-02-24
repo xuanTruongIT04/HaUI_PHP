@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddImageIdToUsersTable extends Migration
+class AddProductionPlanIdToOrdersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,13 @@ class AddImageIdToUsersTable extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::table('orders', function (Blueprint $table) {
             //
-            $table->unsignedBigInteger("image_id")->after('role_id')->nullable();
-            $table->foreign("image_id")
-                ->references("id")->on("images")
+            $table->unsignedBigInteger("production_plan_id")->after("time_export");
+            $table->foreign("production_plan_id")
+                ->references("id")->on("production_plans")
                 ->onDelete("cascade")
                 ->onUpdate("cascade");
-
         });
     }
 
@@ -31,9 +30,9 @@ class AddImageIdToUsersTable extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::table('orders', function (Blueprint $table) {
             //
-            $table->dropColumn("image_id");
+            $table->dropColumn("production_plan_id");
         });
     }
 }

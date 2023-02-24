@@ -42,11 +42,7 @@ class AdminDepartmentController extends Controller
                 ]
             );
 
-<<<<<<< HEAD
-            Departments::create($requests->all());
-=======
             Department::create($requests->all());
->>>>>>> d693082fd433130cc38eff42a34ffc475a914cd4
             return redirect()->route('admin.department.list')->with('message', "Thêm ca làm việc thành công");
         }
     }
@@ -59,14 +55,8 @@ class AdminDepartmentController extends Controller
 
     public function update(Request $requests, $id)
     {
-<<<<<<< HEAD
-        Departments::where('id', $id)->update([
-            'department_name' => $requests->input("department_name"),
-            'quantity_worker' => $requests->input("quantity_worker")
-=======
         Department::where('id', $id)->update([
             'department_name' => $requests->input("department_name")
->>>>>>> d693082fd433130cc38eff42a34ffc475a914cd4
         ]);
         return redirect()->route('admin.department.list')->with('message', "Cập nhật Bộ phận thành công");
     }
@@ -77,11 +67,7 @@ class AdminDepartmentController extends Controller
 
     public function delete($id)
     {
-<<<<<<< HEAD
-        $department = Departments::withTrashed()->find($id);
-=======
         $department = Department::withTrashed()->find($id);
->>>>>>> d693082fd433130cc38eff42a34ffc475a914cd4
         $department_name = $department->department_name;
         $department->delete();
         return redirect()->back()->with("message", "Bạn đã bộ phận {$department_name} thành công");

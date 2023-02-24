@@ -10,7 +10,7 @@ class ProductionPlan extends Model
     //
     use SoftDeletes;
 
-    protected $fillable = ['name_role'];
+    protected $fillable = ['production_plan_name', 'start_date', 'date_end'];
 
  
 }
