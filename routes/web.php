@@ -76,6 +76,21 @@ Route::middleware('auth', "verified")->group(function () {
 
     Route::get("/admin/defectiveProduct/action", "AdminDefectiveProductController@action")->name("admin.defectiveProduct.cat.action");
 
+        // ========================PRODUCT===========================
+        Route::get("/admin/material/list", "AdminMaterialController@list")->name("admin.material.list");
+
+        Route::get("/admin/material/add", "AdminMaterialController@add")->name("admin.material.add");
+        Route::post("/admin/material/store", "AdminMaterialController@store")->name("admin.material.store");
+    
+        Route::get("/admin/material/edit/{id}", "AdminMaterialController@edit")->name("admin.material.edit");
+        Route::post("/admin/material/update/{id}", "AdminMaterialController@update")->name("admin.material.update");
+    
+        Route::get("/admin/material/delete/{id}", "AdminMaterialController@delete")->name("admin.material.delete");
+    
+        Route::get("/admin/material/restore/{id}", "AdminMaterialController@restore")->name("admin.material.restore");
+    
+        Route::get("/admin/material/action", "AdminMaterialController@action")->name("admin.material.cat.action");
+
     // ========================ORDERS===========================
     Route::get("/admin/order/list", "AdminOrderController@list")->name("admin.order.list");
 
