@@ -57,7 +57,7 @@ if (!function_exists('field_status_order')) {
     function field_status_order($status)
     {
         if ($status == 'delivery_successful') {
-            return '<span class="badge badge-success">Giao hàng thành công</span>';
+            return '<span class="badge badge-success">Thành công</span>';
         } else if ($status == 'pending') {
             return '<span class="badge badge-primary">Chờ xét duyệt</span>';
         } else if ($status == 'shipping') {
@@ -72,7 +72,7 @@ if (!function_exists('field_status_order')) {
 if (!function_exists('field_status_order_vi')) {
     function field_status_order_vi($status)
     {
-        if ($status == 'Giao hàng thành công') {
+        if ($status == 'Thành công') {
             return 'delivery_successful';
         } else if ($status == 'Chờ xét duyệt') {
             return 'pending';
@@ -263,48 +263,78 @@ if (!function_exists('template_get_field_status')) {
 }
 
 // Order
-function show_order_status($order_status)
-{
-    $str = "<select class='form-control w-17' name='order_status' id='status'>";
+if (!function_exists('show_order_status')) {
+    function show_order_status($order_status)
+    {
+        $str = "<select class='form-control w-17' name='order_status' id='status'>";
 
-    $data = array(
-        'delivery_successful' => 'Giao hàng thành công',
-        'shipping' => 'Đang vận chuyển',
-        'pending' => 'Chờ xét duyệt',
-    );
+        $data = array(
+            'delivery_successful' => 'Thành côn',
+            'shipping' => 'Đang vận chuyển',
+            'pending' => 'Chờ xét duyệt',
+        );
 
-    foreach ($data as $item => $ele) {
-        $sel = "";
-        if ($order_status == $item) {
-            $sel = "selected='selected'";
+        foreach ($data as $item => $ele) {
+            $sel = "";
+            if ($order_status == $item) {
+                $sel = "selected='selected'";
+            }
+
+            $str .= "<option value=" . $item . " " . $sel . " >" . $ele . "</option>";
         }
 
-        $str .= "<option value=" . $item . " " . $sel . " >" . $ele . "</option>";
+        $str .= "</select>";
+
+        return $str;
     }
-
-    $str .= "</select>";
-
-    return $str;
 }
 
-function show_payment_method($method)
-{
-    $str = "<select class='form-control w-17' name='payment_method' id='payment-method'>";
+if (!function_exists('show_defective_product_status')) {
+    function show_defective_product_status($defective_product_status)
+    {
+        $str = "<select class='form-control w-17 d-block' name='defective_product_status' id='status'>";
 
-    $data = array(
-        'payment_home' => 'Thanh toán tại nhà',
-        'payment_store' => 'Thanh toán tại cửa hàng',
-    );
 
-    foreach ($data as $item => $ele) {
-        $sel = "";
-        if ($method == $item) {
-            $sel = "selected='selected'";
+        $data = array(
+            '1' => 'Có thể sửa',
+            '0' => 'Không thể sửa',
+        );
+
+        foreach ($data as $item => $ele) {
+            $sel = "";
+            if ($defective_product_status == $item) {
+                $sel = "selected='selected'";
+            }
+
+            $str .= "<option value=" . $item . " " . $sel . " >" . $ele . "</option>";
         }
-        $str .= "<option value=" . $item . " " . $sel . " >" . $ele . "</option>";
+
+        $str .= "</select>";
+
+        return $str;
     }
+}
 
-    $str .= "</select>";
+if (!function_exists('show_payment_method')) {
+    function show_payment_method($method)
+    {
+        $str = "<select class='form-control w-17' name='payment_method' id='payment-method'>";
 
-    return $str;
+        $data = array(
+            'payment_home' => 'Thanh toán tại nhà',
+            'payment_store' => 'Thanh toán tại cửa hàng',
+        );
+
+        foreach ($data as $item => $ele) {
+            $sel = "";
+            if ($method == $item) {
+                $sel = "selected='selected'";
+            }
+            $str .= "<option value=" . $item . " " . $sel . " >" . $ele . "</option>";
+        }
+
+        $str .= "</select>";
+
+        return $str;
+    }
 }
