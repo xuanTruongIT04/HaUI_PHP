@@ -4,8 +4,10 @@ use Carbon\Carbon;
 if (!function_exists('currency_format')) {
     function currency_format($number, $suffix = ' VNĐ')
     {
-        if (!empty($number))
+        if (!empty($number)) {
             return number_format($number) . $suffix;
+        }
+
         return "<span class='text-muted'>Chưa cập nhật</span>";
 
     }
@@ -16,10 +18,10 @@ if (!function_exists('time_format')) {
     {
         if (!empty($dateTime)) {
             $dt = new Carbon($dateTime);
-            return $dt -> format("H:i:s d/m/Y");
+            return $dt->format("H:i:s d/m/Y");
         }
-        
-        return Carbon::now() -> format("H:i:s d/m/Y");
+
+        return Carbon::now()->format("H:i:s d/m/Y");
     }
 }
 
@@ -47,19 +49,47 @@ if (!function_exists('code_order_format')) {
         return "ISMART#" . substr(md5($order_id), 0, 10);
     }
 }
+if (!function_exists('brief_name')) {
 
-function brief_name($str, $nWords) {
-    if(strlen($str) <= $nWords)
-        return $str;
-    else {
-        $str_temp_1 = explode(" ", $str);
-        $str_temp_2 = array();
-        for($i = 0; $i < $nWords; $i++) {
-            if(isset($str_temp_1[$i]))
-                $str_temp_2[] = $str_temp_1[$i];
+    function brief_name($str, $nWords)
+    {
+        if (strlen($str) <= $nWords) {
+            return $str;
+        } else {
+            $str_temp_1 = explode(" ", $str);
+            $str_temp_2 = array();
+            for ($i = 0; $i < $nWords; $i++) {
+                if (isset($str_temp_1[$i])) {
+                    $str_temp_2[] = $str_temp_1[$i];
+                }
+
+            }
+            $str_or = implode(" ", $str_temp_2) . " ...";
+            return $str_or;
         }
-        $str_or =  implode(" ", $str_temp_2) . " ...";
-        return $str_or;
     }
-    
+}
+if (!function_exists('brief_name_plus')) {
+
+    function brief_name_plus($str, $nWords, $totalWord)
+    {
+        if (strlen($str) <= $nWords) {
+            return $str;
+        } else {
+            $str_temp_1 = explode(" ", $str);
+            $str_temp_2 = array();
+            for ($i = 0; $i < $nWords; $i++) {
+                if (isset($str_temp_1[$i])) {
+                    $str_temp_2[] = $str_temp_1[$i];
+                }
+            }
+
+            $str_or = implode(" ", $str_temp_2);
+
+            if (strlen($str_or) > $totalWord) 
+                $str_or = implode(" ", $str_temp_2) . " ...";
+            return $str_or;
+        }
+
+    }
 }

@@ -65,7 +65,7 @@
                     </li>
 
                     <li
-                        class="nav-link {{ $module_active == 'product' ? 'active' : '' }}{{ $module_active == 'product_cat' ? 'active' : '' }}">
+                        class="nav-link {{ $module_active == 'product' ? 'active' : '' }}">
                         <a href="{{ url('admin/product/list') }}">
                             <div class="nav-link-icon d-inline-flex">
                                 <i class="far fa-folder"></i>
@@ -76,78 +76,24 @@
                         <ul class="sub-menu">
                             <li><a href="{{ url('admin/product/add') }}">Thêm mới</a></li>
                             <li><a href="{{ url('admin/product/list') }}">Danh sách</a></li>
+                            <li><a href="{{ url('admin/defectiveProduct/list') }}">Sản phẩm lỗi</a></li>
                         </ul>
                     </li>
 
                     <li
-                        class="nav-link {{ $module_active == 'defectiveProduct' ? 'active' : '' }}">
-                        <a href="{{ url('admin/defectiveProduct/list') }}">
+                        class="nav-link {{ $module_active == 'stage' ? 'active' : '' }}">
+                        <a href="{{ url('admin/stage/list') }}">
                             <div class="nav-link-icon d-inline-flex">
                                 <i class="far fa-folder"></i>
                             </div>
-                            Sản phẩm lỗi
+                            Công đoạn
                         </a>
                         <i class="arrow fas fa-angle-down"></i>
                         <ul class="sub-menu">
-                            <li><a href="{{ url('admin/defectiveProduct/list') }}">Danh sách</a></li>
+                            <li><a href="{{ url('admin/stage/add') }}">Thêm mới</a></li>
+                            <li><a href="{{ url('admin/stage/list') }}">Danh sách</a></li>
                         </ul>
                     </li>
-                    <li class="nav-link {{ $module_active == 'user' ? 'active' : '' }}">
-                        <a href="{{ url('admin/user/list') }}">
-                            <div class="nav-link-icon d-inline-flex">
-                                <i class="far fa-folder"></i>
-                            </div>
-                            Quản trị viên
-                        </a>
-                        <i class="arrow fas fa-angle-right"></i>
-
-                        <ul class="sub-menu">
-                            <li><a href="{{ url('admin/user/add') }}">Thêm mới</a></li>
-                            <li><a href="{{ url('admin/user/list') }}">Danh sách</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-link {{ $module_active == 'role' ? 'active' : '' }}">
-                        <a href="{{ url('admin/role/list') }}">
-                            <div class="nav-link-icon d-inline-flex">
-                                <i class="far fa-folder"></i>
-                            </div>
-                            Quyền
-                        </a>
-                        <i class="arrow fas fa-angle-right"></i>
-
-                        <ul class="sub-menu">
-                            <li><a href="{{ url('admin/role/add') }}">Thêm mới</a></li>
-                            <li><a href="{{ url('admin/role/list') }}">Danh sách</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-link {{ $module_active == 'image' ? 'active' : '' }}">
-                        <a href="{{ url('admin/image/list') }}">
-                            <div class="nav-link-icon d-inline-flex">
-                                <i class="far fa-folder"></i>
-                            </div>
-                            Thư viện ảnh
-                        </a>
-                        <i class="arrow fas fa-angle-right"></i>
-
-                        <ul class="sub-menu">
-                            <li><a href="{{ url('admin/image/add') }}">Thêm mới</a></li>
-                            <li><a href="{{ url('admin/image/list') }}">Danh sách</a></li>
-                        </ul>
-                    </li>
-
-                    <!-- <li class="nav-link"><a>Bài viết</a>
-                        <ul class="sub-menu">
-                            <li><a>Thêm mới</a></li>
-                            <li><a>Danh sách</a></li>
-                            <li><a>Thêm danh mục</a></li>
-                            <li><a>Danh sách danh mục</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-link"><a>Sản phẩm</a></li>
-                    <li class="nav-link"><a>Đơn hàng</a></li>
-                    <li class="nav-link"><a>Hệ thống</a></li> -->
 
                     {{-- Code by NguyenTho --}}
                     <li class="nav-link {{ $module_active == 'worker' ? 'active' : '' }}">
@@ -267,6 +213,52 @@
                         <ul class="sub-menu">
                             <li><a href="{{ url('admin/order/list') }}">Danh sách đơn hàng</a></li>
                             <li><a href="{{ url('admin/customer/list') }}">Danh sách khách hàng</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-link {{ $module_active == 'user' ? 'active' : '' }}">
+                        <a href="{{ url('admin/user/list') }}">
+                            <div class="nav-link-icon d-inline-flex">
+                                <i class="far fa-folder"></i>
+                            </div>
+                            Quản trị viên
+                        </a>
+                        <i class="arrow fas fa-angle-right"></i>
+
+                        <ul class="sub-menu">
+                            <li><a href="{{ url('admin/user/add') }}">Thêm mới</a></li>
+                            <li><a href="{{ url('admin/user/list') }}">Danh sách</a></li>
+                        </ul>
+                    </li>
+
+
+                    <li class="nav-link {{ $module_active == 'role' ? 'active' : '' }}">
+                        <a href="{{ url('admin/role/list') }}">
+                            <div class="nav-link-icon d-inline-flex">
+                                <i class="far fa-folder"></i>
+                            </div>
+                            Quyền
+                        </a>
+                        <i class="arrow fas fa-angle-right"></i>
+
+                        <ul class="sub-menu">
+                            <li><a href="{{ url('admin/role/add') }}">Thêm mới</a></li>
+                            <li><a href="{{ url('admin/role/list') }}">Danh sách</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-link {{ $module_active == 'image' ? 'active' : '' }}">
+                        <a href="{{ url('admin/image/list') }}">
+                            <div class="nav-link-icon d-inline-flex">
+                                <i class="far fa-folder"></i>
+                            </div>
+                            Thư viện ảnh
+                        </a>
+                        <i class="arrow fas fa-angle-right"></i>
+
+                        <ul class="sub-menu">
+                            <li><a href="{{ url('admin/image/add') }}">Thêm mới</a></li>
+                            <li><a href="{{ url('admin/image/list') }}">Danh sách</a></li>
                         </ul>
                     </li>
                 </ul>

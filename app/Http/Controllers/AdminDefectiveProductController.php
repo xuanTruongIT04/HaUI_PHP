@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\DefectiveProduct;
 use App\Product;
+use Illuminate\Http\Request;
 
 class AdminDefectiveProductController extends Controller
 {
@@ -12,7 +12,7 @@ class AdminDefectiveProductController extends Controller
     public function __construct()
     {
         $this->middleware(function ($request, $next) {
-            session(['module_active' => "defectiveProduct"]);
+            session(['module_active' => "product"]);
             return $next($request);
         });
     }
@@ -36,15 +36,15 @@ class AdminDefectiveProductController extends Controller
             ];
             // $defectiveProducts = DefectiveProduct::onlyTrashed()->where("product_name", "LIKE", "%{$key_word}%")->where("is_error", "1")->Paginate(20);
             $defectiveProducts = DefectiveProduct::join("products", "products.id", "=", "defective_products.product_id")
-                                 ->onlyTrashed()->where("product_name", "LIKE", "%{$key_word}%")
-                                 ->select("products.product_name", "defective_products.id", "can_fix", "error_time", "error_reason")
-                                 ->Paginate(20);
+                ->onlyTrashed()->where("product_name", "LIKE", "%{$key_word}%")
+                ->select("products.product_name", "defective_products.id", "can_fix", "error_time", "error_reason")
+                ->Paginate(20);
         } else {
             // $defectiveDefectiveProducts = Product::withoutTrashed()->where("product_name", "LIKE", "%{$key_word}%")->where("is_error", "1")->Paginate(20);
             $defectiveProducts = DefectiveProduct::join("products", "products.id", "=", "defective_products.product_id")
-            ->withoutTrashed()->where("product_name", "LIKE", "%{$key_word}%")
-            ->select("products.product_name", "defective_products.id", "can_fix", "error_time", "error_reason")
-            ->Paginate(20);
+                ->withoutTrashed()->where("product_name", "LIKE", "%{$key_word}%")
+                ->select("products.product_name", "defective_products.id", "can_fix", "error_time", "error_reason")
+                ->Paginate(20);
         }
 
         $count_defectiveProduct = $defectiveProducts->total();
@@ -57,7 +57,11 @@ class AdminDefectiveProductController extends Controller
     public function edit($id)
     {
         $defectiveProducts = DefectiveProduct::all();
-        $defectiveProduct = DefectiveProduct::find($id);
+        // $defectiveProduct = DefectiveProduct::find($id);
+        $defectiveProduct = DefectiveProduct::join("products", "products.id", "=", "defective_products.product_id")
+            ->withoutTrashed()->where("defective_products.id", $id)
+            ->select("products.product_name", "defective_products.id", "can_fix", "error_time", "error_reason")
+            ->first();
 
         return view("admin.defectiveProduct.edit", compact("defectiveProduct", "defectiveProducts"));
     }
@@ -67,24 +71,28 @@ class AdminDefectiveProductController extends Controller
         if ($requests->input('btn_update')) {
             $requests->validate(
                 [
-                    'name_defectiveProduct' => ['required', 'string', 'max:300'],
+                    'error_reason' => ['required', 'string', 'max:300'],
                 ],
                 [
                     'required' => ":attribute không được để trống",
                     'max' => ":attribute có độ dài ít nhất :max ký tự",
                 ],
                 [
-                    "name_defectiveProduct" => "Tên quyền",
+                    "error_reason" => "Lí do khiến sản phẩm lỗi",
                 ]
             );
 
-            $name_defectiveProduct = $requests->input("name_defectiveProduct");
-
+            $name_defectiveProduct = DefectiveProduct::join("products", "products.id", "=", "defective_products.product_id")
+                                                     ->where("defective_products.id", $id)
+                                                     ->select("product_name")
+                                                     ->first()
+                                                     ->product_name;
             DefectiveProduct::where('id', $id)->update([
-                'name_defectiveProduct' => $name_defectiveProduct,
+                'error_reason' => $requests -> input("error_reason"),
+                'can_fix' => $requests -> input("defective_product_status"),
             ]);
 
-            return redirect("admin/defectiveProduct/list")->with("status", "Đã cập nhật thông tin quyền tên {$name_defectiveProduct} thành công");
+            return redirect("admin/defectiveProduct/list")->with("status", "Đã cập nhật thông tin sản phẩm lỗi tên {$name_defectiveProduct} thành công");
         }
     }
 
@@ -98,23 +106,23 @@ class AdminDefectiveProductController extends Controller
                 if ($cnt_member > 0) {
                     if ($act == "delete") {
                         DefectiveProduct::destroy($list_checked);
-                        return redirect("admin/defectiveProduct/list")->with("status", "Bạn đã xoá tạm thời {$cnt_member} quyền thành công!");
+                        return redirect("admin/defectiveProduct/list")->with("status", "Bạn đã xoá tạm thời {$cnt_member} sản phẩm lỗi thành công!");
                     } else if ($act == "delete_permanently") {
                         DefectiveProduct::onlyTrashed()
                             ->whereIn("id", $list_checked)
                             ->forceDelete();
-                        return redirect()->back()->with("status", "Bạn đã xoá vĩnh viễn {$cnt_member} quyền thành công");
+                        return redirect()->back()->with("status", "Bạn đã xoá vĩnh viễn {$cnt_member} sản phẩm lỗi thành công");
                     } else if ($act == "restore") {
                         DefectiveProduct::onlyTrashed()
                             ->whereIn("id", $list_checked)
                             ->restore();
-                        return redirect("admin/defectiveProduct/list")->with("status", "Bạn đã khôi phục {$cnt_member} quyền thành công");
+                        return redirect("admin/defectiveProduct/list")->with("status", "Bạn đã khôi phục {$cnt_member} sản phẩm lỗi thành công");
                     }
                 } else {
-                    return redirect()->back()->with("status", "Không tìm thấy quyền nào!");
+                    return redirect()->back()->with("status", "Không tìm thấy sản phẩm lỗi nào!");
                 }
             } else {
-                return redirect()->back()->with("status", "Bạn chưa chọn quyền nào để thực hiện hành động!");
+                return redirect()->back()->with("status", "Bạn chưa chọn sản phẩm lỗi nào để thực hiện hành động!");
             }
         } else {
             return redirect()->back()->with("status", "Bạn chưa chọn hành động nào để thực hiện!");
@@ -128,11 +136,11 @@ class AdminDefectiveProductController extends Controller
 
         if (empty($defectiveProduct->deleted_at)) {
             $defectiveProduct->delete();
-            return redirect()->back()->with("status", "Bạn đã xoá tạm thời quyền tên {$name_defectiveProduct} thành công");
+            return redirect()->back()->with("status", "Bạn đã xoá tạm thời sản phẩm lỗi tên {$name_defectiveProduct} thành công");
         } else {
 
             $defectiveProduct->forceDelete();
-            return redirect()->back()->with("status", "Bạn đã xoá vĩnh viễn quyền tên {$name_defectiveProduct} thành công");
+            return redirect()->back()->with("status", "Bạn đã xoá vĩnh viễn sản phẩm lỗi tên {$name_defectiveProduct} thành công");
         }
     }
 
@@ -141,9 +149,7 @@ class AdminDefectiveProductController extends Controller
         $defectiveProduct = DefectiveProduct::withTrashed()->find($id);
         $name_defectiveProduct = $defectiveProduct->name_defectiveProduct;
         $defectiveProduct->restore();
-        return redirect("admin/defectiveProduct/list")->with("status", "Bạn đã khôi phục quyền tên {$name_defectiveProduct} thành công");
+        return redirect("admin/defectiveProduct/list")->with("status", "Bạn đã khôi phục sản phẩm lỗi tên {$name_defectiveProduct} thành công");
     }
-
-
 
 }

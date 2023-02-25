@@ -34,6 +34,21 @@ Route::middleware('auth', "verified")->group(function () {
 
     Route::get("/dashboard", "DashboardController@show")->name("dashboard.show");
 
+     // ========================ROLES===========================
+     Route::get("/admin/stage/list", "AdminStageController@list")->name("admin.stage.list");
+
+     Route::get("/admin/stage/add", "AdminStageController@add")->name("admin.stage.add");
+     Route::post("/admin/stage/store", "AdminStageController@store")->name("admin.stage.store");
+ 
+     Route::get("/admin/stage/edit/{id}", "AdminStageController@edit")->name("admin.stage.edit");
+     Route::post("/admin/stage/update/{id}", "AdminStageController@update")->name("admin.stage.update");
+ 
+     Route::get("/admin/stage/delete/{id}", "AdminStageController@delete")->name("admin.stage.delete");
+ 
+     Route::get("/admin/stage/restore/{id}", "AdminStageController@restore")->name("admin.stage.restore");
+ 
+     Route::get("/admin/stage/action", "AdminStageController@action")->name("admin.stage.action");
+
     // ========================PRODUCT===========================
     Route::get("/admin/product/list", "AdminProductController@list")->name("admin.product.list");
 
