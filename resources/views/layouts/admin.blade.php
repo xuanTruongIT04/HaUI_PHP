@@ -64,8 +64,7 @@
                         </a>
                     </li>
 
-                    <li
-                        class="nav-link {{ $module_active == 'product' ? 'active' : '' }}">
+                    <li class="nav-link {{ $module_active == 'product' ? 'active' : '' }}">
                         <a href="{{ url('admin/product/list') }}">
                             <div class="nav-link-icon d-inline-flex">
                                 <i class="far fa-folder"></i>
@@ -80,8 +79,21 @@
                         </ul>
                     </li>
 
-                    <li
-                        class="nav-link {{ $module_active == 'stage' ? 'active' : '' }}">
+                    <li class="nav-link {{ $module_active == 'material' ? 'active' : '' }}">
+                        <a href="{{ url('admin/material/list') }}">
+                            <div class="nav-link-icon d-inline-flex">
+                                <i class="far fa-folder"></i>
+                            </div>
+                            Vật tư
+                        </a>
+                        <i class="arrow fas fa-angle-down"></i>
+                        <ul class="sub-menu">
+                            <li><a href="{{ url('admin/material/add') }}">Thêm mới</a></li>
+                            <li><a href="{{ url('admin/material/list') }}">Danh sách</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-link {{ $module_active == 'stage' ? 'active' : '' }}">
                         <a href="{{ url('admin/stage/list') }}">
                             <div class="nav-link-icon d-inline-flex">
                                 <i class="far fa-folder"></i>
