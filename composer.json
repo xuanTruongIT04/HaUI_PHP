@@ -40,7 +40,8 @@
             "app/Helpers/format.php",
             "app/Helpers/template.php",
             "app/Helpers/url.php",
-            "app/Helpers/validation-form.php"
+            "app/Helpers/validation-form.php",
+            "app/Helpers/status.php"
         ],
         "psr-4": {
             "App\\": "app/"

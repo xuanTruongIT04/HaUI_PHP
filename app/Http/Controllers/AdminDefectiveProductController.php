@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\DefectiveProduct;
+use App\Product;
 
 class AdminDefectiveProductController extends Controller
 {
@@ -33,9 +34,17 @@ class AdminDefectiveProductController extends Controller
                 "restore" => "Khôi phục",
                 "delete_permanently" => "Xoá vĩnh viễn",
             ];
-            $defectiveProducts = DefectiveProduct::onlyTrashed()->where("name_defectiveProduct", "LIKE", "%{$key_word}%")->Paginate(20);
+            // $defectiveProducts = DefectiveProduct::onlyTrashed()->where("product_name", "LIKE", "%{$key_word}%")->where("is_error", "1")->Paginate(20);
+            $defectiveProducts = DefectiveProduct::join("products", "products.id", "=", "defective_products.product_id")
+                                 ->onlyTrashed()->where("product_name", "LIKE", "%{$key_word}%")
+                                 ->select("products.product_name", "defective_products.id", "can_fix", "error_time", "error_reason")
+                                 ->Paginate(20);
         } else {
-            $defectiveProducts = DefectiveProduct::withoutTrashed()->where("name_defectiveProduct", "LIKE", "%{$key_word}%")->Paginate(20);
+            // $defectiveDefectiveProducts = Product::withoutTrashed()->where("product_name", "LIKE", "%{$key_word}%")->where("is_error", "1")->Paginate(20);
+            $defectiveProducts = DefectiveProduct::join("products", "products.id", "=", "defective_products.product_id")
+            ->withoutTrashed()->where("product_name", "LIKE", "%{$key_word}%")
+            ->select("products.product_name", "defective_products.id", "can_fix", "error_time", "error_reason")
+            ->Paginate(20);
         }
 
         $count_defectiveProduct = $defectiveProducts->total();
@@ -134,5 +143,7 @@ class AdminDefectiveProductController extends Controller
         $defectiveProduct->restore();
         return redirect("admin/defectiveProduct/list")->with("status", "Bạn đã khôi phục quyền tên {$name_defectiveProduct} thành công");
     }
+
+
 
 }

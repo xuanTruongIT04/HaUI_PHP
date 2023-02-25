@@ -53,7 +53,9 @@
                                 </th>
                                 <th scope="col">#</th>
                                 <th scope="col">Tên danh mục lỗi</th>
-                                <th scope="col">Ngày tạo</th>
+                                <th scope="col">Thời gian lỗi</th>
+                                <th scope="col">Lí do lỗi</th>
+                                <th scope="col">Tình trạng</th>
                                 <th scope="col">Tác vụ</th>
                             </tr>
                         </thead>
@@ -72,9 +74,11 @@
                                         </td>
                                         <th scope=" row">{{ $cnt }}</th>
                                         <td><a class="text-primary"
-                                                href="{{ route('admin.defectiveProduct.edit', $defectiveProduct->id) }}">{{ $defectiveProduct->name_defectiveProduct }}</a>
+                                                href="{{ route('admin.defectiveProduct.edit', $defectiveProduct->id) }}">{!! brief_name($defectiveProduct->product_name, 7) !!}</a>
                                         </td>
-                                        <td>{{ $defectiveProduct->created_at }}</td>
+                                        <td>{!! time_format($defectiveProduct->error_time) !!}</td>
+                                        <td>{{ $defectiveProduct->error_reason }}</td>
+                                        <td>{!! set_status_defective_product($defectiveProduct->can_fix) !!}</td>
                                         @if (request()->status != 'trashed')
                                             <td>
                                                 <a href="{{ route('admin.defectiveProduct.edit', $defectiveProduct->id) }}"
