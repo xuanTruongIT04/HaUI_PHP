@@ -34,20 +34,20 @@ Route::middleware('auth', "verified")->group(function () {
 
     Route::get("/dashboard", "DashboardController@show")->name("dashboard.show");
 
-     // ========================ROLES===========================
-     Route::get("/admin/stage/list", "AdminStageController@list")->name("admin.stage.list");
+    // ========================ROLES===========================
+    Route::get("/admin/stage/list", "AdminStageController@list")->name("admin.stage.list");
 
-     Route::get("/admin/stage/add", "AdminStageController@add")->name("admin.stage.add");
-     Route::post("/admin/stage/store", "AdminStageController@store")->name("admin.stage.store");
- 
-     Route::get("/admin/stage/edit/{id}", "AdminStageController@edit")->name("admin.stage.edit");
-     Route::post("/admin/stage/update/{id}", "AdminStageController@update")->name("admin.stage.update");
- 
-     Route::get("/admin/stage/delete/{id}", "AdminStageController@delete")->name("admin.stage.delete");
- 
-     Route::get("/admin/stage/restore/{id}", "AdminStageController@restore")->name("admin.stage.restore");
- 
-     Route::get("/admin/stage/action", "AdminStageController@action")->name("admin.stage.action");
+    Route::get("/admin/stage/add", "AdminStageController@add")->name("admin.stage.add");
+    Route::post("/admin/stage/store", "AdminStageController@store")->name("admin.stage.store");
+
+    Route::get("/admin/stage/edit/{id}", "AdminStageController@edit")->name("admin.stage.edit");
+    Route::post("/admin/stage/update/{id}", "AdminStageController@update")->name("admin.stage.update");
+
+    Route::get("/admin/stage/delete/{id}", "AdminStageController@delete")->name("admin.stage.delete");
+
+    Route::get("/admin/stage/restore/{id}", "AdminStageController@restore")->name("admin.stage.restore");
+
+    Route::get("/admin/stage/action", "AdminStageController@action")->name("admin.stage.action");
 
     // ========================PRODUCT===========================
     Route::get("/admin/product/list", "AdminProductController@list")->name("admin.product.list");
@@ -76,20 +76,20 @@ Route::middleware('auth', "verified")->group(function () {
 
     Route::get("/admin/defectiveProduct/action", "AdminDefectiveProductController@action")->name("admin.defectiveProduct.cat.action");
 
-        // ========================PRODUCT===========================
-        Route::get("/admin/material/list", "AdminMaterialController@list")->name("admin.material.list");
+    // ========================PRODUCT===========================
+    Route::get("/admin/material/list", "AdminMaterialController@list")->name("admin.material.list");
 
-        Route::get("/admin/material/add", "AdminMaterialController@add")->name("admin.material.add");
-        Route::post("/admin/material/store", "AdminMaterialController@store")->name("admin.material.store");
-    
-        Route::get("/admin/material/edit/{id}", "AdminMaterialController@edit")->name("admin.material.edit");
-        Route::post("/admin/material/update/{id}", "AdminMaterialController@update")->name("admin.material.update");
-    
-        Route::get("/admin/material/delete/{id}", "AdminMaterialController@delete")->name("admin.material.delete");
-    
-        Route::get("/admin/material/restore/{id}", "AdminMaterialController@restore")->name("admin.material.restore");
-    
-        Route::get("/admin/material/action", "AdminMaterialController@action")->name("admin.material.cat.action");
+    Route::get("/admin/material/add", "AdminMaterialController@add")->name("admin.material.add");
+    Route::post("/admin/material/store", "AdminMaterialController@store")->name("admin.material.store");
+
+    Route::get("/admin/material/edit/{id}", "AdminMaterialController@edit")->name("admin.material.edit");
+    Route::post("/admin/material/update/{id}", "AdminMaterialController@update")->name("admin.material.update");
+
+    Route::get("/admin/material/delete/{id}", "AdminMaterialController@delete")->name("admin.material.delete");
+
+    Route::get("/admin/material/restore/{id}", "AdminMaterialController@restore")->name("admin.material.restore");
+
+    Route::get("/admin/material/action", "AdminMaterialController@action")->name("admin.material.cat.action");
 
     // ========================ORDERS===========================
     Route::get("/admin/order/list", "AdminOrderController@list")->name("admin.order.list");
@@ -234,4 +234,12 @@ Route::middleware('auth', "verified")->group(function () {
     Route::get("/admin/productionTeam/edit/{id}", "AdminProductionTeamController@edit")->name("admin.productionTeam.edit");
     Route::post("/admin/productionTeam/update/{id}", "AdminProductionTeamController@update")->name("admin.productionTeam.update");
     Route::get("/admin/productionTeam/delete/{id}", "AdminProductionTeamController@delete")->name("admin.productionTeam.delete");
+
+    // ========== Equipment production ============
+    Route::get("/admin/productionEquipment/list", "AdminProductionEquipmentController@list")->name("admin.productionEquipment.list");
+    Route::get("/admin/productionEquipment/add", "AdminProductionEquipmentController@add")->name("admin.productionEquipment.add");
+    Route::post("/admin/productionEquipment/store", "AdminProductionEquipmentController@store")->name("admin.productionEquipment.store");
+    Route::get("/admin/productionEquipment/edit/{id}", "AdminProductionEquipmentController@edit")->name("admin.productionEquipment.edit");
+    Route::post("/admin/productionEquipment/update/{id}", "AdminProductionEquipmentController@update")->name("admin.productionEquipment.update");
+    Route::get("/admin/productionEquipment/delete/{id}", "AdminProductionEquipmentController@delete")->name("admin.productionEquipment.delete");
 });

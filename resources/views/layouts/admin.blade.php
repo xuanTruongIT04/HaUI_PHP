@@ -182,6 +182,21 @@
                             <li><a href="{{ Route('admin.productionTeam.add') }}">Thêm mới</a></li>
                         </ul>
                     </li>
+
+                    <li class="nav-link {{ $module_active == 'production_equiment' ? 'active' : '' }}">
+                        <a href="{{ Route('admin.productionEquipment.list') }}">
+                            <div class="nav-link-icon d-inline-flex">
+                                <i class="far fa-folder"></i>
+                            </div>
+                            Thiết bị sản xuất
+                        </a>
+                        <i class="arrow fas fa-angle-right"></i>
+
+                        <ul class="sub-menu">
+                            <li><a href="{{ Route('admin.productionEquipment.list') }}">Danh sách</a></li>
+                            <li><a href="{{ Route('admin.productionEquipment.add') }}">Thêm mới</a></li>
+                        </ul>
+                    </li>
                     {{-- The end code by Nguyen Tho --}}
 
                     <li class="nav-link {{ $module_active == 'production_plan' ? 'active' : '' }}">

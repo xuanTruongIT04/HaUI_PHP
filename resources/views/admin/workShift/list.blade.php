@@ -15,6 +15,18 @@
           <h5 class="m-0 ">Danh sách ca làm việc</h5>
           <a href="{{ Route("admin.workshift.add") }}" class="btn btn-primary ml-3">THÊM MỚI</a>
         </div>
+
+        <div class="form-search form-inline">
+            <form action="#" method="GET">
+                @csrf
+                <input type="text" class="form-control form-search" name="key_word"
+                    value="{{ request()->input('key_word') }}" placeholder="Tìm kiếm">
+                <input type="submit" name="btn_search" value="Tìm kiếm" class="btn btn-primary">
+                <input type="hidden" name="status"
+                    value="{{ empty(request()->input('status')) ? 'active' : request()->input('status') }}" 
+                />
+            </form>
+        </div>
       </div>
         <div class="card-body">
             <form action="" method="GET">
@@ -35,7 +47,7 @@
                         @php
                           $cnt = empty(request()->page) ? 0 : (request()->page - 1) * 20;
                         @endphp
-                        @foreach ($workShift as $item)
+                        @foreach ($workShifts as $item)
                             @php
                               $cnt++;
                             @endphp
@@ -56,7 +68,7 @@
                     </tbody>
                 </table>
             </form>
-            {{ $workShift->links() }}
+            {{ $workShifts->links() }}
         </div>
       </div>
     </div>

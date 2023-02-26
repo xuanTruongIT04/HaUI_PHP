@@ -20,4 +20,9 @@ class ProductionTeam extends Model
     {
         return $this->hasMany('App\Worker');
     }
+
+    function productionEquipment()
+    {
+        return $this->hasMany('App\ProductionEquipment');
+    }
 }

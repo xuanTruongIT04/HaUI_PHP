@@ -19,8 +19,20 @@ class AdminDepartmentController extends Controller
 
     public function list(Request $requests)
     {
-        $department = Department::Paginate(20);
-        return view('admin.department.list', compact('department'));
+        $status = !empty(request()->input('status')) ? $requests->input('status') : 'active';
+        $key_word = "";
+
+        if ($requests->input("key_word")) {
+            $key_word = $requests->input("key_word");
+        }
+
+        if ($status == "active") {
+            $departments = Department::withoutTrashed()->where("department_name", "LIKE", "%{$key_word}%")->Paginate(20);
+        } else {
+            $departments = Department::Paginate(20);
+        }
+
+        return view('admin.department.list', compact('departments'));
     }
 
     public function add()
