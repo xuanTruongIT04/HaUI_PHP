@@ -14,6 +14,7 @@ class AdminMaterialController extends Controller
             session(['module_active' => "material"]);
             return $next($request);
         });
+  
     }
 
     function list(Request $requests) {
@@ -71,16 +72,15 @@ class AdminMaterialController extends Controller
     {
         if ($requests->input('btn_add')) {
             $material_name = $requests->input('material_name');
-//     protected $fillable = ['material_name', 'qty_import', 'qty_broken', 'qty_remain', 'price_import', 'date_import', 'unit_of_measure', 'material_status', 'stage_id', 'image_id'];
             $requests->validate(
                 [
                     'material_name' => ['required', 'string', 'max:255'],
+                    'material_thumb' =>  ['required', 'file', "mimes:jpeg,png,jpg,gif", 'max:21000'],
                     'qty_import' => ['required', 'numeric', 'min:0'],
                     'qty_broken' => ['required', 'numeric', 'min:0'],
                     'price_import' => ['required', 'numeric', 'min:0'],
                     'date_import' => ['date', 'require'],
                     'unit_of_measure' => ['required', 'string', 'max:300'],
-                    'image_id' => ['required'],
                 ],
                 [
                     'required' => ":attribute không được để trống",
@@ -99,6 +99,7 @@ class AdminMaterialController extends Controller
                 ],
                 [
                     "material_name" => "Tên vật tư",
+                    "material_thumb" => "Hình ảnh vật tư",
                     'qty_import' => "Số lượng vật tư nhập",
                     'qty_broken' => "Số lượng vật tư hỏng",
                     'price_import' => "Giá nhập vật tư",
@@ -108,41 +109,38 @@ class AdminMaterialController extends Controller
                 ]
             );
 
-            // $slug = $requests->input("slug");
-            // $material_code = code_product_format($slug);
+            $material_name = $requests->input("material_name");
+//     protected $fillable = ['material_name', 'qty_import', 'qty_broken', 'qty_remain', 'price_import', 'date_import', 'unit_of_measure', 'material_status', 'stage_id', 'image_id'];
 
-            // $material = Material::create([
-            //     'material_code' => $material_code,
-            //     'material_name' => $requests->input("material_name"),
-            //     'material_desc' => $requests->input("material_desc"),
-            //     'material_detail' => $requests->input("material_detail"),
-            //     'slug' => $slug,
-            //     'price_old' => $requests->input("price_old"),
-            //     'price_new' => null,
-            //     'qty_sold' => null,
-            //     'qty_remain' => $requests->input("qty_remain"),
-            //     'material_cat_id' => $requests->input("material_cat"),
-            // ]);
+            $material = Material::create([
+                'material_name' => $material_name,
+                'material_cat_id' => $requests->input("material_cat"),
+                'qty_import' => $requests->input("qty_import"),
+                'qty_broken' => $requests->input("qty_broken"),
+                'price_import' => $requests->input("price_import"),
+                'date_import' => $requests->input("date_import"),
+                'unit_of_measure' => $requests->input("unit_of_measure"),
+            ]);
 
-            // if ($requests->hasFile("material_thumb")) {
-            //     $file = $requests->material_thumb;
-            //     $file_name = $file->getClientOriginalName();
+            if ($requests->hasFile("material_thumb")) {
+                $file = $requests->material_thumb;
+                $file_name = $file->getClientOriginalName();
 
-            //     $file_ext = $file->getClientOriginalExtension();
+                $file_ext = $file->getClientOriginalExtension();
 
-            //     $file_size = $file->getSize();
+                $file_size = $file->getSize();
 
-            //     $path = $file->move("public/uploads", $file->getClientOriginalName());
+                $path = $file->move("public/uploads", $file->getClientOriginalName());
 
-            //     $thumbnail = "public/uploads/" . $file_name;
-            // }
+                $thumbnail = "public/uploads/" . $file_name;
+            }
 
-            // $material_id = $material->id;
-            // Image::create([
-            //     'image_link' => $thumbnail,
-            //     'rank' => "1",
-            //     'material_id' => $material_id,
-            // ]);
+            $material_id = $material->id;
+            Image::create([
+                'image_link' => $thumbnail,
+                'rank' => "1",
+                'material_id' => $material_id,
+            ]);
 
             return redirect("admin/material/list")->with("status", "Đã thêm vật tư có tên {$material_name} thành công");
         }
