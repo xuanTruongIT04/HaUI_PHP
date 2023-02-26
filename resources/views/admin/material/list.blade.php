@@ -13,7 +13,7 @@
             <div class="card-header font-weight-bold d-flex justify-content-between align-items-center">
                 <div id="title-btn-add">
                     <h5 class="m-0 ">Danh sách vật tư</h5>
-                    <a href="{{ route("admin.material.add") }}" class="btn btn-primary ml-3">THÊM MỚI</a>
+                    <a href="{{ route('admin.material.add') }}" class="btn btn-primary ml-3">THÊM MỚI</a>
                 </div>
                 <div class="form-search form-inline">
                     <form action="#" method="GET">
@@ -51,6 +51,9 @@
                         <div class="count-material"><span>Kết quả tìm kiếm: <b>{{ $count_material }}</b> vật tư</span>
                         </div>
                     @endif
+                    // protected $fillable = ['material_name', 'material_desc', 'qty_import', 'qty_broken', 'qty_remain',
+                    'price_import', 'date_import', 'unit_of_measure', 'material_status', 'stage_id', 'image_id'];
+
                     <table class="table table-striped table-checkall">
                         <thead>
                             <tr>
@@ -58,13 +61,14 @@
                                     <input type="checkbox" name="checkAll">
                                 </th>
                                 <th scope="col">#</th>
-                                <th scope="col">Mã vật tư</th>
-                                <th scope="col">Hình ảnh</th>
                                 <th scope="col">Tên vật tư</th>
-                                <th scope="col">Giá cũ</th>
-                                <th scope="col">Giá mới</th>
-                                <th scope="col">Đã bán</th>
-                                <th scope="col">Số lượng kho</th>
+                                <th scope="col">Hình ảnh</th>
+                                <th scope="col">Mô tả</th>
+                                <th scope="col">Đơn vị quy đổi</th>
+                                <th scope="col">Giá nhập</th>
+                                <th scope="col">Ngày nhập</th>
+                                <th scope="col">Số lượng nhập</th>
+                                <th scope="col">Số lượng hỏng</th>
                                 <th scope="col">Trạng thái</th>
                                 <th scope="col">Tác vụ</th>
                             </tr>
@@ -83,21 +87,23 @@
                                             <input type="checkbox" name="list_check[]" value="{{ $material->id }}"">
                                         </td>
                                         <th scope=" row">{{ $cnt }}</th>
-                                        <td>{{ $material->material_code }}</td>
+                                        <td><a
+                                                href="{{ route('admin.material.edit', $material->id) }}">{{ $material->material_name }}</a>
+                                        </td>
                                         @if (request()->status != 'trashed')
                                             <td>
-                                                <div class=" material_thumb_main">
+                                                <div class=" product_thumb_main">
                                                     <a href="{{ route('admin.material.edit', $material->id) }}"
                                                         class="thumbnail">
                                                         <img src="@if (!empty(get_main_image($material->id))) {{ url(get_main_image($material->id)) }}@else{{ url('public/uploads/img-product2.png') }} @endif"
-                                                            alt="Ảnh của vật tư {{ $material->material_name }}"
-                                                            title="Ảnh của vật tư {{ $material->material_name }}"
+                                                            alt="Ảnh của sản phẩm {{ $material->material_name }}"
+                                                            title="Ảnh của sản phẩm {{ $material->material_name }}"
                                                             id="thumbnail_img">
                                                     </a>
-                                                    <a class="cover-bonus-material-thumb"
+                                                    <a class="cover-bonus-product-thumb"
                                                         href="{{ route('admin.image.addMulti', $material->id) }}">
                                                         <img src="{{ url('public/uploads/hinhdaucong.png') }}"
-                                                            alt="" class="thumbnail_img bonus_material_thumb">
+                                                            alt="" class="thumbnail_img bonus_product_thumb">
                                                     </a>
                                                 </div>
                                             </td>
@@ -106,20 +112,19 @@
                                                 <div href="{{ route('admin.material.edit', $material->id) }}"
                                                     class="thumbnail">
                                                     <img src="@if (!empty(get_main_image($material->id))) {{ url(get_main_image($material->id)) }}@else{{ url('public/uploads/img-product2.png') }} @endif"
-                                                        alt="Ảnh của vật tư {{ $material->material_name }}"
-                                                        title="Ảnh của vật tư {{ $material->material_name }}"
+                                                        alt="Ảnh của sản phẩm {{ $material->material_name }}"
+                                                        title="Ảnh của sản phẩm {{ $material->material_name }}"
                                                         id="thumbnail_img">
                                                 </div>
                                             </td>
                                         @endif
-                                        <td><a
-                                                href="{{ route('admin.material.edit', $material->id) }}">{{ $material->material_name }}</a>
-                                        </td>
-                                        <td>{!! currency_format($material->price_old) !!}</td>
-                                        <td>{!! currency_format($material->price_new) !!}</td>
-                                        <td>{{ $material->qty_sold }}</td>
-                                        <td>{{ $material->qty_remain }}</td>
-                                        <td>{!! field_status($material->material_status) !!}</td>
+                                        <td>{!! brief_name_plus($material->material_desc, 8, 40) !!}</td>
+                                        <td>{{ $material->unit_of_measure }}</td>
+                                        <td>{{ currency_format($material->price_import) }}</td>
+                                        <td>{{ time_format($material->date_import) }}</td>
+                                        <td>{{ $material->qty_import }}</td>
+                                        <td>{{ $material->qty_broken }}</td>
+                                        <td>{!! field_status_material($material->material_status) !!}</td>
                                         @if (request()->status != 'trashed')
                                             <td>
                                                 <a href="{{ route('admin.material.edit', $material->id) }}"

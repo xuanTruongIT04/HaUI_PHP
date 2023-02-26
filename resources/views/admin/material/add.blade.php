@@ -17,28 +17,10 @@
                             @enderror
                         </div>
 
-
-                        <div class="form-group">
-                            <label for="slug" class="fw-550">Slug (Friendly Url)</label>
-                            <input class="form-control" type="text" name="slug" id="slug"
-                                value="{{ Old('slug') }}">
-                            @error('slug')
-                                <small class="text-danger">{{ $message }}</small>
-                            @enderror
-                        </div>
-
                         <div class="form-group">
                             <label for="material-desc" class="fw-550">Mô tả vật tư</label>
                             <textarea class="form-control" name="material_desc" id="material-desc">{{ Old('material_desc') }}</textarea>
                             @error('material_desc')
-                                <small class="text-danger">{{ $message }}</small>
-                            @enderror
-                        </div>
-
-                        <div class="form-group">
-                            <label for="material-detail" class="fw-550">Chi tiết vật tư</label>
-                            <textarea class="form-control" name="material_detail" id="material-detail">{{ Old('material_detail') }}</textarea>
-                            @error('material_detail')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
@@ -55,49 +37,47 @@
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
-                        {{-- Danh mục vật tư --}}
-                        <div class="form-group w-30">
-                            <label for="material_cat" class="fw-550">Danh mục</label>
 
-                            @if (!empty($list_material_cat))
-                                <select name="material_cat" id="material_cat" class="form-control">
-                                    <option value="">-- Chọn danh mục --</option>
-                                    @foreach ($list_material_cat as $material_cat)
-                                        @php
-                                            $sel = '';
-                                        @endphp
-                                        @php
-                                            if ($material_cat->id == Old('material_cat')) {
-                                                $sel = "selected='selected'";
-                                            }
-                                        @endphp
-                                        <option value="{{ $material_cat->id }}" {{ $sel }}>
-                                            {{ str_repeat('-', $material_cat->level) . ' ' . $material_cat->material_cat_title }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            @else
-                                <p class="empty-task">Không tồn tại danh mục nào</p>
-                            @endif
-                            @error('material_cat')
+                        <div class="form-group">
+                            <label for="unit" class="fw-550">Đơn vị quy đổi của vật tư</label><BR>
+                            <input class="form-control w-17" type="text" name="unit_of_measure" placeholder="Có thể là kg/lit/cái/mét..." id="unit"
+                                value="{{ Old('unit_of_measure') }}"> <BR>
+                            @error('unit_of_measure')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
 
                         <div class="form-group">
-                            <label for="price-old" class="fw-550">Giá vật tư</label> <BR>
-                            <input class="form-control w-30" type="text" name="price_old" id="price-old"
-                                value="{{ Old('price_old') }}"> <span class="ml-3">VNĐ</span> <BR>
-                            @error('price_old')
+                            <label for="price-import" class="fw-550">Giá nhập vật tư</label> <BR>
+                            <input class="form-control w-30" type="text" name="price_import" id="price-import"
+                                value="{{ Old('price_import') }}"> <span class="ml-3">VNĐ</span> <BR>
+                            @error('price_import')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
 
                         <div class="form-group">
-                            <label for="qty-remain" class="fw-550">Số lượng kho</label> <BR>
-                            <input class="form-control w-10" type="number" min="0" value="empty(Old('qty_remain')){{ 0 }}" name="qty_remain"
-                                id="qty-remain"> <BR>
-                            @error('qty_remain')
+                            <label for="date-import" class="fw-550">Ngày nhập</label> <BR>
+                            <input class="form-control w-30" type="date" name="date_import" value="{{ Old("date_import") }}" id="date-import"> <BR>
+                            @error('date_import')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <label for="qty-import" class="fw-550">Số lượng nhập</label> <BR>
+                            <input class="form-control w-10" type="number" min="0" value="@php if(!empty(Old("qty_import"))) echo Old("qty_import"); else echo "0"; @endphp" name="qty_import"
+                                id="qty-import">
+                            @error('qty_import')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <label for="qty-remain" class="fw-550">Số lượng hỏng</label> <BR>
+                            <input class="form-control w-10" type="number" min="0" value="@php if(!empty(Old("qty_broken"))) echo Old("qty_broken"); else echo "0"; @endphp" name="qty_broken"
+                                id="qty-remain">
+                            @error('qty_broken')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
