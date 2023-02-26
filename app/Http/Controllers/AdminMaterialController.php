@@ -7,7 +7,6 @@ use App\Image;
 use App\Material;
 class AdminMaterialController extends Controller
 {
-    //
     public function __construct()
     {
         $this->middleware(function ($request, $next) {
@@ -75,11 +74,12 @@ class AdminMaterialController extends Controller
             $requests->validate(
                 [
                     'material_name' => ['required', 'string', 'max:255'],
+                    'material_desc' => ['required',],
                     'material_thumb' =>  ['required', 'file', "mimes:jpeg,png,jpg,gif", 'max:21000'],
                     'qty_import' => ['required', 'numeric', 'min:0'],
                     'qty_broken' => ['required', 'numeric', 'min:0'],
                     'price_import' => ['required', 'numeric', 'min:0'],
-                    'date_import' => ['date', 'require'],
+                    'date_import' => ['date', 'required'],
                     'unit_of_measure' => ['required', 'string', 'max:300'],
                 ],
                 [
@@ -99,27 +99,30 @@ class AdminMaterialController extends Controller
                 ],
                 [
                     "material_name" => "Tên vật tư",
+                    "material_desc" => "Mô tả vật tư",
                     "material_thumb" => "Hình ảnh vật tư",
                     'qty_import' => "Số lượng vật tư nhập",
                     'qty_broken' => "Số lượng vật tư hỏng",
                     'price_import' => "Giá nhập vật tư",
                     'date_import' => "Ngày nhập vật tư",
                     'unit_of_measure' => "Đơn vị quy đổi",
-                    'image_id' => "Hình ảnh vật tư",
                 ]
             );
 
             $material_name = $requests->input("material_name");
-//     protected $fillable = ['material_name', 'qty_import', 'qty_broken', 'qty_remain', 'price_import', 'date_import', 'unit_of_measure', 'material_status', 'stage_id', 'image_id'];
-
+            $qty_import = $requests->input("qty_import");
+            $qty_broken = $requests->input("qty_broken");
+            $qty_remain = $qty_import - $qty_broken;
             $material = Material::create([
                 'material_name' => $material_name,
-                'material_cat_id' => $requests->input("material_cat"),
-                'qty_import' => $requests->input("qty_import"),
-                'qty_broken' => $requests->input("qty_broken"),
+                'material_desc' => $requests->input("material_desc"),
+                'qty_import' => $qty_import,
+                'qty_broken' => $qty_broken,
+                'qty_remain' => $qty_remain,
                 'price_import' => $requests->input("price_import"),
                 'date_import' => $requests->input("date_import"),
                 'unit_of_measure' => $requests->input("unit_of_measure"),
+                'material_status' => "testing",
             ]);
 
             if ($requests->hasFile("material_thumb")) {
@@ -156,16 +159,16 @@ class AdminMaterialController extends Controller
     {
         if ($requests->input('btn_update')) {
             $material_name = $requests->input("material_name");
-
             $requests->validate(
                 [
                     'material_name' => ['required', 'string', 'max:255'],
+                    'material_desc' => ['required',],
+                    'material_thumb' =>  ['required', 'file', "mimes:jpeg,png,jpg,gif", 'max:21000'],
                     'qty_import' => ['required', 'numeric', 'min:0'],
                     'qty_broken' => ['required', 'numeric', 'min:0'],
                     'price_import' => ['required', 'numeric', 'min:0'],
                     'date_import' => ['date', 'require'],
                     'unit_of_measure' => ['required', 'string', 'max:300'],
-                    'image_id' => ['required'],
                 ],
                 [
                     'required' => ":attribute không được để trống",
@@ -184,49 +187,48 @@ class AdminMaterialController extends Controller
                 ],
                 [
                     "material_name" => "Tên vật tư",
+                    "material_desc" => "Mô tả vật tư",
+                    "material_thumb" => "Hình ảnh vật tư",
                     'qty_import' => "Số lượng vật tư nhập",
                     'qty_broken' => "Số lượng vật tư hỏng",
                     'price_import' => "Giá nhập vật tư",
                     'date_import' => "Ngày nhập vật tư",
                     'unit_of_measure' => "Đơn vị quy đổi",
-                    'image_id' => "Hình ảnh vật tư",
                 ]
             );
 
-            // $material = Material::where('id', $id)->update([
-            //     'material_name' => $requests->input("material_name"),
-            //     'slug' => $requests->input("slug"),
-            //     'material_desc' => $requests->input("material_desc"),
-            //     'material_detail' => $requests->input("material_detail"),
-            //     'price_old' => $requests->input("price_old"),
-            //     'price_new' => $requests->input("price_new"),
-            //     'qty_sold' => $requests->input("qty_sold"),
-            //     'qty_remain' => $requests->input("qty_remain"),
-            //     'material_cat_id' => $requests->input("material_cat"),
-            // ]);
+            Material::where('id', $id)->update([
+                'material_name' => $material_name,
+                'material_desc' => $requests->input("material_desc"),
+                'qty_import' => $requests->input("qty_import"),
+                'qty_broken' => $requests->input("qty_broken"),
+                'price_import' => $requests->input("price_import"),
+                'date_import' => $requests->input("date_import"),
+                'unit_of_measure' => $requests->input("unit_of_measure"),
+            ]);
 
-            // if ($requests->hasFile("material_thumb")) {
-            //     $file = $requests->material_thumb;
-            //     $file_name = $file->getClientOriginalName();
+            if ($requests->hasFile("material_thumb")) {
+                $file = $requests->material_thumb;
+                $file_name = $file->getClientOriginalName();
 
-            //     $file_ext = $file->getClientOriginalExtension();
+                $file_ext = $file->getClientOriginalExtension();
 
-            //     $file_size = $file->getSize();
+                $file_size = $file->getSize();
 
-            //     $path = $file->move("public/uploads", $file->getClientOriginalName());
+                $path = $file->move("public/uploads", $file->getClientOriginalName());
 
-            //     $thumbnail = "public/uploads/" . $file_name;
-            // }
+                $thumbnail = "public/uploads/" . $file_name;
+            }
 
-            // Image::where("material_id", $id)->update([
-            //     'rank' => "0",
-            // ]);
+            Image::where("material_id", $id)->update([
+                'rank' => "0",
+            ]);
 
-            // Image::create([
-            //     'image_link' => $thumbnail,
-            //     'rank' => "1",
-            //     'material_id' => $id,
-            // ]);
+            Image::create([
+                'image_link' => $thumbnail,
+                'rank' => "1",
+                'material_id' => $id,
+            ]);
 
             return redirect("admin/material/list")->with("status", "Đã cập nhật thông tin vật tư có tên {$material_name} thành công");
         }

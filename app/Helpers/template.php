@@ -39,6 +39,17 @@ if (!function_exists('field_status')) {
     }
 }
 
+if (!function_exists('field_status_material')) {
+    function field_status_material($status)
+    {
+        if ($status == 'pass_test') {
+            return '<span class="badge badge-success">Đã kiểm tra</span>';
+        } else if ($status == 'testing') {
+            return '<span class="badge badge-primary">Chưa kiểm tra</span>';
+        }
+
+    }
+}
 if (!function_exists('field_status_vi')) {
     function field_status_vi($status)
     {

@@ -23,7 +23,7 @@ class CreateMaterialsTable extends Migration
             $table->dateTime("date_import");
             $table->string("unit_of_measure");
             $table->string("material_status");
-            $table->unsignedBigInteger("stage_id");
+            $table->unsignedBigInteger("stage_id")->nullable();
             $table->foreign("stage_id")
                   ->references("id")
                   ->on("stages")
