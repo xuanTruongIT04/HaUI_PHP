@@ -24,17 +24,11 @@ class CreateMaterialsTable extends Migration
             $table->string("unit_of_measure");
             $table->string("material_status");
             $table->unsignedBigInteger("stage_id");
-            $table->unsignedBigInteger("image_id");
             $table->foreign("stage_id")
                   ->references("id")
                   ->on("stages")
                   ->onDelete("cascade")
                   ->onUpdate("cascade");
-            $table->foreign("image_id")
-                  ->references("id")
-                  ->on("images")
-                  ->onDelete("cascade")
-                  ->onUpdate("cascade");       
             $table->timestamps();
             $table->softDeletes();
         });

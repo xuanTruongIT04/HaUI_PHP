@@ -35,7 +35,7 @@
                         {{ Auth::user()->fullname }}
                     </button>
                     <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item" href="#">Tài khoản</a>
+                        <a class="dropdown-item" href="{{ route('admin.user.edit', Auth::user()->id) }}">Tài khoản</a>
                         <a class="dropdown-item" href="{{ route('logout') }}"
                             onclick="event.preventDefault();
                                      document.getElementById('logout-form').submit();">
