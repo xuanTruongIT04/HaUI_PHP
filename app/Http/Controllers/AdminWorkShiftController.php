@@ -17,8 +17,22 @@ class AdminWorkShiftController extends Controller
     }
     function list(Request $requests)
     {
-        $workShift = WorkShift::Paginate(20);
-        return view('admin.workShift.list', compact('workShift'));
+        $status = !empty(request()->input('status')) ? $requests->input('status') : 'active';
+        $key_word = "";
+
+        if ($requests->input("key_word")) {
+            $key_word = $requests->input("key_word");
+        }
+
+        if ($key_word != "" && $status == "active") {
+            $workShifts = WorkShift::withoutTrashed()->where("id", $key_word)->Paginate(20);
+        } else if ($key_word == "" && $status == "active") {
+            $workShifts = WorkShift::Paginate(20);
+        } else {
+            $workShifts = WorkShift::Paginate(20);
+        }
+
+        return view('admin.workShift.list', compact('workShifts'));
     }
 
     public function add()

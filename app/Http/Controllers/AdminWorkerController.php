@@ -61,7 +61,7 @@ class AdminWorkerController extends Controller
             $requests->validate(
                 [
                     'worker_name' => ['required'],
-                    'old' => ['required'],
+                    'birthday' => ['required'],
                     'address' => ['required'],
                     'number_of_working_days' => ['required'],
                     'number_of_overtime' => ['required'],
@@ -73,7 +73,7 @@ class AdminWorkerController extends Controller
                 ['required' => ":attribute không được để trống"],
                 [
                     "worker_name" => "Tên công nhân",
-                    "old" => "Tuổi",
+                    "birthday" => "Ngày sinh",
                     "address" => "Địa chỉ",
                     "number_of_working_days" => "Số ngày làm việc",
                     "number_of_overtime" => "Số giờ tăng ca",

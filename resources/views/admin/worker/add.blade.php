@@ -20,8 +20,8 @@
                         <small class="text-danger">{{ $message }}</small>
                     @enderror
 
-                    <label for="old" class="fw-550">Tuổi</label>
-                    <input class="form-control" type="text" name="old" id="old" placeholder="Nhập tuổi của công nhân">
+                    <label for="birthday" class="fw-550">Ngày sinh</label>
+                    <input class="form-control" type="date" name="birthday" id="obirthdayd" placeholder="Nhập ngày sinh của công nhân">
                     @error('old')
                         <small class="text-danger">{{ $message }}</small>
                     @enderror

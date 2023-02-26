@@ -42,7 +42,7 @@ class CreateWorkersTable extends Migration
             $table->unsignedBigInteger("production_team_id");
             $table->foreign("production_team_id")
                 ->references("id")
-                ->on("production_team")
+                ->on("production_teams")
                 ->onDelete("cascade")
                 ->onUpdate("cascade");
             $table->softDeletes();

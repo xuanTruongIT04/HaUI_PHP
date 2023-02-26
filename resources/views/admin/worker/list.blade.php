@@ -52,7 +52,7 @@
                     </th>
                     <th scope="col">STT</th>
                     <th scope="col">Họ và tên</th>
-                    <th scope="col">Tuổi</th>
+                    <th scope="col">Ngày sinh</th>
                     <th scope="col">Địa chỉ</th>
                     <th scope="col">Số ngày làm việc</th>
                     <th scope="col">Số giờ tăng ca</th>
@@ -62,11 +62,12 @@
                 </thead>
                 <tbody>
                     @php
-                    $cnt = empty(request()->page) ? 0 : (request()->page - 1) * 20;
-                    @endphp
+                        $cnt = empty(request()->page) ? 0 : (request()->page - 1) * 20;
+                        @endphp
                     @foreach ($workers as $item)
                         @php
-                        $cnt++;
+                            $cnt++;
+                            
                         @endphp
                         <tr>
                         <td>
@@ -74,7 +75,7 @@
                         </td>
                         <td>{{$cnt}}</td>
                         <td>{{$item->worker_name}}</td>
-                        <td>{{$item->old}}</td>
+                        <td>{{Carbon\Carbon::createFromFormat('Y-m-d', $item->birthday)->format('d/m/Y')}}</td>
                         <td>{{$item->address}}</td>
                         <td>{{$item->number_of_working_days}}</td>
                         <td>{{$item->number_of_overtime}}</td>
