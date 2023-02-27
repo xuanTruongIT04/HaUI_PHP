@@ -19,8 +19,8 @@ class AdminMaterialController extends Controller
     function list(Request $requests) {
         $status = !empty(request()->input('status')) ? $requests->input('status') : 'active';
         $list_act = [
-            "licensed" => "Đã đăng",
-            "pending" => "Chờ xét duyệt",
+            "pass_test" => "Đã kiểm tra",
+            "testing" => "Chưa kiểm tra",
             "delete" => "Xoá tạm thời",
         ];
 
@@ -31,18 +31,18 @@ class AdminMaterialController extends Controller
         }
         if ($status == "active") {
             $materials = Material::withoutTrashed()->where("material_name", "LIKE", "%{$key_word}%")->Paginate(20);
-        } else if ($status == "licensed") {
+        } else if ($status == "pass_test") {
             $list_act = [
-                "pending" => "Chờ xét duyệt",
+                "testing" => "Chưa kiểm tra",
                 "delete" => "Xoá tạm thời",
             ];
-            $materials = Material::withoutTrashed()->where("material_status", "licensed")->where("material_name", "LIKE", "%{$key_word}%")->Paginate(20);
-        } else if ($status == "pending") {
+            $materials = Material::withoutTrashed()->where("material_status", "pass_test")->where("material_name", "LIKE", "%{$key_word}%")->Paginate(20);
+        } else if ($status == "testing") {
             $list_act = [
-                "licensed" => "Đã đăng",
+                "pass_test" => "Đã kiểm tra",
                 "delete" => "Xoá tạm thời",
             ];
-            $materials = Material::withoutTrashed()->where("material_status", "pending")->where("material_name", "LIKE", "%{$key_word}%")->Paginate(20);
+            $materials = Material::withoutTrashed()->where("material_status", "testing")->where("material_name", "LIKE", "%{$key_word}%")->Paginate(20);
         } else if ($status == "trashed") {
             $list_act = [
                 "restore" => "Khôi phục",
@@ -53,10 +53,10 @@ class AdminMaterialController extends Controller
 
         $count_material = $materials->total();
         $cnt_material_active = Material::withoutTrashed()->count();
-        $cnt_material_licensed = Material::withoutTrashed()->where("material_status", "licensed")->count();
-        $cnt_material_pending = Material::withoutTrashed()->where("material_status", "pending")->count();
+        $cnt_material_pass_test = Material::withoutTrashed()->where("material_status", "pass_test")->count();
+        $cnt_material_testing = Material::withoutTrashed()->where("material_status", "testing")->count();
         $cnt_material_trashed = Material::onlyTrashed()->count();
-        $count_material_status = [$cnt_material_active, $cnt_material_licensed, $cnt_material_pending, $cnt_material_trashed];
+        $count_material_status = [$cnt_material_active, $cnt_material_pass_test, $cnt_material_testing, $cnt_material_trashed];
 
         // Truyền các role:
         return view("admin.material.list", compact('materials', "count_material", "count_material_status", "list_act"));
@@ -167,7 +167,7 @@ class AdminMaterialController extends Controller
                     'qty_import' => ['required', 'numeric', 'min:0'],
                     'qty_broken' => ['required', 'numeric', 'min:0'],
                     'price_import' => ['required', 'numeric', 'min:0'],
-                    'date_import' => ['date', 'require'],
+                    'date_import' => ['date', 'required'],
                     'unit_of_measure' => ['required', 'string', 'max:300'],
                 ],
                 [
@@ -205,6 +205,7 @@ class AdminMaterialController extends Controller
                 'price_import' => $requests->input("price_import"),
                 'date_import' => $requests->input("date_import"),
                 'unit_of_measure' => $requests->input("unit_of_measure"),
+                'material_status' => $requests->input("status"),
             ]);
 
             if ($requests->hasFile("material_thumb")) {
@@ -250,20 +251,20 @@ class AdminMaterialController extends Controller
                         }
                         Material::destroy($list_checked);
                         return redirect("admin/material/list")->with("status", "Bạn đã xoá tạm thời {$cnt_member} vật tư thành công!");
-                    } else if ($act == "licensed") {
+                    } else if ($act == "pass_test") {
                         foreach ($list_checked as $id) {
                             Material::where('id', $id)->update([
-                                'material_status' => "licensed",
+                                'material_status' => "pass_test",
                             ]);
                         }
-                        return redirect("admin/material/list")->with("status", "Bạn đã cấp quyền {$cnt_member} vật tư thành công");
-                    } else if ($act == "pending") {
+                        return redirect("admin/material/list")->with("status", "Bạn đã đặt trạng thái đã kiểm tra {$cnt_member} vật tư thành công");
+                    } else if ($act == "testing") {
                         foreach ($list_checked as $id) {
                             Material::where('id', $id)->update([
-                                'material_status' => "pending",
+                                'material_status' => "testing",
                             ]);
                         }
-                        return redirect("admin/material/list")->with("status", "Bạn đã xét trạng thái chờ {$cnt_member} vật tư thành công");
+                        return redirect("admin/material/list")->with("status", "Bạn đã đặt trạng thái chưa kiểm tra {$cnt_member} vật tư thành công");
                     } else if ($act == "delete_permanently") {
                         Material::onlyTrashed()
                             ->whereIn("id", $list_checked)
@@ -275,7 +276,7 @@ class AdminMaterialController extends Controller
                             ->restore();
                         foreach ($list_checked as $id) {
                             Material::where('id', $id)->update([
-                                'material_status' => "pending",
+                                'material_status' => "testing",
                             ]);
                         }
                         return redirect("admin/material/list")->with("status", "Bạn đã khôi phục {$cnt_member} vật tư thành công");
@@ -315,7 +316,7 @@ class AdminMaterialController extends Controller
         $material_name = $material->material_name;
         $material->restore();
         Material::where('id', $id)->update([
-            'material_status' => "pending",
+            'material_status' => "testing",
         ]);
         return redirect("admin/material/list")->with("status", "Bạn đã khôi phục vật tư có tên {$material_name} thành công");
 

@@ -50,6 +50,35 @@ if (!function_exists('field_status_material')) {
 
     }
 }
+
+
+// Trạng thái vật tư
+if (!function_exists('template_update_status_material')) {
+    function template_update_status_material($status)
+    {
+        $str = "<select name='status' id='status' class='form-control w-17'>";
+
+        $data = array(
+            'pass_test' => 'Đã kiểm tra',
+            'testing' => 'Chưa kiểm tra',
+        );
+
+        foreach ($data as $item => $ele) {
+            $sel = "";
+            if ($status == $item) {
+                $sel = "selected='selected'";
+            }
+
+            $str .= "<option value=" . $item . " " . $sel . " >" . $ele . "</option>";
+        }
+
+        $str .= "</select>";
+
+        return $str;
+    }
+}
+
+
 if (!function_exists('field_status_vi')) {
     function field_status_vi($status)
     {

@@ -9,7 +9,7 @@ class Image extends Model
 {
     //
     use SoftDeletes;
-    protected $fillable = ['image_link', 'rank', 'product_id'];
+    protected $fillable = ['image_link', 'rank', 'product_id', 'material_id'];
 
     function user() {
         return $this->hasOne('App\User');
@@ -21,6 +21,10 @@ class Image extends Model
 
     function product() {
         return $this->belongsTo('App\Product');
+    }
+
+    function material() {
+        return $this->belongsTo('App\Material');
     }
     
 }

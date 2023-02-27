@@ -21,7 +21,7 @@ class AdminProductController extends Controller
     function list(Request $requests) {
         $status = !empty(request()->input('status')) ? $requests->input('status') : 'active';
         $list_act = [
-            "licensed" => "Đã đăng",
+            "ư" => "Đã đăng",
             "pending" => "Chờ xét duyệt",
             "delete" => "Xoá tạm thời",
         ];

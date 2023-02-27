@@ -4,37 +4,20 @@
     <div id="content" class="container-fluid">
         <div class="card">
             <div class="card-header font-weight-bold">
-                Chỉnh sửa thông tin trang
+                Chỉnh sửa thông tin vật tư
             </div>
             <div class="card-body">
                 <form id="form-upload" action="{{ url("admin/material/update/{$material->id}") }}" method='POST'
                     enctype="multipart/form-data">
                     @csrf
-
-                    <div class="form-group">
-                        <label for="code" class="fw-550">Mã vật tư</label>
-                        <input class="form-control no-edit" type="text" readonly="readonly" name="material_code" id="code"
-                            value="{{ $material->material_code }}">
-                        @error('material_code')
-                            <small class="text-danger">{{ $message }}</small>
-                        @enderror
-                    </div>
+                    {{--  protected $fillable = ['material_name', 'material_desc', 'qty_import', 'qty_broken', 'qty_remain',
+                    'price_import', 'date_import', 'unit_of_measure', 'material_status', 'stage_id', 'image_id']; --}}
 
                     <div class="form-group">
                         <label for="name" class="fw-550">Tên vật tư</label>
                         <input class="form-control" type="text" name="material_name" id="name"
                             value="{{ $material->material_name }}">
                         @error('material_name')
-                            <small class="text-danger">{{ $message }}</small>
-                        @enderror
-                    </div>
-
-
-                    <div class="form-group">
-                        <label for="slug" class="fw-550">Slug (Friendly Url)</label>
-                        <input class="form-control" type="text" name="slug" id="slug"
-                            value="{{ $material->slug }}">
-                        @error('slug')
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
@@ -48,96 +31,81 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="material-detail" class="fw-550">Chi tiết vật tư</label>
-                        <textarea class="form-control" name="material_detail" id="material-detail">{{ $material->material_detail }}</textarea>
-                        @error('material_detail')
-                            <small class="text-danger">{{ $message }}</small>
-                        @enderror
-                    </div>
-
-                    <div class="form-group">
-                        <label for='material-thumb' class="fw-550">Hình ảnh chính của vật tư</label> <BR>
+                        <label for='material_thumb' class="fw-550">Hình ảnh chính của vật tư</label> <BR>
                         <div id="uploadFile">
-                            <input type="file" name="material_thumb" id="material-thumb" class="form-control-file upload_file"
+                            <input type="file" name="material_thumb" class="form-control-file upload_file"
                                 onchange="upload_image(this)">
-                            <img src="@if (!empty(get_main_image($material->id))) {{ url(get_main_image($material->id)) }}@else{{ url('public/uploads/img-product2.png') }} @endif"
-                                alt="Ảnh của vật tư {{ $material->material_name }}"
-                                title="Ảnh của vật tư {{ $material->material_name }}" id="image_upload_file"
-                                class="mt-3">
+                            <img src="@if (!empty(get_main_image_material($material->id))) {{ url(get_main_image_material($material->id)) }}@else{{ url('public/uploads/img-product2.png') }} @endif" id="image_upload_file" class="mt-3">
                         </div>
 
                         @error('material_thumb')
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
-                    {{-- Danh mục vật tư --}}
-                    <div class="form-group w-30">
-                        <label for="material_cat" class="fw-550">Danh mục</label>
-                        @if (!empty($list_material_cat))
-                            <select name="material_cat" id="material_cat" class="form-control">
-                                <option value="">-- Chọn danh mục --</option>
-                                @foreach ($list_material_cat as $material_cat)
-                                @php
-                                    $sel = '';
-                                @endphp
-                                    @php
-                                        if ($material_cat->id == $material->material_cat_id) {
-                                            $sel = "selected='selected'";
-                                        }
-                                    @endphp
-                                    <option value="{{ $material_cat->id }}" {{ $sel }}>
-                                        {{ str_repeat('-', $material_cat->level) . ' ' . $material_cat->material_cat_title }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        @else
-                            <p class="empty-task">Không tồn tại danh mục nào</p>
-                        @endif
-                        @error('material_cat')
+
+                    <div class="form-group">
+                        <label for="unit" class="fw-550">Đơn vị quy đổi của vật tư</label><BR>
+                        <input class="form-control w-17" type="text" name="unit_of_measure"
+                            placeholder="Có thể là kg/lit/cái/mét..." id="unit"
+                            value="{{ $material->unit_of_measure }}"> <BR>
+                        @error('unit_of_measure')
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
 
                     <div class="form-group">
-                        <label for="price-old" class="fw-550">Giá vật tư (cũ)</label> <BR>
-                        <input class="form-control w-30" type="text" name="price_old" id="price-old"
-                            value="{{ $material->price_old }}"> <span class="ml-3">VNĐ</span> <BR>
-                        @error('price_old')
+                        <label for="price-import" class="fw-550">Giá nhập vật tư</label> <BR>
+                        <input class="form-control w-30" type="text" name="price_import" id="price-import"
+                            value="{{ $material->price_import }}"> <span class="ml-3">VNĐ</span> <BR>
+                        @error('price_import')
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
 
                     <div class="form-group">
-                        <label for="price-new" class="fw-550">Giá vật tư (mới)</label> <BR>
-                        <input class="form-control w-30" type="text" name="price_new" id="price-new"
-                            value="{{ $material->price_new }}"> <span class="ml-3">VNĐ</span> <BR>
-                        @error('price_new')
+                        <label for="date-import" class="fw-550">Ngày nhập</label><BR>
+                        <input class="form-control w-30" type="date" name="date_import"
+                            value="{{ $material->date_import }}" id="date-import">  <span class="date_old">Ngày nhập cũ: {!! time_format($material ->date_import) !!}</span> <BR>
+                        @error('date_import')
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
 
                     <div class="form-group">
-                        <label for="qty-sold" class="fw-550">Số lượng đã bán</label>
-                        <input class="form-control w-10" type="number" min="0" name="qty_sold" id="qty-sold"
-                            value="{{ $material->qty_sold }}">
-                        @error('qty_sold')
+                        <label for="qty-import" class="fw-550">Số lượng nhập</label> <BR>
+                        <input class="form-control w-10" type="number" min="0"
+                            value="@php if(!empty($material ->qty_import)) echo $material ->qty_import; else echo "0"; @endphp"
+                            name="qty_import" id="qty-import">
+                        @error('qty_import')
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
 
                     <div class="form-group">
-                        <label for="qty-remain" class="fw-550">Số lượng kho</label>
-                        <input class="form-control w-10" type="number" min="0" name="qty_remain" id="qty-remain"
-                            value="{{ $material->qty_remain }}">
-                        @error('qty_remain')
+                        <label for="qty-remain" class="fw-550">Số lượng hỏng</label> <BR>
+                        <input class="form-control w-10" type="number" min="0"
+                            value="@php if(!empty($material ->qty_broken)) echo $material ->qty_broken; else echo "0"; @endphp"
+                            name="qty_broken" id="qty-remain">
+                        @error('qty_broken')
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
+
+                    <div class="form-group">
+                        <label for="material-status" class="fw-550">Trạng thái vật tư</label> <BR>
+                        {!! template_update_status_material($material->material_status) !!}
+                        @error('status')
+                        <small class="text-danger">{{ $message }}</small>
+                    @enderror
+                    </div>
+
+
+
                     <input type="submit" name="btn_update" class="btn btn-primary mt-4" value="Cập nhật">
             </div>
 
-        </form>
-    </div>
+            </form>
+        </div>
     </div>
     </div>
 @endsection

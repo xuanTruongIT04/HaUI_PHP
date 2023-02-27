@@ -30,9 +30,9 @@
                 <div class="analytic">
                     <a href="{{ request()->fullUrlWithQuery(['status' => 'active']) }}" class="text-primary">Kích
                         hoạt<span class="text-muted">({{ $count_material_status[0] }})</span></a>
-                    <a href="{{ request()->fullUrlWithQuery(['status' => 'licensed']) }}" class="text-primary">Đã cấp quyền
+                    <a href="{{ request()->fullUrlWithQuery(['status' => 'pass_test']) }}" class="text-primary">Đã kiểm tra
                         <span class="text-muted">({{ $count_material_status[1] }})</span></a>
-                    <a href="{{ request()->fullUrlWithQuery(['status' => 'pending']) }}" class="text-primary">Chờ xét duyệt
+                    <a href="{{ request()->fullUrlWithQuery(['status' => 'testing']) }}" class="text-primary">Chưa kiểm tra
                         <span class="text-muted">({{ $count_material_status[2] }})</span></a>
                     <a href="{{ request()->fullUrlWithQuery(['status' => 'trashed']) }}" class="text-primary">Vô hiệu
                         hoá<span class="text-muted">({{ $count_material_status[3] }})</span></a>
@@ -51,9 +51,7 @@
                         <div class="count-material"><span>Kết quả tìm kiếm: <b>{{ $count_material }}</b> vật tư</span>
                         </div>
                     @endif
-                    // protected $fillable = ['material_name', 'material_desc', 'qty_import', 'qty_broken', 'qty_remain',
-                    'price_import', 'date_import', 'unit_of_measure', 'material_status', 'stage_id', 'image_id'];
-
+                   
                     <table class="table table-striped table-checkall">
                         <thead>
                             <tr>
@@ -95,7 +93,7 @@
                                                 <div class=" product_thumb_main">
                                                     <a href="{{ route('admin.material.edit', $material->id) }}"
                                                         class="thumbnail">
-                                                        <img src="@if (!empty(get_main_image($material->id))) {{ url(get_main_image($material->id)) }}@else{{ url('public/uploads/img-product2.png') }} @endif"
+                                                        <img src="@if (!empty(get_main_image_material($material->id))) {{ url(get_main_image_material($material->id)) }}@else{{ url('public/uploads/img-product2.png') }} @endif"
                                                             alt="Ảnh của sản phẩm {{ $material->material_name }}"
                                                             title="Ảnh của sản phẩm {{ $material->material_name }}"
                                                             id="thumbnail_img">
@@ -111,7 +109,7 @@
                                             <td>
                                                 <div href="{{ route('admin.material.edit', $material->id) }}"
                                                     class="thumbnail">
-                                                    <img src="@if (!empty(get_main_image($material->id))) {{ url(get_main_image($material->id)) }}@else{{ url('public/uploads/img-product2.png') }} @endif"
+                                                    <img src="@if (!empty(get_main_image_material($material->id))) {{ url(get_main_image_material($material->id)) }}@else{{ url('public/uploads/img-product2.png') }} @endif"
                                                         alt="Ảnh của sản phẩm {{ $material->material_name }}"
                                                         title="Ảnh của sản phẩm {{ $material->material_name }}"
                                                         id="thumbnail_img">
