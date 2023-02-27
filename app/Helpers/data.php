@@ -28,6 +28,17 @@ if (!function_exists('get_main_image')) {
     }
 }
 
+//Material
+if (!function_exists('get_main_image_material')) {
+    function get_main_image_material($material_id)
+    {
+        if (!empty(Image::where("material_id", $material_id)->where("rank", "1")->first())) {
+            return Image::where("material_id", $material_id)->where("rank", "1")->first()->image_link;
+        }
+        return false;
+    }
+}
+
 // Order
 if (!function_exists('get_order_product')) {
     function get_order_product($order_id)
