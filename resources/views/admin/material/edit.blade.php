@@ -35,7 +35,8 @@
                         <div id="uploadFile">
                             <input type="file" name="material_thumb" class="form-control-file upload_file"
                                 onchange="upload_image(this)">
-                            <img src="@if (!empty(get_main_image_material($material->id))) {{ url(get_main_image_material($material->id)) }}@else{{ url('public/uploads/img-product2.png') }} @endif" id="image_upload_file" class="mt-3">
+                            <img src="@if (!empty(get_main_image_material($material->id))) {{ url(get_main_image_material($material->id)) }}@else{{ url('public/uploads/img-product2.png') }} @endif"
+                                id="image_upload_file" class="mt-3">
                         </div>
 
                         @error('material_thumb')
@@ -65,7 +66,8 @@
                     <div class="form-group">
                         <label for="date-import" class="fw-550">Ngày nhập</label><BR>
                         <input class="form-control w-30" type="date" name="date_import"
-                            value="{{ $material->date_import }}" id="date-import">  <span class="date_old">Ngày nhập cũ: {!! time_format($material ->date_import) !!}</span> <BR>
+                            value="{{ $material->date_import }}" id="date-import"> <span class="date_old">Ngày nhập cũ:
+                            {!! time_format($material->date_import) !!}</span> <BR>
                         @error('date_import')
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
@@ -91,15 +93,41 @@
                         @enderror
                     </div>
 
+                    {{-- Công đoạn danh mục --}}
+                    <div class="form-group w-17">
+                        <label for="stage" class="fw-550">Công đoạn</label>
+                        @if (!empty($list_stages))
+                            <select name="stage" id="stage" class="form-control">
+                                <option value="">-- Chọn công đoạn --</option>
+                                @foreach ($list_stages as $stage)
+                                    @php
+                                        $sel = '';
+                                    @endphp
+                                    @php
+                                        if ($stage->id == $material->stage_id) {
+                                            $sel = "selected='selected'";
+                                        }
+                                    @endphp
+                                    <option value="{{ $stage->id }}" {!! $sel !!}>
+                                        {{ $stage->stage_name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        @else
+                            <p class="empty-task">Không tồn tại công đoạn nào</p>
+                        @endif
+                        @error('stage')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+
                     <div class="form-group">
                         <label for="material-status" class="fw-550">Trạng thái vật tư</label> <BR>
                         {!! template_update_status_material($material->material_status) !!}
                         @error('status')
-                        <small class="text-danger">{{ $message }}</small>
-                    @enderror
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
                     </div>
-
-
 
                     <input type="submit" name="btn_update" class="btn btn-primary mt-4" value="Cập nhật">
             </div>

@@ -116,7 +116,7 @@
                                                 </div>
                                             </td>
                                         @endif
-                                        <td>{!! brief_name_plus($material->material_desc, 8, 40) !!}</td>
+                                        <td>{!! brief_name_plus($material->material_desc, 8, 60) !!}</td>
                                         <td>{{ $material->unit_of_measure }}</td>
                                         <td>{{ currency_format($material->price_import) }}</td>
                                         <td>{{ time_format($material->date_import) }}</td>
