@@ -22,13 +22,13 @@ class CreateMaterialsTable extends Migration
             $table->integer("price_import");
             $table->dateTime("date_import");
             $table->string("unit_of_measure");
-            $table->string("material_status");
+            // $table->string("material_status");
             $table->unsignedBigInteger("stage_id")->nullable();
             $table->foreign("stage_id")
-                  ->references("id")
-                  ->on("stages")
-                  ->onDelete("cascade")
-                  ->onUpdate("cascade");
+                ->references("id")
+                ->on("stages")
+                ->onDelete("cascade")
+                ->onUpdate("cascade");
             $table->timestamps();
             $table->softDeletes();
         });

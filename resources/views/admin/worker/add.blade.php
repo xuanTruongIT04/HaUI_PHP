@@ -21,8 +21,8 @@
                     @enderror
 
                     <label for="birthday" class="fw-550">Ngày sinh</label>
-                    <input class="form-control" type="date" name="birthday" id="obirthdayd" placeholder="Nhập ngày sinh của công nhân">
-                    @error('old')
+                    <input class="form-control" type="date" name="birthday" id="birthday" placeholder="Nhập ngày sinh của công nhân">
+                    @error('birthday')
                         <small class="text-danger">{{ $message }}</small>
                     @enderror
 

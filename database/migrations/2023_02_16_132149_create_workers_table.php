@@ -16,7 +16,7 @@ class CreateWorkersTable extends Migration
         Schema::create('workers', function (Blueprint $table) {
             $table->id();
             $table->string("worker_name");
-            $table->integer("old");
+            $table->date("birthday");
             $table->string("address");
             $table->integer("number_of_working_days");
             $table->double("number_of_overtime");

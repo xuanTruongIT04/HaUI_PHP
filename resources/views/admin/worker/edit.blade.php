@@ -14,8 +14,8 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="name" class="fw-550">Tuổi</label>
-                        <input class="form-control" type="text" value="{{$worker->old}}" name="old" id="old">                        
+                        <label for="birthday" class="fw-550">Tuổi</label>
+                        <input class="form-control" type="date" value="{{$worker->birthday}}" name="birthday" id="birthday">                        
                     </div>
 
                     <div class="form-group">
