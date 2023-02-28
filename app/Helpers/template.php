@@ -78,7 +78,6 @@ if (!function_exists('template_update_status_material')) {
     }
 }
 
-
 if (!function_exists('field_status_vi')) {
     function field_status_vi($status)
     {

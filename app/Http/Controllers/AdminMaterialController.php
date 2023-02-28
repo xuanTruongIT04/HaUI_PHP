@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Image;
 use App\Material;
+use App\Stage;
 class AdminMaterialController extends Controller
 {
     public function __construct()
@@ -152,7 +153,8 @@ class AdminMaterialController extends Controller
     public function edit($id)
     {
         $material = Material::find($id);
-        return view('admin.material.edit', compact("material"));
+        $list_stages = Stage::all();
+        return view('admin.material.edit', compact("material", "list_stages"));
     }
 
     public function update(Request $requests, $id)
@@ -167,7 +169,8 @@ class AdminMaterialController extends Controller
                     'qty_import' => ['required', 'numeric', 'min:0'],
                     'qty_broken' => ['required', 'numeric', 'min:0'],
                     'price_import' => ['required', 'numeric', 'min:0'],
-                    'date_import' => ['date', 'required'],
+                    'stage' => ['required'],
+                    'date_import' => ['required'],
                     'unit_of_measure' => ['required', 'string', 'max:300'],
                 ],
                 [
@@ -193,6 +196,7 @@ class AdminMaterialController extends Controller
                     'qty_broken' => "Số lượng vật tư hỏng",
                     'price_import' => "Giá nhập vật tư",
                     'date_import' => "Ngày nhập vật tư",
+                    'stage' => "Công đoạn",
                     'unit_of_measure' => "Đơn vị quy đổi",
                 ]
             );
@@ -206,6 +210,7 @@ class AdminMaterialController extends Controller
                 'date_import' => $requests->input("date_import"),
                 'unit_of_measure' => $requests->input("unit_of_measure"),
                 'material_status' => $requests->input("status"),
+                'stage_id' => $requests->input("stage"),
             ]);
 
             if ($requests->hasFile("material_thumb")) {

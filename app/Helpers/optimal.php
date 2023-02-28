@@ -1,6 +1,7 @@
 
 <?php
 
+use App\Material;
 
 if (!function_exists('get_list_cat_id_product')) {
     function get_list_cat_id_product($data, $parent_id)
@@ -41,4 +42,3 @@ if (!function_exists('get_list_cat_id_post')) {
         return $list_cat;
     }
 }
-
