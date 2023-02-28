@@ -104,7 +104,7 @@ class AdminWorkerController extends Controller
     {
         Worker::where('id', $id)->update([
             'worker_name' => $requests->input("worker_name"),
-            'old' => $requests->input("old"),
+            'birthday' => $requests->input("birthday"),
             'address' => $requests->input("address"),
             'number_of_working_days' => $requests->input("number_of_working_days"),
             'number_of_overtime' => $requests->input("number_of_overtime"),
