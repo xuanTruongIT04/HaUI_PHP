@@ -164,7 +164,7 @@ Route::middleware('auth', "verified")->group(function () {
 
     Route::get("/admin/image/restore/{id}", "AdminImageController@restore")->name("admin.image.restore");
 
-    Route::get("/admin/role/action", "AdminRoleController@action")->name("admin.role.action");
+    Route::get("/admin/image/action", "AdminImageController@action")->name("admin.image.action");
 
     // ========================PRODUCTION PLAN===========================
     Route::get("/admin/productionPlan/list", "AdminProductionPlanController@list")->name("admin.productionPlan.list");
