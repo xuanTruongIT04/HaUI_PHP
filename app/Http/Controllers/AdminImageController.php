@@ -114,7 +114,7 @@ class AdminImageController extends Controller
     public function addMulti($id)
     {
         $images = Image::all();
-        $link_img_main = Image::where("product_id", $id)->where("rank", "1") -> first() -> image_link;
+        $link_img_main = Image::where("product_id", $id)->where("rank", "1")->first()->image_link;
         $product_name = Product::find($id)->product_name;
         return view('admin.image.addMulti', compact("images", "link_img_main", "product_name"));
     }
@@ -211,15 +211,10 @@ class AdminImageController extends Controller
 
     public function action(Request $requests)
     {
-        $list_checked = $requests->input("list_check");
+        $list_checked = $requests->input("list_check"); 
         $act = $requests->input('act');
         if ($act != "") {
             if ($list_checked) {
-                foreach ($list_checked as $k => $id) {
-                    if (Auth::id() == $id) {
-                        unset($list_checked[$k]);
-                    }
-                }
                 $cnt_member = count($list_checked);
                 if ($cnt_member > 0) {
                     if ($act == "delete") {
@@ -249,22 +244,17 @@ class AdminImageController extends Controller
 
     public function delete($id)
     {
-        if (Auth::id() != $id) {
-            $image = Image::withTrashed()->find($id);
-            $image_link = $image->image_link;
+        $image = Image::withTrashed()->find($id);
+        $image_link = $image->image_link;
 
-            if (empty($image->deleted_at)) {
-                $image->delete();
-                return redirect()->back()->with("status", "Bạn đã xoá tạm thời ảnh có đường dẫn {$image_link} thành công");
-            } else {
-
-                $image->forceDelete();
-                return redirect()->back()->with("status", "Bạn đã xoá vĩnh viễn ảnh có đường dẫn {$image_link} thành công");
-            }
+        if (empty($image->deleted_at)) {
+            $image->delete();
+            return redirect()->back()->with("status", "Bạn đã xoá tạm thời ảnh có đường dẫn {$image_link} thành công");
         } else {
-            return redirect()->back()->with("status", "Bạn không thể tự xoá chính mình ra khỏi hệ thống");
-        }
 
+            $image->forceDelete();
+            return redirect()->back()->with("status", "Bạn đã xoá vĩnh viễn ảnh có đường dẫn {$image_link} thành công");
+        }
     }
 
     public function restore($id)
