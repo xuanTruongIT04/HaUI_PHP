@@ -11,7 +11,7 @@ class AdminProductionEquipmentController extends Controller
     public function __construct()
     {
         $this->middleware(function ($request, $next) {
-            session(['module_active' => "worker"]);
+            session(['module_active' => "production_equipment"]);
             return $next($request);
         });
     }

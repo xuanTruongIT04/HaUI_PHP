@@ -84,26 +84,24 @@
                             <div class="nav-link-icon d-inline-flex">
                                 <i class="far fa-folder"></i>
                             </div>
-                            Vật tư
+                            Bán thành phẩm
                         </a>
                         <i class="arrow fas fa-angle-down"></i>
                         <ul class="sub-menu">
                             <li><a href="{{ url('admin/material/add') }}">Thêm mới</a></li>
                             <li><a href="{{ url('admin/material/list') }}">Danh sách</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-link {{ $module_active == 'stage' ? 'active' : '' }}">
-                        <a href="{{ url('admin/stage/list') }}">
-                            <div class="nav-link-icon d-inline-flex">
-                                <i class="far fa-folder"></i>
-                            </div>
-                            Công đoạn
-                        </a>
-                        <i class="arrow fas fa-angle-down"></i>
-                        <ul class="sub-menu">
-                            <li><a href="{{ url('admin/stage/add') }}">Thêm mới</a></li>
-                            <li><a href="{{ url('admin/stage/list') }}">Danh sách</a></li>
+                            <li class="nav-link py-0 {{ $module_active == 'stage' ? 'active' : '' }}">
+                                <a href="{{ url('admin/stage/list') }}">
+                                    <div class="nav-link-icon d-inline-flex">
+                                        <i class="far fa-folder"></i>
+                                    </div>
+                                    Công đoạn
+                                </a>
+                                <ul class="sub-menu">
+                                    <li><a href="{{ url('admin/stage/add') }}">Thêm mới</a></li>
+                                    <li><a href="{{ url('admin/stage/list') }}">Danh sách</a></li>
+                                </ul>
+                            </li>
                         </ul>
                     </li>
 
@@ -113,30 +111,57 @@
                             <div class="nav-link-icon d-inline-flex">
                                 <i class="far fa-folder"></i>
                             </div>
-                            Công nhân
+                            Nhân công
                         </a>
-                        <i class="arrow fas fa-angle-right"></i>
+                        <i class="arrow fas fa-angle-down"></i>
 
                         <ul class="sub-menu">
                             <li><a href="{{ Route('admin.worker.list') }}">Danh sách</a></li>
                             <li><a href="{{ Route('admin.worker.add') }}">Thêm mới</a></li>
+                            <li class="nav-link py-0 {{ $module_active == 'salary' ? 'active' : '' }}">
+                                <a href="{{ Route('admin.salary.list') }}">
+                                    <div class="nav-link-icon d-inline-flex">
+                                        <i class="far fa-folder"></i>
+                                    </div>
+                                    Lương
+                                </a>
+        
+                                <ul class="sub-menu">
+                                    <li><a href="{{ Route('admin.salary.list') }}">Danh sách</a></li>
+                                    <li><a href="">Thêm mới</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-link py-0 {{ $module_active == 'work_shift' ? 'active' : '' }}">
+                                <a href="{{ Route('admin.workshift.list') }}">
+                                    <div class="nav-link-icon d-inline-flex">
+                                        <i class="far fa-folder"></i>
+                                    </div>
+                                    Ca làm việc
+                                </a>
+        
+                                <ul class="sub-menu">
+                                    <li><a href="{{ Route('admin.workshift.list') }}">Danh sách</a></li>
+                                    <li><a href="{{ Route('admin.workshift.add') }}">Thêm mới</a></li>
+                                </ul>
+                            </li>
+
+                            <li class="nav-link py-0 {{ $module_active == 'production_team' ? 'active' : '' }}">
+                                <a href="{{ Route('admin.productionTeam.list') }}">
+                                    <div class="nav-link-icon d-inline-flex">
+                                        <i class="far fa-folder"></i>
+                                    </div>
+                                    Tổ sản xuất
+                                </a>
+        
+                                <ul class="sub-menu">
+                                    <li><a href="{{ Route('admin.productionTeam.list') }}">Danh sách</a></li>
+                                    <li><a href="{{ Route('admin.productionTeam.add') }}">Thêm mới</a></li>
+                                </ul>
+                            </li>
                         </ul>
                     </li>
 
-                    <li class="nav-link {{ $module_active == 'work_shift' ? 'active' : '' }}">
-                        <a href="{{ Route('admin.workshift.list') }}">
-                            <div class="nav-link-icon d-inline-flex">
-                                <i class="far fa-folder"></i>
-                            </div>
-                            Ca làm việc
-                        </a>
-                        <i class="arrow fas fa-angle-right"></i>
-
-                        <ul class="sub-menu">
-                            <li><a href="{{ Route('admin.workshift.list') }}">Danh sách</a></li>
-                            <li><a href="{{ Route('admin.workshift.add') }}">Thêm mới</a></li>
-                        </ul>
-                    </li>
+                   
 
                     <li class="nav-link {{ $module_active == 'departments' ? 'active' : '' }}">
                         <a href="{{ Route('admin.department.list') }}">
@@ -145,7 +170,7 @@
                             </div>
                             Bộ phận
                         </a>
-                        <i class="arrow fas fa-angle-right"></i>
+                        <i class="arrow fas fa-angle-down"></i>
 
                         <ul class="sub-menu">
                             <li><a href="{{ Route('admin.department.list') }}">Danh sách</a></li>
@@ -153,44 +178,18 @@
                         </ul>
                     </li>
 
-                    <li class="nav-link {{ $module_active == 'salary' ? 'active' : '' }}">
-                        <a href="{{ Route('admin.salary.list') }}">
-                            <div class="nav-link-icon d-inline-flex">
-                                <i class="far fa-folder"></i>
-                            </div>
-                            Lương
-                        </a>
-                        <i class="arrow fas fa-angle-right"></i>
+                    
 
-                        <ul class="sub-menu">
-                            <li><a href="{{ Route('admin.salary.list') }}">Danh sách</a></li>
-                            <li><a href="">Thêm mới</a></li>
-                        </ul>
-                    </li>
+                    
 
-                    <li class="nav-link {{ $module_active == 'production_team' ? 'active' : '' }}">
-                        <a href="{{ Route('admin.productionTeam.list') }}">
-                            <div class="nav-link-icon d-inline-flex">
-                                <i class="far fa-folder"></i>
-                            </div>
-                            Tổ sản xuất
-                        </a>
-                        <i class="arrow fas fa-angle-right"></i>
-
-                        <ul class="sub-menu">
-                            <li><a href="{{ Route('admin.productionTeam.list') }}">Danh sách</a></li>
-                            <li><a href="{{ Route('admin.productionTeam.add') }}">Thêm mới</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-link {{ $module_active == 'production_equiment' ? 'active' : '' }}">
+                    <li class="nav-link {{ $module_active == 'production_equipment' ? 'active' : '' }}">
                         <a href="{{ Route('admin.productionEquipment.list') }}">
                             <div class="nav-link-icon d-inline-flex">
                                 <i class="far fa-folder"></i>
                             </div>
                             Thiết bị sản xuất
                         </a>
-                        <i class="arrow fas fa-angle-right"></i>
+                        <i class="arrow fas fa-angle-down"></i>
 
                         <ul class="sub-menu">
                             <li><a href="{{ Route('admin.productionEquipment.list') }}">Danh sách</a></li>
@@ -199,34 +198,7 @@
                     </li>
                     {{-- The end code by Nguyen Tho --}}
 
-                    <li class="nav-link {{ $module_active == 'production_plan' ? 'active' : '' }}">
-                        <a href="{{ Route('admin.productionPlan.list') }}">
-                            <div class="nav-link-icon d-inline-flex">
-                                <i class="far fa-folder"></i>
-                            </div>
-                            Kế hoạch sản xuất
-                        </a>
-                        <i class="arrow fas fa-angle-right"></i>
-
-                        <ul class="sub-menu">
-                            <li><a href="{{ Route('admin.productionPlan.list') }}">Danh sách</a></li>
-                            <li><a href="{{ Route('admin.productionPlan.add') }}">Thêm mới</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-link {{ $module_active == 'warehouse' ? 'active' : '' }}">
-                        <a href="{{ url('admin/warehouse/list') }}">
-                            <div class="nav-link-icon d-inline-flex">
-                                <i class="far fa-folder"></i>
-                            </div>
-                            Kho
-                        </a>
-                        <i class="arrow fas fa-angle-down"></i>
-                        <ul class="sub-menu">
-                            <li><a href="{{ url('admin/warehouse/add') }}">Thêm mới</a></li>
-                            <li><a href="{{ url('admin/warehouse/list') }}">Danh sách</a></li>
-                        </ul>
-                    </li>
+                   
 
                     <li
                         class="nav-link {{ $module_active == 'order' ? 'active' : '' }}{{ $module_active == 'customer' ? 'active' : '' }}">
@@ -236,43 +208,67 @@
                             </div>
                             Bán hàng
                         </a>
-                        <i class="arrow fas fa-angle-right"></i>
+                        <i class="arrow fas fa-angle-down"></i>
                         <ul class="sub-menu">
                             <li><a href="{{ url('admin/order/list') }}">Danh sách đơn hàng</a></li>
                             <li><a href="{{ url('admin/customer/list') }}">Danh sách khách hàng</a></li>
+                            <li class="nav-link py-0 {{ $module_active == 'production_plan' ? 'active' : '' }}">
+                                <a href="{{ Route('admin.productionPlan.list') }}">
+                                    <div class="nav-link-icon d-inline-flex">
+                                        <i class="far fa-folder"></i>
+                                    </div>
+                                    Kế hoạch sản xuất
+                                </a>
+                                <ul class="sub-menu">
+                                    <li><a href="{{ Route('admin.productionPlan.list') }}">Danh sách</a></li>
+                                    <li><a href="{{ Route('admin.productionPlan.add') }}">Thêm mới</a></li>
+                                </ul>
+                            </li>
+        
+                            <li class="nav-link py-0 {{ $module_active == 'warehouse' ? 'active' : '' }}">
+                                <a href="{{ url('admin/warehouse/list') }}">
+                                    <div class="nav-link-icon d-inline-flex">
+                                        <i class="far fa-folder"></i>
+                                    </div>
+                                    Kho
+                                </a>
+                                <ul class="sub-menu">
+                                    <li><a href="{{ url('admin/warehouse/add') }}">Thêm mới</a></li>
+                                    <li><a href="{{ url('admin/warehouse/list') }}">Danh sách</a></li>
+                                </ul>
+                            </li>
                         </ul>
                     </li>
 
-                    <li class="nav-link {{ $module_active == 'user' ? 'active' : '' }}">
+                    <li class="nav-link {{ $module_active == 'user' ? 'active' : '' }} {{  $module_active == 'role' ? 'active' : ''  }}">
                         <a href="{{ url('admin/user/list') }}">
                             <div class="nav-link-icon d-inline-flex">
                                 <i class="far fa-folder"></i>
                             </div>
                             Quản trị viên
                         </a>
-                        <i class="arrow fas fa-angle-right"></i>
+                        <i class="arrow fas fa-angle-down"></i>
 
                         <ul class="sub-menu">
                             <li><a href="{{ url('admin/user/add') }}">Thêm mới</a></li>
                             <li><a href="{{ url('admin/user/list') }}">Danh sách</a></li>
+                            <li class="nav-link py-0 {{ $module_active == 'role' ? 'active' : '' }}">
+                                <a href="{{ url('admin/role/list') }}">
+                                    <div class="nav-link-icon d-inline-flex">
+                                        <i class="far fa-folder"></i>
+                                    </div>
+                                    Quyền
+                                </a>
+                                <ul class="sub-menu">
+                                    <li><a href="{{ url('admin/role/add') }}">Thêm mới</a></li>
+                                    <li><a href="{{ url('admin/role/list') }}">Danh sách</a></li>
+                                </ul>
+                            </li>
                         </ul>
                     </li>
 
 
-                    <li class="nav-link {{ $module_active == 'role' ? 'active' : '' }}">
-                        <a href="{{ url('admin/role/list') }}">
-                            <div class="nav-link-icon d-inline-flex">
-                                <i class="far fa-folder"></i>
-                            </div>
-                            Quyền
-                        </a>
-                        <i class="arrow fas fa-angle-right"></i>
-
-                        <ul class="sub-menu">
-                            <li><a href="{{ url('admin/role/add') }}">Thêm mới</a></li>
-                            <li><a href="{{ url('admin/role/list') }}">Danh sách</a></li>
-                        </ul>
-                    </li>
+                   
 
                     <li class="nav-link {{ $module_active == 'image' ? 'active' : '' }}">
                         <a href="{{ url('admin/image/list') }}">
@@ -281,7 +277,7 @@
                             </div>
                             Thư viện ảnh
                         </a>
-                        <i class="arrow fas fa-angle-right"></i>
+                        <i class="arrow fas fa-angle-down"></i>
 
                         <ul class="sub-menu">
                             <li><a href="{{ url('admin/image/add') }}">Thêm mới</a></li>
