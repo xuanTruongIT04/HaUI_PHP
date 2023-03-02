@@ -18,7 +18,7 @@ class AdminWarehouseController extends Controller
     function list(Request $requests) {
         $status = !empty(request()->input('status')) ? request()->input('status') : 'active';
         $list_act = [
-            "delete" => "Xoá tạm thời",
+            "delete" => "Ngừng hoạt động",
         ];
 
         $key_word = ""; 
@@ -129,7 +129,7 @@ class AdminWarehouseController extends Controller
                 if ($cnt_member > 0) {
                     if ($act == "delete") {
                         Warehouse::destroy($list_checked);
-                        return redirect("admin/warehouse/list")->with("status", "Bạn đã xoá tạm thời {$cnt_member} kho thành công!");
+                        return redirect("admin/warehouse/list")->with("status", "Bạn đã đặt trạng thái ngừng hoạt động cho {$cnt_member} kho thành công!");
                     } else if ($act == "delete_permanently") {
                         Warehouse::onlyTrashed()
                             ->whereIn("id", $list_checked)
@@ -159,7 +159,7 @@ class AdminWarehouseController extends Controller
 
         if (empty($warehouse->deleted_at)) {
             $warehouse->delete();
-            return redirect()->back()->with("status", "Bạn đã xoá tạm thời kho tên {$name_warehouse} thành công");
+            return redirect()->back()->with("status", "Bạn đã đặt trạng thái ngừng hoạt động cho kho tên {$name_warehouse} thành công");
         } else {
 
             $warehouse->forceDelete();

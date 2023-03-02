@@ -86,11 +86,11 @@
                                                     class="btn btn-success btn-sm rounded-0 text-white" type="button"
                                                     data-toggle="tooltip" data-placement="top" title="Edit"><i
                                                         class="fa fa-edit"></i></a>
-                                                <a href="{{ route('admin.warehouse.delete', $warehouse->id) }}"
+                                                {{-- <a href="{{ route('admin.warehouse.delete', $warehouse->id) }}"
                                                     class="btn btn-danger btn-sm rounded-0 text-white" type="button"
                                                     data-toggle="tooltip"
-                                                    onclick="return confirm('Bạn có chắc chắn muốn xoá kho tên {{ $warehouse->warehouse_name }}?')"
-                                                    data-placement="top" title="Delete"><i class="fa fa-trash"></i></a>
+                                                    onclick="return confirm('Bạn có chắc chắn muốn đặt trạng thái ngừng hoạt động cho kho tên {{ $warehouse->warehouse_name }}?')"
+                                                    data-placement="top" title="Delete"><i class="fa fa-trash"></i></a> --}}
                                             </td>
                                         @else
                                             <td>
@@ -100,11 +100,11 @@
                                                     onclick="return confirm('Bạn có chắc chắn muốn khôi phục kho tên {{ $warehouse->warehouse_name }}?')"
                                                     data-placement="top" title="Restore"><i
                                                         class="fas fa-trash-restore-alt"></i></a>
-                                                <a href="{{ route('admin.warehouse.delete', $warehouse->id) }}"
+                                                {{-- <a href="{{ route('admin.warehouse.delete', $warehouse->id) }}"
                                                     class="btn btn-danger btn-sm rounded-0 text-white" type="button"
                                                     data-toggle="tooltip"
                                                     onclick="return confirm('Bạn có chắc chắn muốn xoá vĩnh viễn kho tên {{ $warehouse->warehouse_name }}?')"
-                                                    data-placement="top" title="Delete"><i class="fa fa-trash"></i></a>
+                                                    data-placement="top" title="Delete"><i class="fa fa-trash"></i></a> --}}
                                             </td>
                                         @endif
                                     </tr>

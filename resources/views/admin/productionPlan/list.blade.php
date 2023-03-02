@@ -86,7 +86,7 @@
                                                 <a href="{{ route('admin.productionPlan.delete', $productionPlan->id) }}"
                                                     class="btn btn-danger btn-sm rounded-0 text-white" type="button"
                                                     data-toggle="tooltip"
-                                                    onclick="return confirm('Bạn có chắc chắn muốn xoá kế hoạch sản xuất {{ $productionPlan->production_plan_name }}?')"
+                                                    onclick="return confirm('Bạn có chắc chắn muốn huỷ kế hoạch sản xuất {{ $productionPlan->production_plan_name }}?')"
                                                     data-placement="top" title="Delete"><i class="fa fa-trash"></i></a>
                                             </td>
                                         @else

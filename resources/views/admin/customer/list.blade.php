@@ -89,7 +89,7 @@
                                                 <a href="{{ route('admin.customer.delete', $customer->id) }}"
                                                     class="btn btn-danger btn-sm rounded-0 text-white" type="button"
                                                     data-toggle="tooltip"
-                                                    onclick="return confirm('Bạn có chắc chắn muốn xoá khách hàng {{ $customer->customer_name }}?')"
+                                                    onclick="return confirm('Bạn có chắc chắn muốn vô hiệu hoá khách hàng {{ $customer->customer_name }}?')"
                                                     data-placement="top" title="Delete"><i class="fa fa-trash"></i></a>
                                             </td>
                                         @else

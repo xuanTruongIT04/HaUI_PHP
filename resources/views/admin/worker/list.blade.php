@@ -82,7 +82,7 @@
                         <td>{{$item->status == 1 ? "Đang làm việc" : "Đã nghỉ việc"}}</td>
                         <td>
                             <a href="{{Route("admin.worker.edit", $item->id)}}" class="btn btn-info">Cập nhật</a>
-                            <a href="{{Route("admin.worker.delete", $item->id)}}" class="btn btn-danger">Xóa</a>
+                            {{-- <a href="{{Route("admin.worker.delete", $item->id)}}" class="btn btn-danger">Xóa</a> --}}
                         </td>
                         </tr>
                     @endforeach

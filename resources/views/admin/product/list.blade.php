@@ -126,11 +126,11 @@
                                                     class="btn btn-success btn-sm rounded-0 text-white" type="button"
                                                     data-toggle="tooltip" data-placement="top" title="Edit"><i
                                                         class="fa fa-edit"></i></a>
-                                                <a href="{{ route('admin.product.delete', $product->id) }}"
+                                                {{-- <a href="{{ route('admin.product.delete', $product->id) }}"
                                                     class="btn btn-danger btn-sm rounded-0 text-white" type="button"
                                                     data-toggle="tooltip"
                                                     onclick="return confirm('Bạn có chắc chắn muốn xoá sản phẩm {{ $product->product_name }}?')"
-                                                    data-placement="top" title="Delete"><i class="fa fa-trash"></i></a>
+                                                    data-placement="top" title="Delete"><i class="fa fa-trash"></i></a> --}}
                                             </td>
                                         @else
                                             <td>
@@ -140,11 +140,11 @@
                                                     onclick="return confirm('Bạn có chắc chắn muốn khôi phục sản phẩm {{ $product->product_name }}?')"
                                                     data-placement="top" title="Restore"><i
                                                         class="fas fa-trash-restore-alt"></i></a>
-                                                <a href="{{ route('admin.product.delete', $product->id) }}"
+                                                {{-- <a href="{{ route('admin.product.delete', $product->id) }}"
                                                     class="btn btn-danger btn-sm rounded-0 text-white" type="button"
                                                     data-toggle="tooltip"
                                                     onclick="return confirm('Bạn có chắc chắn muốn xoá vĩnh viễn sản phẩm {{ $product->product_name }}?')"
-                                                    data-placement="top" title="Delete"><i class="fa fa-trash"></i></a>
+                                                    data-placement="top" title="Delete"><i class="fa fa-trash"></i></a> --}}
                                             </td>
                                         @endif
 

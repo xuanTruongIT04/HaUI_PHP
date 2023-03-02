@@ -74,7 +74,7 @@
                                 <td>{{ $item->production_team_id }}</td>                              
                                 <td> 
                                     <a href="{{Route("admin.productionEquipment.edit", $item->id)}}" class="btn btn-info">Sửa</a>
-                                    <a href="{{Route("admin.productionEquipment.delete", $item->id)}}" class="btn btn-danger">Xóa</a>
+                                    {{-- <a href="{{Route("admin.productionEquipment.delete", $item->id)}}" class="btn btn-danger">Xóa</a> --}}
                                 </td>
                             </tr>
                         @endforeach

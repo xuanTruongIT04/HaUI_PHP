@@ -22,7 +22,7 @@ class AdminOrderController extends Controller
             "delivery_successful" => "Giao hàng thành công",
             "shipping" => "Đang vận chuyển",
             "pending" => "Chờ xét duyệt",
-            "delete" => "Xoá tạm thời",
+            // "delete" => "Xoá tạm thời",
         ];
 
         $key_word = "";
@@ -37,27 +37,27 @@ class AdminOrderController extends Controller
             $list_act = [
                 "shipping" => "Đang vận chuyển",
                 "pending" => "Chờ xét duyệt",
-                "delete" => "Xoá tạm thời",
+                // "delete" => "Xoá tạm thời",
             ];
             $orders = Order::withoutTrashed()->where("order_status", "delivery_successful")->where("order_code", "LIKE", "%{$key_word}%")->Paginate(20);
         } else if ($status == "shipping") {
             $list_act = [
                 "delivery_successful" => "Giao hàng thành công",
                 "pending" => "Chờ xét duyệt",
-                "delete" => "Xoá tạm thời",
+                // "delete" => "Xoá tạm thời",
             ];
             $orders = Order::withoutTrashed()->where("order_status", "shipping")->where("order_code", "LIKE", "%{$key_word}%")->Paginate(20);
         } else if ($status == "pending") {
             $list_act = [
                 "delivery_successful" => "Giao hàng thành công",
                 "shipping" => "Đang vận chuyển",
-                "delete" => "Xoá tạm thời",
+                // "delete" => "Xoá tạm thời",
             ];
             $orders = Order::withoutTrashed()->where("order_status", "pending")->where("order_code", "LIKE", "%{$key_word}%")->Paginate(20);
         } else if ($status == "trashed") {
             $list_act = [
                 "restore" => "Khôi phục",
-                "delete_permanently" => "Xoá vĩnh viễn",
+                // "delete_permanently" => "Xoá vĩnh viễn",
             ];
             $orders = Order::onlyTrashed()->where("order_code", "LIKE", "%{$key_word}%")->Paginate(20);
         }
@@ -238,33 +238,33 @@ class AdminOrderController extends Controller
         }
     }
 
-    public function delete($id)
-    {
-        $order = Order::withTrashed()->find($id);
-        $order_code = $order->order_code;
+    // public function delete($id)
+    // {
+    //     $order = Order::withTrashed()->find($id);
+    //     $order_code = $order->order_code;
 
-        if (empty($order->deleted_at)) {
-            Order::where('id', $id)->update([
-                'order_status' => "trashed",
-            ]);
-            $order->delete();
-            return redirect()->back()->with("status", "Bạn đã xoá tạm thời đơn hàng có mã {$order_code} thành công");
-        } else {
-            $order->forceDelete();
-            return redirect()->back()->with("status", "Bạn đã xoá vĩnh viễn đơn hàng có mã {$order_code} thành công");
-        }
+    //     if (empty($order->deleted_at)) {
+    //         Order::where('id', $id)->update([
+    //             'order_status' => "trashed",
+    //         ]);
+    //         $order->delete();
+    //         return redirect()->back()->with("status", "Bạn đã xoá tạm thời đơn hàng có mã {$order_code} thành công");
+    //     } else {
+    //         $order->forceDelete();
+    //         return redirect()->back()->with("status", "Bạn đã xoá vĩnh viễn đơn hàng có mã {$order_code} thành công");
+    //     }
 
-    }
+    // }
 
-    public function restore($id)
-    {
-        $order = Order::withTrashed()->find($id);
-        $order_code = $order->order_code;
-        $order->restore();
-        Order::where('id', $id)->update([
-            'order_status' => "pending",
-        ]);
-        return redirect("admin/order/list")->with("status", "Bạn đã khôi phục đơn hàng có mã {$order_code} thành công");
+    // public function restore($id)
+    // {
+    //     $order = Order::withTrashed()->find($id);
+    //     $order_code = $order->order_code;
+    //     $order->restore();
+    //     Order::where('id', $id)->update([
+    //         'order_status' => "pending",
+    //     ]);
+    //     return redirect("admin/order/list")->with("status", "Bạn đã khôi phục đơn hàng có mã {$order_code} thành công");
 
-    }
+    // }
 }

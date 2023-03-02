@@ -73,7 +73,7 @@
 
                                 <td>
                                     <a href="{{Route("admin.salary.edit", $item->id)}}" class="btn btn-info">Sửa</a>
-                                    <a href="{{Route("admin.salary.delete", $item->id)}}" class="btn btn-danger">Xóa</a>
+                                    {{-- <a href="{{Route("admin.salary.delete", $item->id)}}" class="btn btn-danger">Xóa</a> --}}
                                 </td>
                             </tr>
                         @endforeach

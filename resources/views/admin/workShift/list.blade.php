@@ -61,7 +61,7 @@
                               <td>{{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $item->time_end)->format('H:i:s d/m/Y') }}</td>
                               <td>
                                 <a href="{{Route("admin.workshift.edit", $item->id)}}" class="btn btn-info">Sửa</a>
-                                <a href="{{Route("admin.workshift.delete", $item->id)}}" class="btn btn-danger">Xóa</a>
+                                {{-- <a href="{{Route("admin.workshift.delete", $item->id)}}" class="btn btn-danger">Xóa</a> --}}
                               </td>
                             </tr>
                         @endforeach
