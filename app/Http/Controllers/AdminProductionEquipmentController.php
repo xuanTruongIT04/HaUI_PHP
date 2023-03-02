@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\ProductionEquipment;
 use App\ProductionTeam;
 
+
 class AdminProductionEquipmentController extends Controller
 {
     public function __construct()
@@ -78,13 +79,22 @@ class AdminProductionEquipmentController extends Controller
     public function edit($id)
     {
         $productionEquipment = ProductionEquipment::find($id);
-        return view('admin.productionEquipment.edit', compact("productionEquipment"));
+        $listProductionTeam = ProductionTeam::all();
+        return view('admin.productionEquipment.edit', compact("productionEquipment", "listProductionTeam"));
     }
 
     public function update(Request $requests, $id)
     {
         ProductionEquipment::where('id', $id)->update([
-            'equipment_name' => $requests->input("equipment_name")
+            'equipment_name' => $requests->input("equipment_name"),
+            'status' => $requests->input("status"),
+            'quantity' => $requests->input("quantity"),
+            'price' => $requests->input("price"),
+            'output_time' => $requests->input("output_time"),
+            'maintenance_time' => $requests->input("maintenance_time"),
+            'specifications' => $requests->input("specifications"),
+            'describe' => $requests->input("describe"),
+            'production_team_id' => $requests->input("production_team_id")
         ]);
         return redirect()->route('admin.productionEquipment.list')->with('equipment_name', "Cập nhật thông tin thiết bị thành công");
     }
