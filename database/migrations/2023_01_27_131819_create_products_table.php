@@ -17,7 +17,6 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->string("product_code", 20);
             $table->string("product_name", 150);
-            $table->string("slug", 200);
             $table->integer("price_old");
             $table->integer("price_new")-> nullable();
             $table->integer("qty_sold")-> nullable();
