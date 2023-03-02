@@ -35,8 +35,8 @@
                         <span class="text-muted">({{ $count_order_status[2] }})</span></a>
                     <a href="{{ request()->fullUrlWithQuery(['status' => 'pending']) }}" class="text-primary">Chờ xét duyệt
                         <span class="text-muted">({{ $count_order_status[3] }})</span></a>
-                    <a href="{{ request()->fullUrlWithQuery(['status' => 'trashed']) }}" class="text-primary">Vô hiệu
-                        hoá<span class="text-muted">({{ $count_order_status[4] }})</span></a>
+                    {{-- <a href="{{ request()->fullUrlWithQuery(['status' => 'trashed']) }}" class="text-primary">Vô hiệu
+                        hoá<span class="text-muted">({{ $count_order_status[4] }})</span></a> --}}
                 </div>
                 <form action="{{ url('admin/order/action') }}" method="GET">
                     <div class="form-action form-inline py-3">
@@ -102,11 +102,11 @@
                                                     class="btn btn-success btn-sm rounded-0 text-white" type="button"
                                                     data-toggle="tooltip" data-placement="top" title="Edit"><i
                                                         class="fa fa-edit"></i></a>
-                                                <a href="{{ route('admin.order.delete', $order->id) }}"
+                                                {{-- <a href="{{ route('admin.order.delete', $order->id) }}"
                                                     class="btn btn-danger btn-sm rounded-0 text-white" type="button"
                                                     data-toggle="tooltip"
                                                     onclick="return confirm('Bạn có chắc chắn muốn xoá đơn hàng {{ $order->order_code }}?')"
-                                                    data-placement="top" title="Delete"><i class="fa fa-trash"></i></a>
+                                                    data-placement="top" title="Delete"><i class="fa fa-trash"></i></a> --}}
                                             </td>
                                         @else
                                             <td>
@@ -116,11 +116,11 @@
                                                     onclick="return confirm('Bạn có chắc chắn muốn khôi phục đơn hàng {{ $order->order_code }}?')"
                                                     data-placement="top" title="Restore"><i
                                                         class="fas fa-trash-restore-alt"></i></a>
-                                                <a href="{{ route('admin.order.delete', $order->id) }}"
+                                                {{-- <a href="{{ route('admin.order.delete', $order->id) }}"
                                                     class="btn btn-danger btn-sm rounded-0 text-white" type="button"
                                                     data-toggle="tooltip"
                                                     onclick="return confirm('Bạn có chắc chắn muốn xoá vĩnh viễn đơn hàng {{ $order->order_code }}?')"
-                                                    data-placement="top" title="Delete"><i class="fa fa-trash"></i></a>
+                                                    data-placement="top" title="Delete"><i class="fa fa-trash"></i></a> --}}
                                             </td>
                                         @endif
                                     </tr>

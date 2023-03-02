@@ -20,7 +20,7 @@ class AdminProductionPlanController extends Controller
     function list(Request $requests) {
         $status = !empty(request()->input('status')) ? request()->input('status') : 'active';
         $list_act = [
-            "delete" => "Xoá tạm thời",
+            "delete" => "Huỷ kế hoạch",
         ];
 
         $key_word = "";
