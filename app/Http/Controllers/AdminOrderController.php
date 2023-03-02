@@ -224,7 +224,7 @@ class AdminOrderController extends Controller
                             Order::where('id', $id)->update([
                                 'order_status' => "pending",
                             ]);
-                        }
+                        } 
                         return redirect("admin/order/list")->with("status", "Bạn đã khôi phục {$cnt_member} đơn hàng thành công");
                     }
                 } else {
