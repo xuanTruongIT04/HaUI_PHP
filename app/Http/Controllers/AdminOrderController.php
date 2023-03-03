@@ -32,34 +32,58 @@ class AdminOrderController extends Controller
         }
 
         if ($status == "active") {
-            $orders = Order::withoutTrashed()->where("order_code", "LIKE", "%{$key_word}%")->Paginate(20);
+            $orders = Order::withoutTrashed()->join('customers', 'orders.customer_id', 'customers.id') 
+            ->where("customers.customer_name", "LIKE", "%{$key_word}%")
+                ->select("orders.id", "orders.order_code","orders.address_delivery", "orders.payment_method", "orders.notes", "orders.order_status", "orders.time_book", 
+                "orders.time_export", "orders.production_plan_id", "orders.warehouse_id", "orders.created_at", "customers.customer_name", "customers.number_phone")
+            ->Paginate(20);
         } else if ($status == "delivery_successful") {
             $list_act = [
                 "shipping" => "Đang vận chuyển",
                 "pending" => "Chờ xét duyệt",
                 // "delete" => "Xoá tạm thời",
             ];
-            $orders = Order::withoutTrashed()->where("order_status", "delivery_successful")->where("order_code", "LIKE", "%{$key_word}%")->Paginate(20);
+            $orders = Order::withoutTrashed()
+                    ->join('customers', 'customers.id', '=', 'orders.customer_id')                    
+            ->where("order_status", "delivery_successful")->where("customer_name", "LIKE", "%{$key_word}%")
+            ->select("orders.id", "orders.order_code","orders.address_delivery", "orders.payment_method", "orders.notes", "orders.order_status", "orders.time_book", 
+                "orders.time_export", "orders.production_plan_id", "orders.warehouse_id", "orders.created_at", "customers.customer_name", "customers.number_phone")
+            ->Paginate(20);
         } else if ($status == "shipping") {
             $list_act = [
                 "delivery_successful" => "Giao hàng thành công",
                 "pending" => "Chờ xét duyệt",
                 // "delete" => "Xoá tạm thời",
             ];
-            $orders = Order::withoutTrashed()->where("order_status", "shipping")->where("order_code", "LIKE", "%{$key_word}%")->Paginate(20);
+            $orders = Order::withoutTrashed()->where("order_status", "shipping")
+            ->join('customers', 'customers.id', '=', 'orders.customer_id')                
+            ->where("customer_name", "LIKE", "%{$key_word}%")
+            ->select("orders.id", "orders.order_code","orders.address_delivery", "orders.payment_method", "orders.notes", "orders.order_status", "orders.time_book", 
+                "orders.time_export", "orders.production_plan_id", "orders.warehouse_id", "orders.created_at", "customers.customer_name", "customers.number_phone")
+                ->Paginate(20);
         } else if ($status == "pending") {
             $list_act = [
                 "delivery_successful" => "Giao hàng thành công",
                 "shipping" => "Đang vận chuyển",
                 // "delete" => "Xoá tạm thời",
             ];
-            $orders = Order::withoutTrashed()->where("order_status", "pending")->where("order_code", "LIKE", "%{$key_word}%")->Paginate(20);
+            $orders = Order::withoutTrashed()->where("order_status", "pending")
+            ->join('customers', 'customers.id', '=', 'orders.customer_id')    
+            ->where("customer_name", "LIKE", "%{$key_word}%")
+            ->select("orders.id", "orders.order_code","orders.address_delivery", "orders.payment_method", "orders.notes", "orders.order_status", "orders.time_book", 
+                "orders.time_export", "orders.production_plan_id", "orders.warehouse_id", "orders.created_at", "customers.customer_name", "customers.number_phone")
+            ->Paginate(20);
         } else if ($status == "trashed") {
             $list_act = [
                 "restore" => "Khôi phục",
                 // "delete_permanently" => "Xoá vĩnh viễn",
             ];
-            $orders = Order::onlyTrashed()->where("order_code", "LIKE", "%{$key_word}%")->Paginate(20);
+            $orders = Order::onlyTrashed()
+            ->join('customers', 'customers.id', '=', 'orders.customer_id')    
+            ->where("customer_name", "LIKE", "%{$key_word}%")
+            ->select("orders.id", "orders.order_code","orders.address_delivery", "orders.payment_method", "orders.notes", "orders.order_status", "orders.time_book", 
+                "orders.time_export", "orders.production_plan_id", "orders.warehouse_id", "orders.created_at", "customers.customer_name", "customers.number_phone")
+            ->Paginate(20);
         }
 
         $count_order = $orders->total();
@@ -74,10 +98,53 @@ class AdminOrderController extends Controller
         return view("admin.order.list", compact('orders', "count_order", "count_order_status", "list_act"));
     }
 
+    public function add() {
+        return view('admin.order.add');
+    }
+
+    public function store(Request $requests)
+    {
+        $order_code = $requests->input("order_code");
+        $requests->validate(
+            [
+                'order_code' => ['required', 'string', 'max:255'],
+                'customer_name' => ['required', 'string', 'max:300'],
+                'number_phone' => "required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10",
+                'email' => ['required', 'string', 'email', 'max:255'],
+                "address_delivery" => ['required', 'string', 'max:300'],
+                "payment_method" => ['required'],
+                "order_status" => ['required'],
+            ],
+            [
+                'required' => ":attribute không được để trống",
+                "max" => [
+                    "numeric" => ":attribute không được lớn hơn :max.",
+                    "file" => ":attribute không được nhiều hơn :max KB.",
+                    "string" => ":attribute không được nhiều hơn :max kí tự.",
+                    "array" => ":attribute không được nhiều hơn :max mục.",
+                ],
+                "min" => [
+                    "numeric" => ":attribute không được bé hơn :min.",
+                    "file" => ":attribute không được ít hơn :min KB.",
+                    "string" => ":attribute không được ít hơn :min kí tự.",
+                    "array" => ":attribute phải có ít nhất :min mục.",
+                ],
+            ],
+            [
+                "order_code" => "Mã đơn hàng",
+                "customer_name" => "Tên khách hàng",
+                "number_phone" => "Số điện thoại",
+                "email" => "Địa chỉ email",
+                "address_delivery" => "Địa chỉ nhận hàng",
+                "payment_method" => "Hình thức thanh toán",
+                "order_status" => "Trạng thái đơn hàng",
+            ]
+        );
+    }
+
     public function edit($id)
     {
         $order = Order::find($id);
-
         return view("admin.order.edit", compact("order"));
     }
 

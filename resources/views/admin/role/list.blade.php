@@ -30,8 +30,7 @@
                 <div class="analytic">
                     <a href="{{ request()->fullUrlWithQuery(['status' => 'active']) }}" class="text-primary">Kích
                         hoạt<span class="text-muted">({{ $count_role_status[0] }})</span></a>
-                    <a href="{{ request()->fullUrlWithQuery(['status' => 'trashed']) }}" class="text-primary">Vô hiệu
-                        hoá<span class="text-muted">({{ $count_role_status[1] }})</span></a>
+                    <a href="{{ request()->fullUrlWithQuery(['status' => 'trashed']) }}" class="text-primary">Xoá tạm thời<span class="text-muted">({{ $count_role_status[1] }})</span></a>
                 </div>
                 <form action="{{ url('admin/role/action') }}" method="GET">
                     <div class="form-action form-inline py-3">
@@ -85,7 +84,7 @@
                                                 <a href="{{ route('admin.role.delete', $role->id) }}"
                                                     class="btn btn-danger btn-sm rounded-0 text-white" type="button"
                                                     data-toggle="tooltip"
-                                                    onclick="return confirm('Bạn có chắc chắn muốn xoá quyền {{ $role->name_role }}?')"
+                                                    onclick="return confirm('Bạn có chắc chắn muốn tạm thời huỷ quyền {{ $role->name_role }}?')"
                                                     data-placement="top" title="Delete"><i class="fa fa-trash"></i></a>
                                             </td>
                                         @else

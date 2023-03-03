@@ -37,13 +37,13 @@ class AdminDefectiveProductController extends Controller
             // $defectiveProducts = DefectiveProduct::onlyTrashed()->where("product_name", "LIKE", "%{$key_word}%")->where("is_error", "1")->Paginate(20);
             $defectiveProducts = DefectiveProduct::join("products", "products.id", "=", "defective_products.product_id")
                 ->onlyTrashed()->where("product_name", "LIKE", "%{$key_word}%")
-                ->select("products.product_name", "defective_products.id", "can_fix", "error_time", "error_reason")
+                ->select("products.product_name", "defective_products.id", "can_fix", "error_time", "error_reason", 'defective_products.qty_broken')
                 ->Paginate(20);
         } else {
             // $defectiveDefectiveProducts = Product::withoutTrashed()->where("product_name", "LIKE", "%{$key_word}%")->where("is_error", "1")->Paginate(20);
             $defectiveProducts = DefectiveProduct::join("products", "products.id", "=", "defective_products.product_id")
                 ->withoutTrashed()->where("product_name", "LIKE", "%{$key_word}%")
-                ->select("products.product_name", "defective_products.id", "can_fix", "error_time", "error_reason")
+                ->select("products.product_name", "defective_products.id", "can_fix", "error_time", "error_reason", 'defective_products.qty_broken')
                 ->Paginate(20);
         }
 
@@ -60,7 +60,7 @@ class AdminDefectiveProductController extends Controller
         // $defectiveProduct = DefectiveProduct::find($id);
         $defectiveProduct = DefectiveProduct::join("products", "products.id", "=", "defective_products.product_id")
             ->withoutTrashed()->where("defective_products.id", $id)
-            ->select("products.product_name", "defective_products.id", "can_fix", "error_time", "error_reason")
+            ->select("products.product_name", "defective_products.id", "can_fix", "error_time", "error_reason", 'defective_products.qty_broken')
             ->first();
 
         return view("admin.defectiveProduct.edit", compact("defectiveProduct", "defectiveProducts"));
@@ -72,6 +72,7 @@ class AdminDefectiveProductController extends Controller
             $requests->validate(
                 [
                     'error_reason' => ['required', 'string', 'max:300'],
+                    'qty_broken' => ['required', 'numeric', 'min:0'],
                 ],
                 [
                     'required' => ":attribute không được để trống",
@@ -79,6 +80,7 @@ class AdminDefectiveProductController extends Controller
                 ],
                 [
                     "error_reason" => "Lí do khiến sản phẩm lỗi",
+                    "qty_broken" => "Số lượng đã hỏng",
                 ]
             );
 
@@ -89,6 +91,7 @@ class AdminDefectiveProductController extends Controller
                                                      ->product_name;
             DefectiveProduct::where('id', $id)->update([
                 'error_reason' => $requests -> input("error_reason"),
+                'qty_broken' => $requests -> input("qty_broken"),
                 'can_fix' => $requests -> input("defective_product_status"),
             ]);
 

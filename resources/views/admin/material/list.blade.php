@@ -61,7 +61,6 @@
                                 <th scope="col">#</th>
                                 <th scope="col">Tên vật tư</th>
                                 <th scope="col">Hình ảnh</th>
-                                <th scope="col">Mô tả</th>
                                 <th scope="col">Đơn vị quy đổi</th>
                                 <th scope="col">Giá nhập</th>
                                 <th scope="col">Ngày nhập</th>
@@ -116,7 +115,6 @@
                                                 </div>
                                             </td>
                                         @endif
-                                        <td>{!! brief_name_plus($material->material_desc, 8, 60) !!}</td>
                                         <td>{{ $material->unit_of_measure }}</td>
                                         <td>{{ currency_format($material->price_import) }}</td>
                                         <td>{{ time_format($material->date_import) }}</td>

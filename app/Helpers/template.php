@@ -308,7 +308,7 @@ if (!function_exists('show_order_status')) {
         $str = "<select class='form-control w-17' name='order_status' id='status'>";
 
         $data = array(
-            'delivery_successful' => 'Thành côn',
+            'delivery_successful' => 'Thành công',
             'shipping' => 'Đang vận chuyển',
             'pending' => 'Chờ xét duyệt',
         );

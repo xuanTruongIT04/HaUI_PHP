@@ -42,10 +42,18 @@
                         <label for="" class="fw-550">Thông số kỹ thuật</label>
                         <input class="form-control" value="{{$productionEquipment->specifications}}" type="text" name="specifications" id="">
                     </div>
+
+                    <div class="form-group">
+                        <label for="describe" class="fw-550">Mô tả</label>
+                        <input class="form-control" type="text" name="describe" id="describe" value="{{ $productionEquipment ->describe }}">
+                        @error('describe')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
                     
                     <div class="form-group">
                         <label for="" class="fw-550">Mã tổ</label>
-                        <select class="form-control" name="describe">
+                        <select class="form-control" name="production_team_id">
                           <option value="">-------Chọn tổ sản xuất----------</option>
                           @foreach ($listProductionTeam as $item)
                               <option value="{{$item->id}}" @if($productionEquipment->production_team_id == $item->id) selected = "selected" @endif>{{$item->production_team_name}}</option>
