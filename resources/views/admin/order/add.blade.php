@@ -55,22 +55,58 @@
                     </div>
 
                     <div class="form-group">
+                        <label for="time_book">Thời gian đặt</label><BR>
+                        <input class="form-control w-17" type="date" name="time_book" id="time_book" /><BR>
+                        @error('time_book')
+                        <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+
+                    <div class="form-group mt-3">
+                        <label for="time_export">Thời gian xuất</label> <BR>
+                        <input class="form-control w-17" type="date" name="time_export" id="time_export"/><BR>
+                        @error('time_export')
+                        <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+
+                    <div class="form-group">
                         <label for="payment-method">Hình thức thanh toán</label> <BR>
                         {!! show_payment_method(Old('payment_method')) !!} <BR>
-                        @error('order_status')
+                        @error('payment_method')
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
 
                     <div class="form-group">
-                        <label for="status">Trạng thái đơn hàng</label><BR>
-                        {!! show_order_status(Old('order_status')) !!}<BR>
-                        @error('order_status')
+                            <div class="form-group">
+                                <label for="" class="fw-550">Sản phẩm</label> <BR>
+                                <select class="form-control w-30" name="product_id">
+                                    @foreach ($list_product as $item)
+                                        <option value="{{$item->id}}">{{$item->product_name}}</option>
+                                    @endforeach
+                                </select>
+                                @error('product_id')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                        @error('product_id')
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
 
-                    <input type="submit" name="btn_update" class="btn btn-primary" value="Cập nhật">
+                    <div class="form-group">
+                        <label for="number-order" class="fw-550">Số lượng sản phẩm</label> <BR>
+                        <input class="form-control w-10" type="number" min="0" value="@php if(!empty(Old("number_order"))) echo Old("number_order"); else echo "0"; @endphp" name="number_order"
+                            id="number-order">
+                        @error('qty_import')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+
+
+
+                    <input type="submit" name="btn_update" class="btn btn-primary" value="Thêm mới">
                 </form>
             </div>
         </div>

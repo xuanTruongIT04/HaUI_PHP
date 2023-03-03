@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Customer;
+use App\Product;
 use App\Order;
+use App\OrderProduct;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\DB;
 class AdminOrderController extends Controller
 {
     //
@@ -99,7 +101,8 @@ class AdminOrderController extends Controller
     }
 
     public function add() {
-        return view('admin.order.add');
+        $list_product = Product::all();
+        return view('admin.order.add', compact("list_product"));
     }
 
     public function store(Request $requests)
@@ -107,13 +110,14 @@ class AdminOrderController extends Controller
         $order_code = $requests->input("order_code");
         $requests->validate(
             [
-                'order_code' => ['required', 'string', 'max:255'],
                 'customer_name' => ['required', 'string', 'max:300'],
                 'number_phone' => "required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10",
                 'email' => ['required', 'string', 'email', 'max:255'],
                 "address_delivery" => ['required', 'string', 'max:300'],
                 "payment_method" => ['required'],
-                "order_status" => ['required'],
+                "notes" => ['required'],
+                "time_book" => ['required', 'date'],
+                "time_export" => ['required', 'date'],
             ],
             [
                 'required' => ":attribute không được để trống",
@@ -137,9 +141,42 @@ class AdminOrderController extends Controller
                 "email" => "Địa chỉ email",
                 "address_delivery" => "Địa chỉ nhận hàng",
                 "payment_method" => "Hình thức thanh toán",
+                "notes" => "Ghi chú đơn hàng",
                 "order_status" => "Trạng thái đơn hàng",
+                "time_book" => "Thời gian đặt đơn hàng",
+                "time_export" => "Thời gian xuất đơn hàng",
             ]
         );
+
+        
+        $customer_id = Customer::create([
+            'customer_name' => $requests->input("customer_name"),
+            'number_phone' => $requests->input("number_phone"),
+            'email' => $requests->input("email"),
+        ]) -> id;
+        
+        $order_id = Order::create([
+            'order_code' => "123123123",
+            'customer_id' =>  $customer_id,
+            'address_delivery' => $requests->input("address_delivery"),
+            'notes' => $requests->input("notes"),
+            'payment_method' => $requests->input("payment_method"),
+            'time_book' => $requests->input("time_book"),
+            'time_export' => $requests->input("time_export"),
+            'order_status' => "pending",
+        ]) -> id; 
+
+        Order::where("id", $order_id)->update([
+            'order_code' => code_order_format($order_id)
+        ]);
+
+            DB::table("order_product")->insert([
+            'order_id' => $order_id,
+            'product_id' => $requests -> input("product_id"),
+            'number_order' => $requests -> input("number_order"),
+        ]);
+        return redirect("admin/order/list")->with("status", "Đã cập nhật thông tin đơn hàng có mã {$order_code} thành công");
+
     }
 
     public function edit($id)

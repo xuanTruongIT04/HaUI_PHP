@@ -1,5 +1,7 @@
 <?php
 
+use App\Product;
+
 if (!function_exists('field_status_user')) {
     function field_status_user($status)
     {

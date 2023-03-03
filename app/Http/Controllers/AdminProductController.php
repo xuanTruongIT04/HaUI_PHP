@@ -193,7 +193,7 @@ class AdminProductController extends Controller
                     "price_new" => "Giá sản phẩm mới",
                     "price_old" => "Giá sản phẩm cũ",
                     "qty_remain" => "Số lượng kho",
-                    "qty_remain" => "Số lượng đã bán",
+                    "qty_sold" => "Số lượng đã bán",
                     "qty_broken" => "Số lượng đã hỏng",
                 ]
             );

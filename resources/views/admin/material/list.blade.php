@@ -65,7 +65,7 @@
                                 <th scope="col">Giá nhập</th>
                                 <th scope="col">Ngày nhập</th>
                                 <th scope="col">Số lượng nhập</th>
-                                <th scope="col">Số lượng hỏng</th>
+                                <th scope="col">Số lượng còn</th>
                                 <th scope="col">Trạng thái</th>
                                 <th scope="col">Tác vụ</th>
                             </tr>
@@ -119,7 +119,7 @@
                                         <td>{{ currency_format($material->price_import) }}</td>
                                         <td>{{ time_format($material->date_import) }}</td>
                                         <td>{{ $material->qty_import }}</td>
-                                        <td>{{ $material->qty_broken }}</td>
+                                        <td>{{ $material->qty_import - $material->qty_broken }}</td>
                                         <td>{!! field_status_material($material->material_status) !!}</td>
                                         @if (request()->status != 'trashed')
                                             <td>

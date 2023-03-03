@@ -96,6 +96,8 @@ Route::middleware('auth', "verified")->group(function () {
     Route::get("/admin/order/list", "AdminOrderController@list")->name("admin.order.list");
 
     Route::get("/admin/order/add", "AdminOrderController@add")->name("admin.order.add");
+    Route::post("/admin/order/store", "AdminOrderController@store")->name("admin.order.store");
+
     Route::get("/admin/order/import_excel", "AdminOrderController@add")->name("admin.order.import_excel");
 
     Route::get("/admin/order/edit/{id}", "AdminOrderController@edit")->name("admin.order.edit");

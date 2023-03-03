@@ -57,8 +57,9 @@ if (!function_exists('get_total_price_order')) {
                 ->selectRaw("sum(number_order * price_new) as 'total_price'")
                 ->where("order_product.order_id", $order_id)
                 ->groupBy("order_product.order_id")
-                ->first()->total_price;
-            return $total_price;
+                ->first();
+            if(!empty($total_price))
+                return $total_price->total_price;
         }
         return false;
     }
