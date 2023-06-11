@@ -151,7 +151,10 @@ class AdminProductController extends Controller
     public function edit($id)
     {
         $product = Product::find($id);
-        $qty_broken = DefectiveProduct::where("product_id", $id)->first()->qty_broken;
+        $qty_broken = DefectiveProduct::where("product_id", $id)->first();
+        if(!empty($qty_broken)) {
+            $qty_broken = $qty_broken->qty_broken;
+        }
         return view('admin.product.edit', compact("product", "qty_broken"));
     }
 
@@ -209,7 +212,7 @@ class AdminProductController extends Controller
             ]);
 
             $defective_product_id = DefectiveProduct::where("product_id", $id)->first();
-            if (!empty($defective_product_id)) {
+            if (!empty($defective_product_id) && $defective_product_id->qty_broken != 0) {
                 DefectiveProduct::where('product_id', $id)->update([
                     'product_id' => $id,
                     'can_fix' => '0',
@@ -228,29 +231,6 @@ class AdminProductController extends Controller
                     'created_at' => "2023-03-09 09:35:54",
                 ]);
             }
-
-            // if ($requests->hasFile("product_thumb")) {
-            //     $file = $requests->product_thumb;
-            //     $file_name = $file->getClientOriginalName();
-
-            //     $file_ext = $file->getClientOriginalExtension();
-
-            //     $file_size = $file->getSize();
-
-            //     $path = $file->move("public/uploads", $file->getClientOriginalName());
-
-            //     $thumbnail = "public/uploads/" . $file_name;
-            // }
-
-            // Image::where("product_id", $id)->update([
-            //     'rank' => "0",
-            // ]);
-
-            // Image::create([
-            //     'image_link' => $thumbnail,
-            //     'rank' => "1",
-            //     'product_id' => $id,
-            // ]);
 
             return redirect("admin/product/list")->with("status", "Đã cập nhật thông tin sản phẩm có tên {$product_name} thành công");
         }

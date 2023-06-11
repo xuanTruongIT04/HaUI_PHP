@@ -28,11 +28,11 @@ class CreateProductsTable extends Migration
             $table->unsignedBigInteger("product_cat_id");
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign("product_cat_id")
-                  ->references("id")
-                  ->on("product_cats")
-                  ->onDelete("cascade")
-                  ->onUpdate("cascade");
+            // $table->foreign("product_cat_id")
+            //       ->references("id")
+            //       ->on("product_cats")
+            //       ->onDelete("cascade")
+            //       ->onUpdate("cascade");
         });
     }
 

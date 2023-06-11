@@ -23,6 +23,7 @@ class AdminOrderController extends Controller
         $list_act = [
             "delivery_successful" => "Giao hàng thành công",
             "shipping" => "Đang vận chuyển",
+            "licensed" => "Đã xét duyệt",
             "pending" => "Chờ xét duyệt",
             // "delete" => "Xoá tạm thời",
         ];
@@ -41,7 +42,8 @@ class AdminOrderController extends Controller
             ->Paginate(20);
         } else if ($status == "delivery_successful") {
             $list_act = [
-                "shipping" => "Đang vận chuyển",
+                "shipping" => "Đang vận chuyển",    
+                "licensed" => "Đã xét duyệt",
                 "pending" => "Chờ xét duyệt",
                 // "delete" => "Xoá tạm thời",
             ];
@@ -54,6 +56,7 @@ class AdminOrderController extends Controller
         } else if ($status == "shipping") {
             $list_act = [
                 "delivery_successful" => "Giao hàng thành công",
+                "licensed" => "Đã xét duyệt",
                 "pending" => "Chờ xét duyệt",
                 // "delete" => "Xoá tạm thời",
             ];
@@ -312,6 +315,13 @@ class AdminOrderController extends Controller
                         foreach ($list_checked as $id) {
                             Order::where('id', $id)->update([
                                 'order_status' => "pending",
+                            ]);
+                        }
+                        return redirect("admin/order/list")->with("status", "Bạn đã đặt trạng thái chờ {$cnt_member} đơn hàng thành công");
+                    } else if ($act == "licensed") {
+                        foreach ($list_checked as $id) {
+                            Order::where('id', $id)->update([
+                                'order_status' => "licensed",
                             ]);
                         }
                         return redirect("admin/order/list")->with("status", "Bạn đã đặt trạng thái chờ {$cnt_member} đơn hàng thành công");
