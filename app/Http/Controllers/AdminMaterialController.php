@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Image;
 use App\Material;
+use App\DefectiveProduct;
 use App\Stage;
 class AdminMaterialController extends Controller
 {
@@ -165,12 +166,12 @@ class AdminMaterialController extends Controller
                 [
                     'material_name' => ['required', 'string', 'max:255'],
                     'material_desc' => ['required',],
-                    'material_thumb' =>  ['required', 'file', "mimes:jpeg,png,jpg,gif", 'max:21000'],
+                    // 'material_thumb' =>  ['required', 'file', "mimes:jpeg,png,jpg,gif", 'max:21000'],
                     'qty_import' => ['required', 'numeric', 'min:0'],
                     'qty_broken' => ['required', 'numeric', 'min:0'],
                     'price_import' => ['required', 'numeric', 'min:0'],
-                    'stage' => ['required'],
-                    'date_import' => ['required'],
+                    // 'stage' => ['required'],
+                    // 'date_import' => ['required'],
                     'unit_of_measure' => ['required', 'string', 'max:300'],
                 ],
                 [
@@ -191,7 +192,7 @@ class AdminMaterialController extends Controller
                 [
                     "material_name" => "Tên vật tư",
                     "material_desc" => "Mô tả vật tư",
-                    "material_thumb" => "Hình ảnh vật tư",
+                    // "material_thumb" => "Hình ảnh vật tư",
                     'qty_import' => "Số lượng vật tư nhập",
                     'qty_broken' => "Số lượng vật tư hỏng",
                     'price_import' => "Giá nhập vật tư",
@@ -213,28 +214,30 @@ class AdminMaterialController extends Controller
                 'stage_id' => $requests->input("stage"),
             ]);
 
-            if ($requests->hasFile("material_thumb")) {
-                $file = $requests->material_thumb;
-                $file_name = $file->getClientOriginalName();
 
-                $file_ext = $file->getClientOriginalExtension();
 
-                $file_size = $file->getSize();
+            // if ($requests->hasFile("material_thumb")) {
+            //     $file = $requests->material_thumb;
+            //     $file_name = $file->getClientOriginalName();
 
-                $path = $file->move("public/uploads", $file->getClientOriginalName());
+            //     $file_ext = $file->getClientOriginalExtension();
 
-                $thumbnail = "public/uploads/" . $file_name;
-            }
+            //     $file_size = $file->getSize();
 
-            Image::where("material_id", $id)->update([
-                'rank' => "0",
-            ]);
+            //     $path = $file->move("public/uploads", $file->getClientOriginalName());
 
-            Image::create([
-                'image_link' => $thumbnail,
-                'rank' => "1",
-                'material_id' => $id,
-            ]);
+            //     $thumbnail = "public/uploads/" . $file_name;
+            // }
+                
+            // Image::where("material_id", $id)->update([
+            //     'rank' => "0",
+            // ]);
+
+            // Image::create([
+            //     'image_link' => $thumbnail,
+            //     'rank' => "1",
+            //     'material_id' => $id,
+            // ]);
 
             return redirect("admin/material/list")->with("status", "Đã cập nhật thông tin vật tư có tên {$material_name} thành công");
         }

@@ -98,16 +98,16 @@ ul#sidebar-menu * {
 
 .nav-link {
     display: block;
-    padding: .5rem 1rem;
+    padding: 0.5rem 1rem;
     position: relative;
 }
 
-.nav-link.active>a,
-.nav-link:hover>li>a {
+.nav-link.active > a,
+.nav-link:hover > li > a {
     color: #0061f2;
 }
 
-.nav-link>li>a>i {
+.nav-link > li > a > i {
     color: #787272;
     font-size: 18px;
 }
@@ -133,7 +133,6 @@ ul#sidebar-menu * {
 #page-body {
     background-color: #e5e9f0;
 }
-
 
 /* Upload File */
 
@@ -201,7 +200,6 @@ ul#sidebar-menu * {
     bottom: 15px;
 }
 
-
 /* display bonus thumb */
 
 #content .product_thumb_main {
@@ -213,15 +211,14 @@ ul#sidebar-menu * {
     width: 30px;
     height: 30px;
     position: absolute;
-    bottom: -12px;
-    right: -12px;
+    bottom: -11px;
+    right: 15px;
 }
 
 #content a.cover-bonus-product-thumb img.bonus_product_thumb {
     max-width: 100%;
     height: auto;
 }
-
 
 /* display detail order */
 
@@ -231,9 +228,8 @@ ul#sidebar-menu * {
 
 .infor-order-detail .detail-infor-order,
 .infor-order-detail .total-price-order {
-    flex-basis: 50%
+    flex-basis: 50%;
 }
-
 
 /* display card dasboard */
 
@@ -301,11 +297,11 @@ ul#sidebar-menu * {
 }
 
 .tox.tox-tinymce {
-    height: 400px!important;
+    height: 400px !important;
 }
 
 #w-30 {
-    max-width: 30%!important;
+    max-width: 30% !important;
     display: inline-block;
 }
 
@@ -313,5 +309,4 @@ ul#sidebar-menu * {
     margin-left: 20px;
     font-style: italic;
     color: #444444ca;
-
 }

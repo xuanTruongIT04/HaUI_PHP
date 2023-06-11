@@ -34,7 +34,7 @@
                 <div class="card card-dasboard text-white bg-warning mb-3">
                     <div class="card-header card-header-dasboard">DOANH SỐ</div>
                     <div class="card-body card-body-dasboard">
-                        <h5 class="card-title card-title-dasboard text-center">{!! number_format($total_product_sales) !!}</h5>
+                        <h5 class="card-title card-title-dasboard text-center"><a href=" {{ url("/admin/product/sales") }}" title="Xem chi tiết doanh số"><u>{!! number_format($total_product_sales) !!}</u></a></h5>
                         <p class="card-text card-text-dasboard">(VNĐ) - Doanh số hệ thống </p>
                     </div>
                 </div>

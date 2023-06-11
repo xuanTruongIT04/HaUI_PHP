@@ -15,7 +15,7 @@ class AddMaterialIdToMaterialsTable extends Migration
     {
         Schema::table('images', function (Blueprint $table) {
             //
-            $table->unsignedBigInteger("material_id")->after("product_id") -> nullable();
+            $table->unsignedBigInteger("material_id") -> nullable();
             $table->foreign("material_id")
                   ->references("id")
                   ->on("materials")

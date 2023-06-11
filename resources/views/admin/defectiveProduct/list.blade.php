@@ -54,6 +54,7 @@
                                 <th scope="col">#</th>
                                 <th scope="col">Tên sản phẩm lỗi</th>
                                 <th scope="col">Lí do lỗi</th>
+                                <th scope="col">Số  lượng</th>
                                 <th scope="col">Thời gian lỗi</th>
                                 <th scope="col">Tình trạng</th>
                                 <th scope="col">Tác vụ</th>
@@ -77,6 +78,7 @@
                                                 href="{{ route('admin.defectiveProduct.edit', $defectiveProduct->id) }}">{!! brief_name_plus($defectiveProduct->product_name, 7, 30) !!}</a>
                                         </td>
                                         <td>{!! brief_name_plus($defectiveProduct->error_reason, 12, 40) !!}</td>
+                                        <td>{{ $defectiveProduct->	qty_broken }}</td>
                                         <td>{!! time_format($defectiveProduct->error_time) !!}</td>
                                         <td>{!! set_status_defective_product($defectiveProduct->can_fix) !!}</td>
                                         @if (request()->status != 'trashed')

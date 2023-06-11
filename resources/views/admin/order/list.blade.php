@@ -11,12 +11,15 @@
             @endif
 
             <div class="card-header font-weight-bold d-flex justify-content-between align-items-center">
-                <h5 class="m-0 ">Danh sách đơn hàng</h5>
+                <div class="d-flex align-items-center">
+                    <h5 class="m-0 mr-3">Danh sách đơn hàng</h5>
+                <a href="{{ route("admin.order.add") }}" class="btn btn-primary">THÊM MỚI</a>
+                </div>
                 <div class="form-search form-inline">
                     <form action="#" method="">
                         @csrf
                         <input type="text" class="form-control form-search" name="key_word"
-                            value="{{ request()->input('key_word') }}" placeholder="Tìm kiếm">
+                            value="{{ request()->input('key_word') }}" placeholder="Tìm kiếm theo tên  khách hàng">
                         <input type="submit" name="btn_search" value="Tìm kiếm" class="btn btn-primary">
                         <input type="hidden" name="status"
                             value="{{ empty(request()->input('status')) ? 'active' : request()->input('status') }}" />
@@ -88,10 +91,10 @@
                                         <td><a class="text-primary"
                                                 href="{{ route('admin.order.edit', $order->id) }}">{{ $order->order_code }}</a>
                                         </td>
-                                        <td>{{ $order->customer->customer_name }}</td>
+                                        <td>{{ $order->customer_name }}</td>
                                         <td>{!! currency_format($total_price) !!}</td>
                                         <td>{!! field_status_order($order->order_status) !!}</td>
-                                        <td>{{ $order->created_at }}</td>
+                                        <td>{{ $order->time_book }}</td>
                                         @if (request()->status != 'trashed')
                                             <td><a href="{{ route('admin.order.detail', $order->id) }}"
                                                     class="btn btn-success btn-sm rounded-0 text-white" type="button"

@@ -19,6 +19,15 @@
                     </div>
 
                     <div class="form-group">
+                        <label for="qty-broken" class="fw-550">Số lượng hỏng</label>
+                        <input class="form-control w-10" type="number" min="0" name="qty_broken" id="qty-broken"
+                            value="{{ $defectiveProduct->qty_broken }}">
+                        @error('qty_broken')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+
+                    <div class="form-group">
                         <label for="error-reason" class="fw-550">Lí do lỗi</label>
                         <input class="form-control" type="text" name="error_reason" id="error-reason"
                             value="{{ $defectiveProduct->error_reason }}">
@@ -34,6 +43,7 @@
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
+                    
 
                     <input type="submit" name="btn_update" class="btn btn-primary" value="Cập nhật">
                 </form>

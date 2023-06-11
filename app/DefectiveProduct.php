@@ -10,5 +10,5 @@ class DefectiveProduct extends Model
     //
     use SoftDeletes;
 
-    protected $fillable = ['product_id', "can_fix", "error_time", "error_reason"];
+    protected $fillable = ['product_id', "can_fix", "error_time", 'qty_broken', "error_reason"];
 }

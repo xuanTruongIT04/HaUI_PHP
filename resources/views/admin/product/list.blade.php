@@ -61,7 +61,6 @@
                                 <th scope="col">Mã sản phẩm</th>
                                 <th scope="col">Hình ảnh</th>
                                 <th scope="col">Tên sản phẩm</th>
-                                <th scope="col">Giá cũ</th>
                                 <th scope="col">Giá mới</th>
                                 <th scope="col">Đã bán</th>
                                 <th scope="col">Số lượng kho</th>
@@ -115,7 +114,6 @@
                                         <td><a
                                                 href="{{ route('admin.product.edit', $product->id) }}">{{ $product->product_name }}</a>
                                         </td>
-                                        <td>{!! currency_format($product->price_old) !!}</td>
                                         <td>{!! currency_format($product->price_new) !!}</td>
                                         <td>{{ $product->qty_sold }}</td>
                                         <td>{{ $product->qty_remain }}</td>

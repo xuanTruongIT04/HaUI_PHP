@@ -31,15 +31,6 @@
 
 
                     <div class="form-group">
-                        <label for="slug" class="fw-550">Slug (Friendly Url)</label>
-                        <input class="form-control" type="text" name="slug" id="slug"
-                            value="{{ $product->slug }}">
-                        @error('slug')
-                            <small class="text-danger">{{ $message }}</small>
-                        @enderror
-                    </div>
-
-                    <div class="form-group">
                         <label for="product-desc" class="fw-550">Mô tả sản phẩm</label>
                         <textarea class="form-control" name="product_desc" id="product-desc">{{ $product->product_desc }}</textarea>
                         @error('product_desc')
@@ -67,33 +58,6 @@
                         </div>
 
                         @error('product_thumb')
-                            <small class="text-danger">{{ $message }}</small>
-                        @enderror
-                    </div>
-                    {{-- Danh mục sản phẩm --}}
-                    <div class="form-group w-30">
-                        <label for="product_cat" class="fw-550">Danh mục</label>
-                        @if (!empty($list_product_cat))
-                            <select name="product_cat" id="product_cat" class="form-control">
-                                <option value="">-- Chọn danh mục --</option>
-                                @foreach ($list_product_cat as $product_cat)
-                                @php
-                                    $sel = '';
-                                @endphp
-                                    @php
-                                        if ($product_cat->id == $product->product_cat_id) {
-                                            $sel = "selected='selected'";
-                                        }
-                                    @endphp
-                                    <option value="{{ $product_cat->id }}" {{ $sel }}>
-                                        {{ str_repeat('-', $product_cat->level) . ' ' . $product_cat->product_cat_title }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        @else
-                            <p class="empty-task">Không tồn tại danh mục nào</p>
-                        @endif
-                        @error('product_cat')
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
@@ -126,6 +90,15 @@
                     </div>
 
                     <div class="form-group">
+                        <label for="qty-broken" class="fw-550">Số lượng hỏng</label>
+                        <input class="form-control w-10" type="number" min="0" name="qty_broken" id="qty-broken"
+                            value="{{ $qty_broken }}">
+                        @error('qty_broken')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+
+                    <div class="form-group">
                         <label for="qty-remain" class="fw-550">Số lượng kho</label>
                         <input class="form-control w-10" type="number" min="0" name="qty_remain" id="qty-remain"
                             value="{{ $product->qty_remain }}">
@@ -133,6 +106,7 @@
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
+
                     <input type="submit" name="btn_update" class="btn btn-primary mt-4" value="Cập nhật">
             </div>
 

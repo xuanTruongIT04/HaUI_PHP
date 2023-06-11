@@ -1,5 +1,7 @@
 <?php
 
+use App\Product;
+
 if (!function_exists('field_status_user')) {
     function field_status_user($status)
     {
@@ -99,6 +101,8 @@ if (!function_exists('field_status_order')) {
             return '<span class="badge badge-success">Thành công</span>';
         } else if ($status == 'pending') {
             return '<span class="badge badge-primary">Chờ xét duyệt</span>';
+        } else if ($status == 'licensed') {
+            return '<span class="badge badge-primary">Đã xét duyệt</span>';
         } else if ($status == 'shipping') {
             return '<span class="badge badge-warning">Đang vận chuyển</span>';
         } else if ($status == 'trashed') {
@@ -113,6 +117,8 @@ if (!function_exists('field_status_order_vi')) {
     {
         if ($status == 'Thành công') {
             return 'delivery_successful';
+        } else if ($status == 'licensed') {
+            return '<span class="badge badge-primary">Đã xét duyệt</span>';
         } else if ($status == 'Chờ xét duyệt') {
             return 'pending';
         } else if ($status == 'Đang vận chuyển') {
@@ -308,7 +314,7 @@ if (!function_exists('show_order_status')) {
         $str = "<select class='form-control w-17' name='order_status' id='status'>";
 
         $data = array(
-            'delivery_successful' => 'Thành côn',
+            'delivery_successful' => 'Thành công',
             'shipping' => 'Đang vận chuyển',
             'pending' => 'Chờ xét duyệt',
         );

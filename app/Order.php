@@ -8,7 +8,7 @@ class Order extends Model
 {
     //
     use SoftDeletes;
-    protected $fillable = ['order_code', 'address_delivery', 'payment_method', 'notes', 'order_status', "customer_id" ];
+    protected $fillable = ['order_code', 'address_delivery', 'payment_method', 'notes', 'order_status', "customer_id", 'time_book', 'time_export'];
     // protected $fillable = ['order_code', 'address_delivery', 'time_order', 'time_export' 'payment_method', 'notes', 'order_status', "customer_id" ];
 
     function customer() {

@@ -61,6 +61,7 @@ Route::middleware('auth', "verified")->group(function () {
     Route::get("/admin/product/delete/{id}", "AdminProductController@delete")->name("admin.product.delete");
 
     Route::get("/admin/product/restore/{id}", "AdminProductController@restore")->name("admin.product.restore");
+    Route::get("/admin/product/sales", "AdminProductController@sales")->name("admin.product.sales");
 
     Route::get("/admin/product/action", "AdminProductController@action")->name("admin.product.cat.action");
 
@@ -93,6 +94,11 @@ Route::middleware('auth', "verified")->group(function () {
 
     // ========================ORDERS===========================
     Route::get("/admin/order/list", "AdminOrderController@list")->name("admin.order.list");
+
+    Route::get("/admin/order/add", "AdminOrderController@add")->name("admin.order.add");
+    Route::post("/admin/order/store", "AdminOrderController@store")->name("admin.order.store");
+
+    Route::get("/admin/order/import_excel", "AdminOrderController@add")->name("admin.order.import_excel");
 
     Route::get("/admin/order/edit/{id}", "AdminOrderController@edit")->name("admin.order.edit");
     Route::post("/admin/order/update/{id}", "AdminOrderController@update")->name("admin.order.update");

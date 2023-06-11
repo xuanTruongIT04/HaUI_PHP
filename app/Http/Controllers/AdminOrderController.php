@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Customer;
+use App\Product;
 use App\Order;
+use App\OrderProduct;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\DB;
 class AdminOrderController extends Controller
 {
     //
@@ -21,6 +23,7 @@ class AdminOrderController extends Controller
         $list_act = [
             "delivery_successful" => "Giao hàng thành công",
             "shipping" => "Đang vận chuyển",
+            "licensed" => "Đã xét duyệt",
             "pending" => "Chờ xét duyệt",
             // "delete" => "Xoá tạm thời",
         ];
@@ -32,34 +35,60 @@ class AdminOrderController extends Controller
         }
 
         if ($status == "active") {
-            $orders = Order::withoutTrashed()->where("order_code", "LIKE", "%{$key_word}%")->Paginate(20);
+            $orders = Order::withoutTrashed()->join('customers', 'orders.customer_id', 'customers.id') 
+            ->where("customers.customer_name", "LIKE", "%{$key_word}%")
+                ->select("orders.id", "orders.order_code","orders.address_delivery", "orders.payment_method", "orders.notes", "orders.order_status", "orders.time_book", 
+                "orders.time_export", "orders.production_plan_id", "orders.warehouse_id", "orders.created_at", "customers.customer_name", "customers.number_phone")
+            ->Paginate(20);
         } else if ($status == "delivery_successful") {
             $list_act = [
-                "shipping" => "Đang vận chuyển",
+                "shipping" => "Đang vận chuyển",    
+                "licensed" => "Đã xét duyệt",
                 "pending" => "Chờ xét duyệt",
                 // "delete" => "Xoá tạm thời",
             ];
-            $orders = Order::withoutTrashed()->where("order_status", "delivery_successful")->where("order_code", "LIKE", "%{$key_word}%")->Paginate(20);
+            $orders = Order::withoutTrashed()
+                    ->join('customers', 'customers.id', '=', 'orders.customer_id')                    
+            ->where("order_status", "delivery_successful")->where("customer_name", "LIKE", "%{$key_word}%")
+            ->select("orders.id", "orders.order_code","orders.address_delivery", "orders.payment_method", "orders.notes", "orders.order_status", "orders.time_book", 
+                "orders.time_export", "orders.production_plan_id", "orders.warehouse_id", "orders.created_at", "customers.customer_name", "customers.number_phone")
+            ->Paginate(20);
         } else if ($status == "shipping") {
             $list_act = [
                 "delivery_successful" => "Giao hàng thành công",
+                "licensed" => "Đã xét duyệt",
                 "pending" => "Chờ xét duyệt",
                 // "delete" => "Xoá tạm thời",
             ];
-            $orders = Order::withoutTrashed()->where("order_status", "shipping")->where("order_code", "LIKE", "%{$key_word}%")->Paginate(20);
+            $orders = Order::withoutTrashed()->where("order_status", "shipping")
+            ->join('customers', 'customers.id', '=', 'orders.customer_id')                
+            ->where("customer_name", "LIKE", "%{$key_word}%")
+            ->select("orders.id", "orders.order_code","orders.address_delivery", "orders.payment_method", "orders.notes", "orders.order_status", "orders.time_book", 
+                "orders.time_export", "orders.production_plan_id", "orders.warehouse_id", "orders.created_at", "customers.customer_name", "customers.number_phone")
+                ->Paginate(20);
         } else if ($status == "pending") {
             $list_act = [
                 "delivery_successful" => "Giao hàng thành công",
                 "shipping" => "Đang vận chuyển",
                 // "delete" => "Xoá tạm thời",
             ];
-            $orders = Order::withoutTrashed()->where("order_status", "pending")->where("order_code", "LIKE", "%{$key_word}%")->Paginate(20);
+            $orders = Order::withoutTrashed()->where("order_status", "pending")
+            ->join('customers', 'customers.id', '=', 'orders.customer_id')    
+            ->where("customer_name", "LIKE", "%{$key_word}%")
+            ->select("orders.id", "orders.order_code","orders.address_delivery", "orders.payment_method", "orders.notes", "orders.order_status", "orders.time_book", 
+                "orders.time_export", "orders.production_plan_id", "orders.warehouse_id", "orders.created_at", "customers.customer_name", "customers.number_phone")
+            ->Paginate(20);
         } else if ($status == "trashed") {
             $list_act = [
                 "restore" => "Khôi phục",
                 // "delete_permanently" => "Xoá vĩnh viễn",
             ];
-            $orders = Order::onlyTrashed()->where("order_code", "LIKE", "%{$key_word}%")->Paginate(20);
+            $orders = Order::onlyTrashed()
+            ->join('customers', 'customers.id', '=', 'orders.customer_id')    
+            ->where("customer_name", "LIKE", "%{$key_word}%")
+            ->select("orders.id", "orders.order_code","orders.address_delivery", "orders.payment_method", "orders.notes", "orders.order_status", "orders.time_book", 
+                "orders.time_export", "orders.production_plan_id", "orders.warehouse_id", "orders.created_at", "customers.customer_name", "customers.number_phone")
+            ->Paginate(20);
         }
 
         $count_order = $orders->total();
@@ -74,10 +103,88 @@ class AdminOrderController extends Controller
         return view("admin.order.list", compact('orders', "count_order", "count_order_status", "list_act"));
     }
 
+    public function add() {
+        $list_product = Product::all();
+        return view('admin.order.add', compact("list_product"));
+    }
+
+    public function store(Request $requests)
+    {
+        $order_code = $requests->input("order_code");
+        $requests->validate(
+            [
+                'customer_name' => ['required', 'string', 'max:300'],
+                'number_phone' => "required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10",
+                'email' => ['required', 'string', 'email', 'max:255'],
+                "address_delivery" => ['required', 'string', 'max:300'],
+                "payment_method" => ['required'],
+                "notes" => ['required'],
+                "time_book" => ['required', 'date'],
+                "time_export" => ['required', 'date'],
+            ],
+            [
+                'required' => ":attribute không được để trống",
+                "max" => [
+                    "numeric" => ":attribute không được lớn hơn :max.",
+                    "file" => ":attribute không được nhiều hơn :max KB.",
+                    "string" => ":attribute không được nhiều hơn :max kí tự.",
+                    "array" => ":attribute không được nhiều hơn :max mục.",
+                ],
+                "min" => [
+                    "numeric" => ":attribute không được bé hơn :min.",
+                    "file" => ":attribute không được ít hơn :min KB.",
+                    "string" => ":attribute không được ít hơn :min kí tự.",
+                    "array" => ":attribute phải có ít nhất :min mục.",
+                ],
+            ],
+            [
+                "order_code" => "Mã đơn hàng",
+                "customer_name" => "Tên khách hàng",
+                "number_phone" => "Số điện thoại",
+                "email" => "Địa chỉ email",
+                "address_delivery" => "Địa chỉ nhận hàng",
+                "payment_method" => "Hình thức thanh toán",
+                "notes" => "Ghi chú đơn hàng",
+                "order_status" => "Trạng thái đơn hàng",
+                "time_book" => "Thời gian đặt đơn hàng",
+                "time_export" => "Thời gian xuất đơn hàng",
+            ]
+        );
+
+        
+        $customer_id = Customer::create([
+            'customer_name' => $requests->input("customer_name"),
+            'number_phone' => $requests->input("number_phone"),
+            'email' => $requests->input("email"),
+        ]) -> id;
+        
+        $order_id = Order::create([
+            'order_code' => "123123123",
+            'customer_id' =>  $customer_id,
+            'address_delivery' => $requests->input("address_delivery"),
+            'notes' => $requests->input("notes"),
+            'payment_method' => $requests->input("payment_method"),
+            'time_book' => $requests->input("time_book"),
+            'time_export' => $requests->input("time_export"),
+            'order_status' => "pending",
+        ]) -> id; 
+
+        Order::where("id", $order_id)->update([
+            'order_code' => code_order_format($order_id)
+        ]);
+
+            DB::table("order_product")->insert([
+            'order_id' => $order_id,
+            'product_id' => $requests -> input("product_id"),
+            'number_order' => $requests -> input("number_order"),
+        ]);
+        return redirect("admin/order/list")->with("status", "Đã cập nhật thông tin đơn hàng có mã {$order_code} thành công");
+
+    }
+
     public function edit($id)
     {
         $order = Order::find($id);
-
         return view("admin.order.edit", compact("order"));
     }
 
@@ -208,6 +315,13 @@ class AdminOrderController extends Controller
                         foreach ($list_checked as $id) {
                             Order::where('id', $id)->update([
                                 'order_status' => "pending",
+                            ]);
+                        }
+                        return redirect("admin/order/list")->with("status", "Bạn đã đặt trạng thái chờ {$cnt_member} đơn hàng thành công");
+                    } else if ($act == "licensed") {
+                        foreach ($list_checked as $id) {
+                            Order::where('id', $id)->update([
+                                'order_status' => "licensed",
                             ]);
                         }
                         return redirect("admin/order/list")->with("status", "Bạn đã đặt trạng thái chờ {$cnt_member} đơn hàng thành công");
